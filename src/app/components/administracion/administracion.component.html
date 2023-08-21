@@ -1,0 +1,12 @@
+<div class="container">
+  <!-- <h1>Bienvenido, {{ usuario.nombre }}</h1>
+  <h3>Haz ingresado como {{ rolUsuario }}</h3> -->
+  <h1>Bienvenido, AGREGAR NOMBRE USUARIO</h1>
+  <h3>Haz ingresado como AGREGAR ROL</h3>
+
+  <div class="btn-group mt-4" role="group">
+    <button *ngIf="rolUsuario === 'Emprendedor'" type="button" class="btn btn-primary mr-3">Mis Proyectos</button>
+    <button *ngIf="rolUsuario === 'Inversionista'" type="button" class="btn btn-primary mr-3">Mis Mensajes</button>
+    <button *ngIf="rolUsuario === 'Usuario'" type="button" class="btn btn-primary mr-3">Mis Inversiones</button>
+  </div>
+</div>
