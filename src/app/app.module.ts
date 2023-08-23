@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AgregarMensajeComponent } from './components/mensajes/agregar-mensaje/agregar-mensaje.component';
 import { ListarMensajeComponent } from './components/mensajes/listar-mensaje/listar-mensaje.component';
@@ -27,6 +28,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { ListallProyectosComponent } from './components/proyectos/listall-proyectos/listall-proyectos.component';
 import { AdministracionComponent } from './components/administracion/administracion.component';
+
+import { CategoriaService } from './services/categoria.service';
+import { ProyectosService } from './services/proyectos.service';
 
 @NgModule({
   declarations: [
@@ -57,9 +61,12 @@ import { AdministracionComponent } from './components/administracion/administrac
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule
   ],
-  providers: [],
+  providers: [
+    CategoriaService,
+    ProyectosService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,1 +1,79 @@
-<p>agregar-proyecto works!</p>
+<div class="container">
+  <div class="form">
+    <h2>AGREGAR PROYECTO</h2>
+    <form [formGroup]="proyectoForm" (ngSubmit)="agregarProyecto()">
+      <div class="mb-3">
+        <label for="nombreProyecto" class="form-label">Nombre del Proyecto:</label>
+        <input type="text" id="nombreProyecto" name="nombreProyecto" class="form-control custom-input" formControlName="nombreProyecto">
+      </div>
+      <div class="mb-3">
+        <label for="descripcionProyecto" class="form-label">Descripción del Proyecto:</label>
+        <textarea id="descripcionProyecto" name="descripcionProyecto" class="form-control custom-input custom-textarea" formControlName="descripcionProyecto"></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="fechaInicio" class="form-label">Fecha de Inicio:</label>
+        <input type="date" id="fechaInicio" name="fechaInicio" class="form-control custom-input" formControlName="fechaInicio">
+      </div>
+      <div class="mb-3">
+        <label for="montoFinanciar" class="form-label">Monto a Financiar:</label>
+        <input type="number" id="montoFinanciar" name="montoFinanciar" class="form-control custom-input" formControlName="montoFinanciar">
+      </div>
+      <div class="mb-3">
+        <label for="montoAdquirido" class="form-label">Monto Adquirido:</label>
+        <input type="number" id="montoAdquirido" name="montoAdquirido" class="form-control custom-input" formControlName="montoAdquirido">
+      </div>
+      <div class="mb-3">
+        <label for="resumenProyecto" class="form-label">Resumen del Proyecto:</label>
+        <textarea id="resumenProyecto" name="resumenProyecto" class="form-control custom-input custom-textarea" formControlName="resumenProyecto"></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="linkProyecto" class="form-label">Enlace del Proyecto:</label>
+        <input type="text" id="linkProyecto" name="linkProyecto" class="form-control custom-input" formControlName="linkProyecto">
+      </div>
+      <div class="mb-3">
+        <label for="logoProyecto" class="form-label">Logo del Proyecto:</label>
+        <input type="file" id="logoProyecto" name="logoProyecto" class="form-control custom-input" (change)="onLogoFileSelected($event)">
+      </div>
+      <div class="mb-3">
+        <label for="idCategoria" class="form-label">Categoría:</label>
+        <select id="idCategoria" name="idCategoria" class="form-control custom-input" formControlName="idCategoria">
+          <option value="" selected>Selecciona Categoría</option>
+          <option value="1">Energías Renovables</option>
+          <option value="2">Reciclaje y Gestión de Residuos</option>
+          <option value="3">Agricultura Orgánica</option>
+          <option value="4">Transporte Sostenible</option>
+          <option value="5">Construcción Sustentable</option>
+          <option value="6">Tecnología Limpia</option>
+          <option value="7">Turismo Ecológico</option>
+          <option value="8">Educación Ambiental</option>
+          <option value="9">Biotecnología</option>
+          <option value="10">Moda Sostenible</option>
+          <option value="11">Alimentación Saludable</option>
+          <option value="12">Agua y Saneamiento</option>
+          <option value="13">Emprendimientos Sociales</option>
+          <option value="14">Economía Circular</option>
+          <option value="15">Salud y Bienestar Natural</option>
+          <option value="16">Eco-Turismo</option>
+          <option value="17">Energía Solar</option>
+          <option value="18">Movilidad Eléctrica</option>
+          <option value="19">Producción de Alimentos Orgánicos</option>
+          <option value="20">Moda Reciclada</option>
+          <option value="21">Arquitectura Sostenible</option>
+          <option value="22">Educación Ambiental</option>
+          <option value="23">Gestión Forestal Sostenible</option>
+          <option value="24">Tecnología para la Conservación</option>
+          <option value="25">Emprendimientos Verdes</option>
+        </select>
+      </div>
+      <!-- Agrega el campo para idUsuario -->
+
+      <div class="mb-3">
+        <button type="submit" routerLink="/proyecto" class="btn btn-primary btn-long">Agregar Proyecto</button>
+        <button type="submit" routerLink="/administracion" class="btn btn-danger btn-long">Cancelar</button>
+      </div>
+    </form>
+
+    <p>{{mensaje}}</p>
+  </div>
+</div>
+

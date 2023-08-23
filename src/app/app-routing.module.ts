@@ -26,7 +26,7 @@ const routes: Routes = [
   { path: 'allproyectos', component: ListallProyectosComponent },
   { path: 'inversion', component: ListarInversionComponent },
   { path: 'addinversion', component: AgregarInversionComponent },
-  { path: 'mensajes', component: ListarMensajeComponent },
+  { path: 'mensaje', component: ListarMensajeComponent },
   { path: 'addmensaje', component: AgregarMensajeComponent },
   { path: 'detailmensaje', component: ListarMensajeComponent },
   { path: 'administracion', component: AdministracionComponent }, //página a la que redirige el login

@@ -1,1 +1,36 @@
-<p>listar-proyecto works!</p>
+<div class="container">
+  <h2>LISTA DE PROYECTOS</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Nombre del Proyecto</th>
+        <th>Descripción</th>
+        <th>Fecha de Inicio</th>
+        <th>Monto a Financiar</th>
+        <th>Monto Adquirido</th>
+        <th>Resumen</th>
+        <th>Link</th>
+        <th>Logo</th>
+        <th>Categoría</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let proyecto of proyectos">
+        <td>{{ proyecto.nombreProyecto }}</td>
+        <td>{{ proyecto.descripcionProyecto }}</td>
+        <td>{{ proyecto.fechaInicio }}</td>
+        <td>{{ proyecto.montoFinanciar }}</td>
+        <td>{{ proyecto.montoAdquirido }}</td>
+        <td>{{ proyecto.resumenProyecto }}</td>
+        <td><a [href]="proyecto.linkProyecto" target="_blank">{{ proyecto.linkProyecto }}</a></td>
+        <td>
+          <img [src]="proyecto.logoProyecto" alt="Logo del Proyecto" width="50" height="50">
+        </td>
+        <td></td>
+        <!-- {{ obtenerNombreCategoria(categoria.idCategoria) }} -->
+      </tr>
+    </tbody>
+  </table>
+</div>
+

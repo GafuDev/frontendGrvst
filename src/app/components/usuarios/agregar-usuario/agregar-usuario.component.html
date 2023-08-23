@@ -1,60 +1,75 @@
 <div class="container">
-  <h2>Listado de Usuarios</h2>
+  <div class="form">
+  <h2>AGREGAR USUARIO</h2>
   <form [formGroup]="usuarioForm" (ngSubmit)="agregarUsuario()">
     <div class="mb-3">
-      <label for="idUsuario" class="form-label">ID de Usuario:</label>
-      <input type="number" id="idUsuario" name="idUsuario" class="form-control" formControlName="idUsuario">
-    </div>
-    <div class="mb-3">
       <label for="nombre" class="form-label">Nombre:</label>
-      <input type="text" id="nombre" name="nombre" class="form-control" formControlName="nombre">
+      <input type="text" id="nombre" name="nombre" class="form-control custom-input" formControlName="nombre">
     </div>
     <div class="mb-3">
       <label for="apellido" class="form-label">Apellido:</label>
-      <input type="text" id="apellido" name="apellido" class="form-control" formControlName="apellido">
+      <input type="text" id="apellido" name="apellido" class="form-control custom-input" formControlName="apellido">
     </div>
     <div class="mb-3">
       <label for="username" class="form-label">Username:</label>
-      <input type="text" id="username" name="username" class="form-control" formControlName="username">
+      <input type="text" id="username" name="username" class="form-control custom-input" formControlName="username">
     </div>
     <div class="mb-3">
       <label for="contrasena" class="form-label">Contraseña:</label>
-      <input type="password" id="contrasena" name="contrasena" class="form-control" formControlName="contrasena">
+      <input type="password" id="contrasena" name="contrasena" class="form-control custom-input" formControlName="contrasena">
     </div>
     <div class="mb-3">
       <label for="correo" class="form-label">Correo:</label>
-      <input type="email" id="correo" name="correo" class="form-control" formControlName="correo">
+      <input type="email" id="correo" name="correo" class="form-control custom-input" formControlName="correo">
     </div>
     <div class="mb-3">
       <label for="direccion" class="form-label">Dirección:</label>
-      <input type="text" id="direccion" name="direccion" class="form-control" formControlName="direccion">
+      <input type="text" id="direccion" name="direccion" class="form-control custom-input" formControlName="direccion">
     </div>
     <div class="mb-3">
       <label for="idComuna" class="form-label">Comuna:</label>
-      <select id="idComuna" name="idComuna" class="form-control" formControlName="idComuna">
-        <option value="1">Comuna 1</option>
-        <option value="2">Comuna 2</option>
-        <option value="3">Comuna 3</option>
+      <select id="idComuna" name="idComuna" class="form-control custom-input" formControlName="idComuna">
+        <option value="" selected>Selecciona comuna</option>
+          <option value="1">Santiago</option>
+          <option value="2">Estación Central</option>
+          <option value="3">Arica</option>
       </select>
     </div>
     <div class="mb-3">
       <label for="idRegion" class="form-label">Región:</label>
-      <select id="idRegion" name="idRegion" class="form-control" formControlName="idRegion">
-        <option value="1">Región 1</option>
-        <option value="2">Región 2</option>
-        <option value="3">Región 3</option>
+      <select id="idRegion" name="idRegion" class="form-control custom-input" formControlName="idRegion">
+        <option value="" selected>Selecciona región</option>
+    <option value="1">Región de Tarapacá</option>
+    <option value="2">Región de Antofagasta</option>
+    <option value="3">Región de Atacama</option>
+    <option value="4">Región de Coquimbo</option>
+    <option value="5">Región de Valparaíso</option>
+    <option value="6">Región Metropolitana de Santiago</option>
+    <option value="7">Región del Libertador General Bernardo O'Higgins</option>
+    <option value="8">Región del Maule</option>
+    <option value="9">Región de Ñuble</option>
+    <option value="10">Región del Biobío</option>
+    <option value="11">Región de La Araucanía</option>
+    <option value="12">Región de Los Ríos</option>
+    <option value="13">Región de Los Lagos</option>
+    <option value="14">Región de Aysén del General Carlos Ibáñez del Campo</option>
+    <option value="15">Región de Magallanes y de la Antártica Chilena</option>
       </select>
     </div>
     <div class="mb-3">
       <label for="idRol" class="form-label">Rol:</label>
-      <select id="idRol" name="idRol" class="form-control" formControlName="idRol">
+      <select id="idRol" name="idRol" class="form-control custom-input" formControlName="idRol">
         <option value="3">Emprendedor</option>
         <option value="4">Inversionista</option>
       </select>
+    </div >
+    <div class="mb-3">
+      <button type="submit" routerLink="/login" class="btn btn-primary btn-long">Agregar Usuario</button>
+      <button type="submit"  class="btn btn-danger btn-long">Cancelar</button>
     </div>
 
-    <button type="submit" class="btn btn-primary">Agregar Usuario</button>
   </form>
 
   <p>{{mensaje}}</p>
+  </div>
 </div>

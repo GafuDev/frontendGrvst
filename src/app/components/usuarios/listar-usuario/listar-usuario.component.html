@@ -1,4 +1,72 @@
+<div class="container">
+  <h2>FILTRAR USUARIOS</h2>
+  <button class="btn btn-secondary" (click)="mostrarFiltros = !mostrarFiltros">Filtrar</button>
 
+  <!-- Campos de filtro que se mostrarán u ocultarán -->
+  <div *ngIf="mostrarFiltros">
+    <div class="mb-3 d-flex align-items-center">
+      <label for="idRol" class="form-label me-3">Rol:</label>
+      <input type="text" id="idRol" name="idRol" class="form-control custom-input" [(ngModel)]="filtro.idRol">
+    </div>
+    <div class="mb-3 d-flex align-items-center">
+      <label for="idComuna" class="form-label me-3">Comuna:</label>
+      <input type="text" id="idComuna" name="idComuna" class="form-control custom-input" [(ngModel)]="filtro.idComuna">
+    </div>
+    <div class="mb-3 d-flex align-items-center">
+      <label for="idRegion" class="form-label me-3">Región:</label>
+      <input type="text" id="idRegion" name="idRegion" class="form-control custom-input" [(ngModel)]="filtro.idRegion">
+    </div>
+    <div class="mb-3 d-flex align-items-center">
+      <label for="createAt" class="form-label me-3">Fecha de Creación:</label>
+      <input type="text" id="createAt" name="createAt" class="form-control custom-input" [(ngModel)]="filtro.createAt">
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <h2>LISTAR USUARIOS</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Username</th>
+        <th>Correo</th>
+        <th>Dirección</th>
+        <th>Comuna</th>
+        <th>Región</th>
+        <th>Rol</th>
+        <th>Teléfono</th>
+        <th>Fecha Creación</th>
+        <th>Fecha Actualización</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let usuario of usuarios">
+        <td>{{ usuario.idUsuario }}</td>
+        <td>{{ usuario.nombre }}</td>
+        <td>{{ usuario.apellido }}</td>
+        <td>{{ usuario.username }}</td>
+        <td>{{ usuario.correo }}</td>
+        <td>{{ usuario.direccion }}</td>
+        <td>{{ usuario.idComuna }}</td>
+        <td>{{ usuario.idRegion }}</td>
+        <td>{{ usuario.idRol }}</td>
+        <td>{{ usuario.telefono }}</td>
+        <td>{{ usuario.createAt }}</td>
+        <td>{{ usuario.updateAt }}</td>
+        <td>
+          <button (click)="editarUsuario(usuario, contenidoModal)" class="btn btn-sm btn-primary">Editar</button>
+          <button (click)="eliminarUsuario(usuario.idUsuario!)" class="btn btn-sm btn-danger">Eliminar</button>
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<ng-template #contenidoModal let-modal></ng-template>
 
 
 
