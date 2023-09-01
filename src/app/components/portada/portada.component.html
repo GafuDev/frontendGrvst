@@ -1,35 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GRIINVEST</title>
 </head>
+
 <body>
   <div class="main-container">
     <div class="left-content">
-      <h3>Únete a GRIINVEST</h3>
-      <button class="join-button" onclick="location.href='registrarse.html'">Únete</button>
+      <h3 class="left-content-slogan">ENCUENTRA EN GRIINVEST EL PUNTO DE UNIÓN ENTRE INVERSIONES Y SOSTENIBILIDAD, FORJANDO UN FUTURO PRÓSPERO Y
+        RESPONSABLE JUNTOS</h3>
+      <button class="join-button" routerLink="/login">Únete</button>
     </div>
     <div class="right-content">
       <div class="carousel">
-        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+        <div id="carouselExampleAutoplaying" class="carousel slide " data-bs-ride="carousel">
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <img src="..." class="d-block w-100" alt="...">
+              <img src="assets/images/avatar-griinvest.jpg" class="card-img-top" alt="Card Image 1">
             </div>
             <div class="carousel-item">
-              <img src="..." class="d-block w-100" alt="...">
+              <img src="assets/images/avatar-chileglobal.jpg" class="card-img-top" alt="Card Image 1">
             </div>
             <div class="carousel-item">
-              <img src="..." class="d-block w-100" alt="...">
+              <img src="assets/images/avatar-solar.jpg" class="card-img-top" alt="Card Image 1">
             </div>
           </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
+            data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
           </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
+            data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
           </button>
@@ -38,39 +43,46 @@
     </div>
   </div>
   <div class="card-container">
-      <div class="card" style="width: 18rem;">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">An item</li>
-          <li class="list-group-item">A second item</li>
-          <li class="list-group-item">A third item</li>
-        </ul>
-        <div class="card-body">
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
-        </div>
+    <div class="card" style="width: 18rem;">
+      <img src="assets/images/avatar-chileglobal.jpg" class="card-img-top" alt="Card Image 1">
+      <div class="card-body">
+        <h5 class="card-title">CHILE GLOBAL</h5>
+        <p class="card-text">Empresa líder en el impulso de la sustentabilidad y el desarrollo sostenible en Chile y
+          más allá. Con una visión arraigada en la preservación del medio ambiente y el bienestar de las comunidades,
+          ChileGlobal se ha convertido en un referente en la promoción de prácticas empresariales responsables y en la
+          generación de proyectos innovadores con impacto pos</p>
       </div>
-      <div class="card" style="width: 18rem;">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">An item</li>
-          <li class="list-group-item">A second item</li>
-          <li class="list-group-item">A third item</li>
-        </ul>
-        <div class="card-body">
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
-        </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Naturaleza y humanidad prosperando en
+          equilibrio</li>
+        <li class="list-group-item">Nuestro compromiso es con el Futuro sustentable</li>
+        <li class="list-group-item">Sustentabilidad y desarrollo ecológico</li>
+      </ul>
+      <div class="card-body">
+        <a routerLink="/registro" class="card-link">Ver más</a>
+        <a routerLink="/allproyectos" class="card-link">Más similares</a>
       </div>
+    </div>
+    <div class="card" style="width: 18rem;">
+      <img src="assets/images/avatar-ecoturismo.jpg" class="card-img-top" alt="Card Image 1">
+      <div class="card-body">
+        <h5 class="card-title">ECOTURISMO SPA</h5>
+        <p class="card-text">Empresa líder en el mundo del ecoturismo, dedicada a brindar experiencias auténticas y
+          enriquecedoras en entornos naturales únicos. Nuestro compromiso se centra en ofrecer a los viajeros la
+          oportunidad de conectarse con la naturaleza de manera responsable, contribuyendo a la conservación de los
+          ecosistemas y empoderando a las comunidades locales.</p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Descubre la Naturaleza de Manera Responsable</li>
+        <li class="list-group-item">Uniendo aventura con conservación del ambiente</li>
+        <li class="list-group-item">Generamos empleo a través del turismo sostenible</li>
+      </ul>
+      <div class="card-body">
+        <a routerLink="/registro" class="card-link">Ver más</a>
+        <a routerLink="/allproyectos" class="card-link">Más similares</a>
+      </div>
+    </div>
   </div>
 </body>
-</html>
 
+</html>

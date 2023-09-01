@@ -30,10 +30,7 @@
         <label for="linkProyecto" class="form-label">Enlace del Proyecto:</label>
         <input type="text" id="linkProyecto" name="linkProyecto" class="form-control custom-input" formControlName="linkProyecto">
       </div>
-      <div class="mb-3">
-        <label for="logoProyecto" class="form-label">Logo del Proyecto:</label>
-        <input type="file" id="logoProyecto" name="logoProyecto" class="form-control custom-input" (change)="onLogoFileSelected($event)">
-      </div>
+
       <div class="mb-3">
         <label for="idCategoria" class="form-label">Categoría:</label>
         <select id="idCategoria" name="idCategoria" class="form-control custom-input" formControlName="idCategoria">
@@ -68,8 +65,8 @@
       <!-- Agrega el campo para idUsuario -->
 
       <div class="mb-3">
-        <button type="submit" routerLink="/proyecto" class="btn btn-primary btn-long">Agregar Proyecto</button>
-        <button type="submit" routerLink="/administracion" class="btn btn-danger btn-long">Cancelar</button>
+        <button type="submit" class="btn btn-primary btn-long">Agregar Proyecto</button>
+        <button type="button" routerLink="/administracion" class="btn btn-danger btn-long">Cancelar</button>
       </div>
     </form>
 

@@ -18,6 +18,13 @@ body {
   align-items: center;
 }
 
+.left-content-slogan{
+  text-align: center;
+  color: #f6f6f6;
+  font-weight: bold;
+  font-size: 2.0rem;
+}
+
 .right-content {
   flex: 1;
   display: flex;
@@ -57,11 +64,42 @@ body {
   height: auto;
 }
 
+.card-title{
+  text-align:center;
+  font-weight: bold;
+  font-size: 1.7rem;
+}
+
+.card-text{
+  text-align: justify;
+}
+
+.list-group{
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: bolder;
+}
+
+.card-link{
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: bolder;
+}
+
 .join-button {
-  margin-top: 10px;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border-radius:20%;
   cursor: pointer;
+  font-size: 24px;
+  padding: 20px 40px;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  font-weight: bolder;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.join-button:hover {
+  background-color: #17731c;
+  color: rgb(0, 0, 0);
 }

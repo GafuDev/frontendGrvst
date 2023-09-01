@@ -7,13 +7,13 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./administracion.component.css']
 })
 export class AdministracionComponent implements OnInit{
-  usuario: any; // Puedes definir una interfaz para el tipo de usuario si lo deseas
+  usuario: any;
   rolUsuario: string = '';
 
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
-    // Obtener los datos del usuario autenticado
+    
     this.usuario = this.authService.obtenerUsuarioAutenticado();
 
     // Determinar el rol del usuario

@@ -15,7 +15,7 @@ export class AgregarUsuarioComponent {
   constructor(
     private formBuilder: FormBuilder,
     private usuariosService: UsuariosService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.inicializarFormulario();
@@ -25,13 +25,15 @@ export class AgregarUsuarioComponent {
     this.usuarioForm = this.formBuilder.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
-      username: ['', Validators.required],
-      contrasena: ['', Validators.required],
+      username: ['', [Validators.required, Validators.minLength(7)]], // Mínimo 7 caracteres
+      contrasena: ['', [Validators.required, Validators.minLength(7), // Mínimo 7 caracteres
+      Validators.pattern(/^(?=.*[A-Z])(?=.*\d).{6,}$/)]], // Al menos una mayúscula y un dígito (0-9)
       correo: ['', [Validators.required, Validators.email]],
-      direccion: [''],
-      idComuna: [''],
-      idRegion: [''],
-      idRol: ['']
+      direccion: ['', Validators.required],
+      idComuna: ['', [Validators.required, Validators.pattern(/^(?!$)/)]],
+      idRegion: ['', [Validators.required, Validators.pattern(/^(?!$)/)]], // No se permite value=""
+      idRol: ['', [Validators.required, Validators.pattern(/^(?!$)/)]],
+      telefono: ['', [Validators.minLength(9), Validators.maxLength(9)]]
     });
   }
 
@@ -40,7 +42,7 @@ export class AgregarUsuarioComponent {
       return;
     }
 
-    const nuevoUsuario: Usuario = this.usuarioForm.value;
+    const nuevoUsuario: Usuario[] = this.usuarioForm.value;
     this.usuariosService.agregarUsuario(nuevoUsuario).subscribe(
       () => {
         this.mensaje = 'Usuario agregado correctamente.';

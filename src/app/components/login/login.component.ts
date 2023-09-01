@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
   selector: 'app-login',
@@ -8,11 +11,82 @@ import { Component } from '@angular/core';
 export class LoginComponent {
   username: string = '';
   password: string = '';
+  constructor(
+    private auth: AuthService, private router: Router
+  ) {
+
+  }
+  usuarioVacio: boolean = false;
+  contrasenaVacia: boolean = false;
+  validacionesDeInput() {
+    this.usuarioVacio = (this.username == "");
+    this.contrasenaVacia = (this.password == "");
+  }
 
   iniciarSesion(): void {
-    
-    console.log('Iniciando sesión...');
-    console.log('Usuario:', this.username);
-    console.log('Contraseña:', this.password);
+    if (this.username == "" || this.password == "") {
+      this.validacionesDeInput()
+    } else {
+
+      const usuarioPost = [
+        {
+          "usuario": this.username,
+          "contrasena": this.password
+        }
+      ]
+
+      this.auth.loginUsuarioAutentication(usuarioPost).subscribe(ele => {
+
+        if (ele) {
+
+          let rolNombre = this.rolIdANombre(ele.datos.rol)
+
+          //aca crear los local storange
+          localStorage.setItem('usuario', ele.datos.usuario)
+          localStorage.setItem('username', ele.datos.username)
+          localStorage.setItem('rol', rolNombre)
+
+          if (rolNombre){
+            switch (rolNombre) {
+              case 'administrador':
+                this.router.navigate(['/administracion'],{skipLocationChange: true});
+                break;
+              case 'moderador':
+                this.router.navigate(['/administracion'],{skipLocationChange: true});
+                break;
+              case 'emprendedor':
+                this.router.navigate(['/administracion'],{skipLocationChange: true});
+                break;
+              case 'inversionista':
+                this.router.navigate(['/administracion'],{skipLocationChange: true});
+                break;
+            }
+          } else{
+            //this.router.navigate(['/login:false'],{skipLocationChange: true}); //falta hacer false debe ser capturado en ngOnInit
+            this.router.navigate(['/login'],{skipLocationChange: true});
+          }
+
+        }else {
+          alert(ele.mensaje)
+        }
+      })
+    }
+  }
+  //paso 5 ele.datos.rol te retorna en numero y tu lo que haces es transformarle a letra
+  rolIdANombre(rol: any) {
+    let nomRol: any = ''
+
+    if (rol === 1) {
+      nomRol = 'administrador';
+    } else if (rol === 2) {
+      nomRol = 'moderador';
+    } else if (rol === 3) {
+      nomRol = 'emprendedor';
+    } else if (rol === 4) {
+      nomRol = 'inversionista';
+    } else {
+      nomRol = null
+    }
+    return nomRol
   }
 }

@@ -6,4 +6,8 @@ export class Inversion {
   idProyecto?: number;
   createAt?: Date;
   updateAt?: Date;
+  
+  constructor(data: Partial<Inversion> = {}) {
+    Object.assign(this, data);
+  }
 }

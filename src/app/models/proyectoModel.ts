@@ -8,7 +8,6 @@ export class Proyecto {
   resumenProyecto?: string;
   linkProyecto?: string;
   logoProyecto?: File;
-  //logoProyecto?: string;
   idCategoria?: number;
   idUsuario?: number;
   createAt?: Date;

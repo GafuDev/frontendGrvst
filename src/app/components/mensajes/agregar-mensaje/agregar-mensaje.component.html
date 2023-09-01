@@ -1,1 +1,29 @@
-<p>agregar-mensaje works!</p>
+<div class="container">
+  <div class="form">
+    <h2>AGREGAR MENSAJE</h2>
+    <form [formGroup]="mensajeForm" (ngSubmit)="agregarMensaje()">
+      <div class="mb-3">
+        <label for="contenidoMensaje" class="form-label">Contenido del Mensaje:</label>
+        <input type="text" id="contenidoMensaje" name="contenidoMensaje" class="form-control custom-input" formControlName="contenidoMensaje">
+      </div>
+      <div class="mb-3">
+        <label for="fechaEnvio" class="form-label">Fecha de Envío:</label>
+        <input type="date" id="fechaEnvio" name="fechaEnvio" class="form-control custom-input" formControlName="fechaEnvio">
+      </div>
+      <div class="mb-3">
+        <label for="idUsuarioEnvio" class="form-label">ID Usuario Envío:</label>
+        <input type="number" id="idUsuarioEnvio" name="idUsuarioEnvio" class="form-control custom-input" formControlName="idUsuarioEnvio">
+      </div>
+      <div class="mb-3">
+        <label for="idUsuarioRecibe" class="form-label">ID Usuario Recibe:</label>
+        <input type="number" id="idUsuarioRecibe" name="idUsuarioRecibe" class="form-control custom-input" formControlName="idUsuarioRecibe">
+      </div>
+      <div class="mb-3">
+        <button type="button" (click)="agregarMensaje()" class="btn btn-primary btn-long">Enviar Mensaje</button>
+        <button type="button" routerLink="/administracion" class="btn btn-danger btn-long">Cancelar</button>
+      </div>
+    </form>
+    <p>{{mensaje}}</p>
+  </div>
+</div>
+

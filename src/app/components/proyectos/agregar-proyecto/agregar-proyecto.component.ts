@@ -9,14 +9,27 @@ import { Proyecto } from '../../../models/proyectoModel'
   styleUrls: ['./agregar-proyecto.component.css']
 })
 export class AgregarProyectoComponent implements OnInit{
-  proyectoForm: FormGroup;
+  proyectoForm: FormGroup = new FormGroup({});
   proyecto: Proyecto = {};
   mensaje: string = '';
 
   constructor(
     private formBuilder: FormBuilder,
     private proyectosService: ProyectosService
-  ) {
+  ) {}
+
+  ngOnInit(): void {
+    this.inicializarFormulario();
+  }
+
+  /*onLogoFileSelected(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    if (inputElement.files && inputElement.files[0]) {
+      this.proyecto.logoProyecto = inputElement.files[0];
+    }
+  }*/
+
+  inicializarFormulario(): void{
     this.proyectoForm = this.formBuilder.group({
       nombreProyecto: ['', Validators.required],
       descripcionProyecto: ['', Validators.required],
@@ -25,19 +38,10 @@ export class AgregarProyectoComponent implements OnInit{
       montoAdquirido: ['', Validators.required],
       resumenProyecto: ['', Validators.required],
       linkProyecto: ['', Validators.required],
-      logoProyecto: ['', Validators.required],
+      //logoProyecto: ['', Validators.required],
       idCategoria: ['', Validators.required],
       idUsuario: ['', Validators.required]
     });
-  }
-
-  ngOnInit(): void {}
-
-  onLogoFileSelected(event: Event): void {
-    const inputElement = event.target as HTMLInputElement;
-    if (inputElement.files && inputElement.files[0]) {
-      this.proyecto.logoProyecto = inputElement.files[0];
-    }
   }
 
   agregarProyecto(): void {
@@ -45,13 +49,12 @@ export class AgregarProyectoComponent implements OnInit{
       return;
     }
 
-    const nuevoProyecto: Proyecto = { ...this.proyectoForm.value, logoProyecto: this.proyecto.logoProyecto };
-
+    const nuevoProyecto: Proyecto =  {...this.proyectoForm.value}; //logoProyecto: this.proyecto.logoProyecto
     this.proyectosService.agregarProyecto(nuevoProyecto).subscribe(
       () => {
         this.mensaje = 'Proyecto agregado correctamente';
         this.proyectoForm.reset();
-        this.proyecto = {};
+        //this.proyecto = {};
       },
       error => {
         this.mensaje = 'Error al agregar proyecto';

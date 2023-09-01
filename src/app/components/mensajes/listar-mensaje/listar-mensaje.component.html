@@ -1,1 +1,87 @@
-<p>listar-mensaje works!</p>
+<div class="container">
+  <h2>FILTRAR MENSAJES</h2>
+  <button class="btn btn-secondary" (click)="mostrarFiltros = !mostrarFiltros">Agregar Filtros</button>
+
+  <div *ngIf="mostrarFiltros">
+    <div class="mb-3 d-flex align-items-center">
+      <label for="idMensaje" class="form-label me-3">Id Mensaje:</label>
+      <input type="number" id="idMensaje" name="idMensaje" class="form-control custom-input" [(ngModel)]="filtro.idMensaje">
+    </div>
+    <div class="mb-3 d-flex align-items-center">
+      <label for="idUsuarioEnvio" class="form-label me-3">Id Usuario Envío:</label>
+      <input type="number" id="idUsuarioEnvio" name="idUsuarioEnvio" class="form-control custom-input" [(ngModel)]="filtro.idUsuarioEnvio">
+    </div>
+    <div class="mb-3 d-flex align-items-center">
+      <label for="fechaEnvio" class="form-label me-3">Fecha de Envío:</label>
+      <input type="date" id="fechaEnvio" name="fechaEnvio" class="form-control custom-input" [(ngModel)]="filtro.fechaEnvio">
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <h2>LISTAR MENSAJES</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Contenido Mensaje</th>
+        <th>Fecha Envío</th>
+        <th>ID Usuario Envío</th>
+        <th>ID Usuario Recibe</th>
+        <th>Fecha Creación</th>
+        <th>Fecha Actualización</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let mensaje of mensajes">
+        <td>{{ mensaje.idMensaje }}</td>
+        <td>{{ mensaje.contenidoMensaje }}</td>
+        <td>{{ mensaje.fechaEnvio }}</td>
+        <td>{{ mensaje.idUsuarioEnvio }}</td>
+        <td>{{ mensaje.idUsuarioRecibe }}</td>
+        <td>{{ mensaje.createAt }}</td>
+        <td>{{ mensaje.updateAt }}</td>
+        <td>
+          <button (click)="editarMensaje(mensaje, contenidoModal)" class="btn btn-sm btn-primary">Editar</button>
+          <button (click)="eliminarMensaje(mensaje.idMensaje!)" class="btn btn-sm btn-danger">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #contenidoModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Editar Mensaje</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="mensajeForm">
+      <div class="mb-3">
+        <label for="contenidoMensaje">Contenido Mensaje:</label>
+        <input type="text" id="contenidoMensaje" formControlName="contenidoMensaje" class="form-control">
+      </div>
+      <div class="mb-3">
+        <label for="fechaEnvio">Fecha de Envío:</label>
+        <input type="date" id="fechaEnvio" formControlName="fechaEnvio" class="form-control">
+      </div>
+      <div class="mb-3">
+        <label for="idUsuarioEnvio">ID Usuario Envío:</label>
+        <input type="number" id="idUsuarioEnvio" formControlName="idUsuarioEnvio" class="form-control">
+      </div>
+      <div class="mb-3">
+        <label for="idUsuarioRecibe">ID Usuario Recibe:</label>
+        <input type="number" id="idUsuarioRecibe" formControlName="idUsuarioRecibe" class="form-control">
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancelar</button>
+    <button type="button" class="btn btn-primary" (click)="modal.close(mensajeForm.value)">Guardar Cambios</button>
+  </div>
+</ng-template>
+
+

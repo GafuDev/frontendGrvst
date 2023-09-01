@@ -3,6 +3,7 @@ import { Usuario } from '../../../models/usuarioModel';
 import { UsuariosService } from '../../../services/usuarios.service';
 import { HttpParams } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-listar-usuario',
@@ -10,17 +11,32 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./listar-usuario.component.css']
 })
 export class ListarUsuarioComponent implements OnInit {
+  usuarioForm: FormGroup = new FormGroup({});
   filtro: Usuario = {
     idRol: undefined,
     idComuna: undefined,
     idRegion: undefined,
     createAt: undefined
   };
-  usuarios: Usuario[] = []; // Arreglo para almacenar la lista de usuarios
+  usuarios: Usuario[] = [];
   @ViewChild('contenidoModal') contenidoModal: any;
-  mostrarFiltros = false; // Variable para controlar la visibilidad de los campos de filtros
+  mostrarFiltros = false;
 
-  constructor(private usuariosService: UsuariosService, private modalService: NgbModal) {}
+  constructor(private usuariosService: UsuariosService,
+              private modalService: NgbModal,
+              private formBuilder: FormBuilder) {
+    this.usuarioForm = this.formBuilder.group({
+      nombre: ['', Validators.required],
+      apellido: ['', Validators.required],
+      username: ['', Validators.required],
+      contrasena: ['', Validators.required],
+      correo: ['', [Validators.required, Validators.email]],
+      direccion: [''],
+      idComuna: [''],
+      idRegion: [''],
+      idRol: ['']
+    });
+  }
 
   ngOnInit(): void {
     this.filtrarUsuarios();
@@ -56,17 +72,15 @@ export class ListarUsuarioComponent implements OnInit {
   }
 
   editarUsuario(usuario: Usuario, content: any): void {
-    // Abre un modal para editar los datos del usuario
     const modalRef = this.modalService.open(content);
 
-    // Cuando se cierre el modal, actualiza el usuario si se realizan cambios
     modalRef.result.then(
       (result: Usuario | undefined) => {
         if (result) {
-          this.usuariosService.actualizarUsuario(result).subscribe(
+          this.usuariosService.actualizarUsuario(usuario).subscribe(
             updatedUser => {
-              // Actualiza la lista local con los datos actualizados
               this.usuarios = this.usuarios.map(u => (u.idUsuario === updatedUser.idUsuario ? updatedUser : u));
+              this.usuarioForm.reset();
             },
             error => {
               console.error('Error al actualizar usuario:', error);

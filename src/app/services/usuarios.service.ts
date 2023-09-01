@@ -11,25 +11,27 @@ export class UsuariosService {
 
   constructor(private http: HttpClient) {}
 
-  listarUsuarios(): Observable<Usuario[]> {
-    return this.http.get<Usuario[]>(this.apiUrl);
-  }
-
-  agregarUsuario(usuario: Usuario): Observable<Usuario> {
-    return this.http.post<Usuario>(this.apiUrl, usuario);
-  }
-
   obtenerUsuarios(params: HttpParams): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(this.apiUrl, { params });
   }
 
-  eliminarUsuario(idUsuario: number): Observable<void> {
+  obtenerUsuarioPorId(idUsuario: number): Observable<Usuario> {
     const url = `${this.apiUrl}/${idUsuario}`;
+    return this.http.get<Usuario>(url);
+  }
+
+  agregarUsuario(usuario: Usuario[]): Observable<Usuario> {
+    const url = `${this.apiUrl}/agregar`;
+    return this.http.post<Usuario>(url, usuario);
+  }
+
+  eliminarUsuario(idUsuario: number): Observable<void> {
+    const url = `${this.apiUrl}/eliminar/${idUsuario}`;
     return this.http.delete<void>(url);
   }
 
   actualizarUsuario(usuario: Usuario): Observable<Usuario> {
-    const url = `${this.apiUrl}/${usuario.idUsuario}`;
+    const url = `${this.apiUrl}/editar/${usuario.idUsuario}`;
     return this.http.put<Usuario>(url, usuario);
   }
 
