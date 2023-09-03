@@ -1,28 +1,27 @@
 <div class="container">
-  <div class="form">
-    <img class="img" src="ruta-de-la-imagen" alt="Logo" width="30" height="30">
-    <h2>INICIAR SESIÓN</h2>
-    <form (ngSubmit)="iniciarSesion()">
-      <div class="mb-3 d-flex align-items-center">
-        <label for="username" class="form-label me-3">Username:</label>
+  <div class="form-container">
+    <img class="img" src="../../../assets/images/avatar-griinvest.jpg" alt="Logo">
+    <h2 class="form-heading">INICIAR SESIÓN</h2>
+    <form (ngSubmit)="iniciarSesion()" class="form">
+      <div class="form-group">
+        <label for="username" class="form-label">Username:</label>
         <input (input)="validacionesDeInput()" type="text" id="username" name="username"
-          class="form-control custom-input" [(ngModel)]="username" required>
+          class="form-control" [(ngModel)]="username" required>
       </div>
-      <!--Agregamos validaciones-->
-      <div class="mb-3 d-flex align-items-center" *ngIf="usuarioVacio">
-        <span style="color: red; font-size: 12px;"><strong>Usuario es requerido</strong></span>
+      <!-- Agregamos validaciones -->
+      <div class="form-group" *ngIf="usuarioVacio">
+        <span class="text-danger"><strong>Usuario es requerido</strong></span>
       </div>
-      <div class="mb-3 d-flex align-items-center">
-        <label for="password" class="form-label me-3">Password:</label>
+      <div class="form-group">
+        <label for="password" class="form-label">Password:</label>
         <input (input)="validacionesDeInput()" type="password" id="password" name="password"
-          class="form-control custom-input" [(ngModel)]="password" required>
+          class="form-control" [(ngModel)]="password" required>
       </div>
-      <!--Agregamos validaciones-->
-      <div class="mb-3 d-flex align-items-center" *ngIf="contrasenaVacia">
-        <span style="color: red; font-size: 12px;"><strong>Contraseña es requerida</strong></span>
+      <!-- Agregamos validaciones -->
+      <div class="form-group" *ngIf="contrasenaVacia">
+        <span class="text-danger"><strong>Contraseña es requerida</strong></span>
       </div>
-      <button class="btn" type="submit" class="btn btn-primary">Iniciar
-        Sesión</button><!--routerLink="/administracion"-->
+      <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
       <p class="mt-3 text-center">¿No tienes cuenta? <a routerLink="/registro">Regístrate</a></p>
     </form>
   </div>

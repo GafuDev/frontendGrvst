@@ -1,28 +1,4 @@
 <div class="container">
-  <h2>FILTRAR USUARIOS</h2>
-  <button class="btn btn-secondary" (click)="mostrarFiltros = !mostrarFiltros">Agregar Filtros</button>
-
-  <div *ngIf="mostrarFiltros">
-    <div class="mb-3 d-flex align-items-center">
-      <label for="idRol" class="form-label me-3">Rol:</label>
-      <input type="text" id="idRol" name="idRol" class="form-control custom-input" [(ngModel)]="filtro.idRol">
-    </div>
-    <div class="mb-3 d-flex align-items-center">
-      <label for="idComuna" class="form-label me-3">Comuna:</label>
-      <input type="text" id="idComuna" name="idComuna" class="form-control custom-input" [(ngModel)]="filtro.idComuna">
-    </div>
-    <div class="mb-3 d-flex align-items-center">
-      <label for="idRegion" class="form-label me-3">Región:</label>
-      <input type="text" id="idRegion" name="idRegion" class="form-control custom-input" [(ngModel)]="filtro.idRegion">
-    </div>
-    <div class="mb-3 d-flex align-items-center">
-      <label for="createAt" class="form-label me-3">Fecha de Creación:</label>
-      <input type="text" id="createAt" name="createAt" class="form-control custom-input" [(ngModel)]="filtro.createAt">
-    </div>
-  </div>
-</div>
-
-<div class="container">
   <h2>LISTAR USUARIOS</h2>
   <div>
     <div>

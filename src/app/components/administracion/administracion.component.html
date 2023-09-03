@@ -1,24 +1,21 @@
 <div class="container">
-  <!-- <h1>Bienvenido, {{ usuario.nombre }}</h1>
-  <h3>Haz ingresado como {{ rolUsuario }}</h3> -->
-  <h1>Bienvenido, AGREGAR NOMBRE USUARIO</h1>
-  <h3>Haz ingresado como AGREGAR ROL</h3>
+  <h1>Bienvenido, <span class="nombre-usuario">{{ usuario.nombre }}</span></h1>
+  <h3>Haz ingresado como <span class="rol-usuario">{{ usuario.rolUsuario }}</span></h3>
 
-  <div class="btn-group mt-4" role="group">
-    <button *ngIf="rolUsuario === 'Emprendedor'" type="button" class="btn btn-primary mr-3">Mis Proyectos</button>
-    <button *ngIf="rolUsuario === 'Inversionista'" type="button" class="btn btn-primary mr-3">Mis Mensajes</button>
-    <button *ngIf="rolUsuario === 'Usuario'" type="button" class="btn btn-primary mr-3">Mis Inversiones</button>
+  <div *ngIf="mostrarAgregarUsuario" class="btn-group mt-4" role="group">
+    <button type="button" class="btn btn-primary mr-3">Agregar Usuario</button>
   </div>
-  <div class="btn-group mt-4" role="group">
-    <button routerLink="/addproyecto" type="button" class="btn btn-primary mr-3">Add Proyectos</button>
-    <button routerLink="/addmensaje" type="button" class="btn btn-primary mr-3">Add Mensajes</button>
-    <button routerLink="/addinversion" type="button" class="btn btn-primary mr-3">Add Inversiones</button>
-    <button routerLink="/addusuario" type="button" class="btn btn-primary mr-3">Add Usuarios</button>
+
+  <div *ngIf="mostrarAprobarProyectos" class="btn-group mt-4" role="group">
+    <button type="button" class="btn btn-primary mr-3">Aprobar Proyectos</button>
   </div>
-  <div class="btn-group mt-4" role="group">
-    <button routerLink="/proyecto" type="button" class="btn btn-primary mr-3">Proyectos</button>
-    <button routerLink="/mensaje" type="button" class="btn btn-primary mr-3">Mensajes</button>
-    <button routerLink="/inversion" type="button" class="btn btn-primary mr-3">Inversiones</button>
-    <button routerLink="/usuario" type="button" class="btn btn-primary mr-3">Usuarios</button>
+
+  <div *ngIf="mostrarAgregarProyectos" class="btn-group mt-4" role="group">
+    <button type="button" class="btn btn-primary mr-3">Agregar Proyectos</button>
+  </div>
+
+  <div *ngIf="mostrarInvertir" class="btn-group mt-4" role="group">
+    <button type="button" class="btn btn-primary mr-3">Invertir</button>
   </div>
 </div>
+

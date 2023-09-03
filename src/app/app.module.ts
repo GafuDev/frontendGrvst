@@ -32,9 +32,12 @@ import { AdministracionComponent } from './components/administracion/administrac
 import { CategoriaService } from './services/categoria.service';
 import { ProyectosService } from './services/proyectos.service';
 
+import { FilterPipe } from './pipes/filter.pipes';
+
 @NgModule({
   declarations: [
     AppComponent,
+    FilterPipe,
     AgregarMensajeComponent,
     ListarMensajeComponent,
     DetallesMensajeComponent,

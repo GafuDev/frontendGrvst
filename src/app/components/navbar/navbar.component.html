@@ -11,12 +11,73 @@
         </li>
       </ul>
       <form class="d-flex">
-        <a class="btn btn-outline-success me-3" routerLink="/login">Iniciar Sesión</a>
-        <a class="btn btn-outline-success" routerLink="/registro">Registrarse</a>
+
+        <!-- Mostrar enlaces de acuerdo con el rol -->
+        <ng-container *ngIf="userRole === 'administrador'">
+          <div class="btn-group">
+            <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Panel de Administración
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" routerLink="/addusuario">Agregar Usuario</a>
+              <a class="dropdown-item" routerLink="/mensaje">Mis Mensajes</a>
+              <a class="dropdown-item" routerLink="/addmensaje">Enviar Mensajes</a>
+              <a class="dropdown-item" routerLink="/administracion">Administración</a>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="userRole === 'moderador'">
+          <div class="btn-group">
+            <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Panel de Moderación
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" routerLink="/proyecto">Aprobar Proyectos</a>
+              <a class="dropdown-item" routerLink="/Mensajes">Mis Mensajes</a>
+              <a class="dropdown-item" routerLink="/administracion">Administración</a>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="userRole === 'emprendedor'">
+          <div class="btn-group">
+            <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Panel de Emprendedores
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" routerLink="/addproyecto">Publicar Proyecto</a>
+              <a class="dropdown-item" routerLink="/mensaje">Mis Mensajes</a>
+              <a class="dropdown-item" routerLink="/administracion">Administración</a>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="userRole === 'inversionista'">
+          <div class="btn-group">
+            <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Panel de Inversionistas
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" routerLink="/addinversion">Agregar Inversión</a>
+              <a class="dropdown-item" routerLink="/addmensaje">Enviar Mensaje</a>
+              <a class="dropdown-item" routerLink="/administracion">Administración</a>
+            </div>
+          </div>
+        </ng-container>
+        <!-- Mostrar el botón "Cerrar Sesión" solo si la sesión está iniciada -->
+        <ng-container *ngIf="isLoggedIn()">
+          <a class="btn btn-outline-danger ms-3 me-3" (click)="cerrarSesion()">Cerrar Sesión</a>
+        </ng-container>
+        <!-- Ocultar los botones "Iniciar Sesión" y "Registrarse" si la sesión está iniciada -->
+        <ng-container *ngIf="!isLoggedIn()">
+          <a class="btn btn-outline-success me-3" routerLink="/login">Iniciar Sesión</a>
+          <a class="btn btn-outline-success" routerLink="/registro">Registrarse</a>
+        </ng-container>
       </form>
     </div>
   </div>
 </nav>
+
+
+
 
 
 

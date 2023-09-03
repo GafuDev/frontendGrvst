@@ -72,7 +72,7 @@ export class LoginComponent {
       })
     }
   }
-  //paso 5 ele.datos.rol te retorna en numero y tu lo que haces es transformarle a letra
+  
   rolIdANombre(rol: any) {
     let nomRol: any = ''
 

@@ -21,8 +21,8 @@ export class ListarInversionComponent implements OnInit {
   @ViewChild('contenidoModal') contenidoModal: any;
   mostrarFiltros = false;
 
-  constructor(private inversionService: InversionService, 
-              private modalService: NgbModal, 
+  constructor(private inversionService: InversionService,
+              private modalService: NgbModal,
               private formBuilder: FormBuilder) {
     this.inversionForm = this.formBuilder.group({
       montoInversion: ['', Validators.required],

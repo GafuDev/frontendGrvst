@@ -42,7 +42,7 @@ export class AgregarUsuarioComponent {
       return;
     }
 
-    const nuevoUsuario: Usuario[] = this.usuarioForm.value;
+    const nuevoUsuario: Usuario[] = [this.usuarioForm.value];
     this.usuariosService.agregarUsuario(nuevoUsuario).subscribe(
       () => {
         this.mensaje = 'Usuario agregado correctamente.';

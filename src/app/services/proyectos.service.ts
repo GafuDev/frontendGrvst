@@ -14,7 +14,7 @@ export class ProyectosService {
   obtenerProyectos(params: HttpParams): Observable<Proyecto[]> {
     return this.http.get<Proyecto[]>(this.apiUrl, { params });
   }
-  
+
 //prueba todos los proyeccots listall-proyecto
   obtenerAllProyectos(): Observable<Proyecto[]> {
     return this.http.get<Proyecto[]>(this.apiUrl);
@@ -25,7 +25,7 @@ export class ProyectosService {
     return this.http.get<Proyecto>(url);
   }
 
-  agregarProyecto(proyecto: Proyecto): Observable<Proyecto> {
+  agregarProyecto(proyecto: FormData): Observable<Proyecto> {
     const url = `${this.apiUrl}/agregar`;
     return this.http.post<Proyecto>(url, proyecto);
   }

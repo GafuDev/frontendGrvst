@@ -1,64 +1,186 @@
 <div class="container">
   <div class="form">
-    <img class="img" src="ruta-de-la-imagen" alt="Logo" width="30" height="30">
+    <img class="img" src="../../../assets/images/avatar-griinvest.jpg" alt="Logo">
     <h2>REGÍSTRATE</h2>
-    <form [formGroup]="usuarioForm" (ngSubmit)="agregarUsuario()">
+    <form *ngIf="usuarioForm" [formGroup]="usuarioForm" (ngSubmit)="agregarUsuario()">
       <div class="mb-3 d-flex align-items-center">
         <label for="nombre" class="form-label me-3">Nombre:</label>
         <input type="text" id="nombre" name="nombre" class="form-control custom-input" formControlName="nombre">
+        <div *ngIf="usuarioForm?.get('nombre')?.hasError('required')">
+          <div class="text-danger"><strong>El nombre es obligatorio.</strong></div>
+        </div>
       </div>
       <div class="mb-3 d-flex align-items-center">
         <label for="apellido" class="form-label me-3">Apellido:</label>
         <input type="text" id="apellido" name="apellido" class="form-control custom-input" formControlName="apellido">
+        <div *ngIf="usuarioForm?.get('apellido')?.hasError('required')">
+          <div class="text-danger"><strong>El apellido es obligatorio.</strong></div>
+        </div>
       </div>
       <div class="mb-3 d-flex align-items-center">
         <label for="username" class="form-label me-3">Username:</label>
         <input type="text" id="username" name="username" class="form-control custom-input" formControlName="username">
+        <div *ngIf="usuarioForm?.get('username')?.hasError('required')">
+          <div class="text-danger"><strong>El username es obligatorio.</strong></div>
+        </div>
+        <div *ngIf="usuarioForm?.get('username')?.hasError('minlength')">
+          <div class="text-danger"><strong>El username debe tener al menos 7 caracteres.</strong></div>
+        </div>
       </div>
       <div class="mb-3 d-flex align-items-center">
         <label for="contrasena" class="form-label me-3">Contraseña:</label>
         <input type="password" id="contrasena" name="contrasena" class="form-control custom-input"
           formControlName="contrasena">
+          <div *ngIf="usuarioForm?.get('contrasena')?.hasError('required')">
+            <div class="text-danger"><strong>La contraseña es obligatoria.</strong></div>
+          </div>
+          <div *ngIf="usuarioForm?.get('contrasena')?.hasError('minlength')">
+            <div class="error-message"><strong>La contraseña debe tener al menos 7 caracteres.</strong></div>
+          </div>
+          <div *ngIf="usuarioForm?.get('contrasena')?.hasError('pattern')">
+            <div class="text-danger"><strong>La contraseña debe contener al menos una mayúscula y un dígito.</strong></div>
+          </div>
       </div>
       <div class="mb-3 d-flex align-items-center">
         <label for="correo" class="form-label me-3">Correo:</label>
         <input type="email" id="correo" name="correo" class="form-control custom-input" formControlName="correo">
+        <div *ngIf="usuarioForm?.get('correo')?.hasError('required')">
+          <div class="text-danger"><strong>El correo es obligatorio.</strong></div>
+        </div>
+        <div *ngIf="usuarioForm?.get('correo')?.hasError('email')">
+          <div class="text-danger"><strong>El correo debe ser válido.</strong></div>
+        </div>
+      </div>
+      <div class="mb-3 d-flex align-items-center">
+        <label for="direccion" class="form-label me-3">Teléfono:</label>
+        <input type="number" id="telefono" name="telefono" class="form-control custom-input" formControlName="telefono">
+        <div *ngIf="usuarioForm?.get('telefono')?.hasError('minlength') || usuarioForm?.get('telefono')?.hasError('maxlength')">
+          <div class="text-danger"><strong>El teléfono debe tener 9 caracteres.</strong></div>
+        </div>
       </div>
       <div class="mb-3 d-flex align-items-center">
         <label for="direccion" class="form-label me-3">Dirección:</label>
         <input type="text" id="direccion" name="direccion" class="form-control custom-input"
           formControlName="direccion">
-      </div>
-      <div class="mb-3 d-flex align-items-center">
-        <label for="idComuna" class="form-label me-3">Comuna:</label>
-        <select id="idComuna" name="idComuna" class="form-control custom-input" formControlName="idComuna">
-          <option value="" selected>Selecciona comuna</option>
-          <option value="1">Santiago</option>
-          <option value="2">Estación Central</option>
-          <option value="3">Arica</option>
-        </select>
+          <div *ngIf="usuarioForm?.get('direccion')?.hasError('required')" class="text-danger">
+            <strong>La dirección es obligatoria.</strong>
+          </div>
       </div>
       <div class="mb-3 d-flex align-items-center">
         <label for="idRegion" class="form-label me-3">Región:</label>
         <select id="idRegion" name="idRegion" class="form-control custom-input" formControlName="idRegion">
           <option value="" selected>Selecciona región</option>
-          <option value="1">Región de Tarapacá</option>
-          <option value="2">Región de Antofagasta</option>
-          <option value="3">Región de Atacama</option>
-          <option value="4">Región de Coquimbo</option>
-          <option value="5">Región de Valparaíso</option>
-          <option value="6">Región Metropolitana de Santiago</option>
-          <option value="7">Región del Libertador General Bernardo O'Higgins</option>
-          <option value="8">Región del Maule</option>
-          <option value="9">Región de Ñuble</option>
-          <option value="10">Región del Biobío</option>
-          <option value="11">Región de La Araucanía</option>
-          <option value="12">Región de Los Ríos</option>
-          <option value="13">Región de Los Lagos</option>
-          <option value="14">Región de Aysén del General Carlos Ibáñez del Campo</option>
-          <option value="15">Región de Magallanes y de la Antártica Chilena</option>
+          <option value="1">Región de Arica y Parinacota</option>
+          <option value="2">Región de Tarapacá</option>
+          <option value="3">Región de Antofagasta</option>
+          <option value="4">Región de Atacama</option>
+          <option value="5">Región de Coquimbo</option>
+          <option value="6">Región de Valparaíso</option>
+          <option value="7">Región Metropolitana de Santiago</option>
+          <option value="8">Región del Libertador General Bernardo O'Higgins</option>
+          <option value="9">Región del Maule</option>
+          <option value="10">Región de Ñuble</option>
+          <option value="11">Región del Biobío</option>
+          <option value="12">Región de La Araucanía</option>
+          <option value="13">Región de Los Ríos</option>
+          <option value="14">Región de Los Lagos</option>
+          <option value="15">Región de Aysén del General Carlos Ibáñez del Campo</option>
+          <option value="16">Región de Magallanes y de la Antártica Chilena</option>
         </select>
+        <div *ngIf="usuarioForm?.get('idRegion')?.hasError('required')" class="text-danger">
+          <strong>Selecciona una región.</strong>
+        </div>
       </div>
+      <div class="mb-3 d-flex align-items-center">
+        <label for="idComuna" class="form-label me-3">Comuna:</label>
+        <select id="idComuna" name="idComuna" class="form-control custom-input" formControlName="idComuna">
+          <option value="" selected>Selecciona comuna</option>
+          <option *ngFor="let comuna of comunas | filter: comunaFiltro" [value]="comuna.idComuna">{{ comuna.nombreComuna
+            }}</option>
+          <option value="1">Arica</option>
+          <option value="2">Putre</option>
+          <option value="3">Camarones</option>
+          <option value="4">General Lagos</option>
+          <option value="5">Iquique</option>
+          <option value="6">Alto Hospicio</option>
+          <option value="7">Pica</option>
+          <option value="8">Huara</option>
+          <option value="9">Camiña</option>
+          <option value="10">Antofagasta</option>
+          <option value="11">Calama</option>
+          <option value="12">Tocopilla</option>
+          <option value="13">Mejillones</option>
+          <option value="14">Sierra Gorda</option>
+          <option value="15">Copiapó</option>
+          <option value="16">Vallenar</option>
+          <option value="17">Huasco</option>
+          <option value="18">Caldera</option>
+          <option value="19">Tierra Amarilla</option>
+          <option value="20">La Serena</option>
+          <option value="21">Coquimbo</option>
+          <option value="22">Ovalle</option>
+          <option value="23">Illapel</option>
+          <option value="24">Salamanca</option>
+          <option value="25">Valparaíso</option>
+          <option value="26">Viña del Mar</option>
+          <option value="27">Quilpué</option>
+          <option value="28">Villa Alemana</option>
+          <option value="29">Los Andes</option>
+          <option value="30">Santiago</option>
+          <option value="31">Maipú</option>
+          <option value="32">Puente Alto</option>
+          <option value="33">La Florida</option>
+          <option value="34">Las Condes</option>
+          <option value="35">Rancagua</option>
+          <option value="36">San Fernando</option>
+          <option value="37">Rengo</option>
+          <option value="38">Machalí</option>
+          <option value="39">Santa Cruz</option>
+          <option value="40">Talca</option>
+          <option value="41">Curicó</option>
+          <option value="42">Linares</option>
+          <option value="43">San Clemente</option>
+          <option value="44">Constitución</option>
+          <option value="45">Chillán</option>
+          <option value="46">Chillán Viejo</option>
+          <option value="47">Bulnes</option>
+          <option value="48">Quirihue</option>
+          <option value="49">Coelemu</option>
+          <option value="50">Concepción</option>
+          <option value="51">Talcahuano</option>
+          <option value="52">Coronel</option>
+          <option value="53">Los Ángeles</option>
+          <option value="54">San Pedro de la Paz</option>
+          <option value="55">Temuco</option>
+          <option value="56">Padre Las Casas</option>
+          <option value="57">Villarrica</option>
+          <option value="58">Angol</option>
+          <option value="59">Victoria</option>
+          <option value="60">Valdivia</option>
+          <option value="61">La Unión</option>
+          <option value="62">Los Lagos</option>
+          <option value="63">Paillaco</option>
+          <option value="64">Río Bueno</option>
+          <option value="65">Puerto Montt</option>
+          <option value="66">Osorno</option>
+          <option value="67">Castro</option>
+          <option value="68">Ancud</option>
+          <option value="69">Quellón</option>
+          <option value="70">Coyhaique</option>
+          <option value="71">Aysén</option>
+          <option value="72">Chile Chico</option>
+          <option value="73">Cochrane</option>
+          <option value="74">Puerto Aysén</option>
+          <option value="75">Punta Arenas</option>
+          <option value="76">Puerto Natales</option>
+          <option value="77">Porvenir</option>
+          <option value="78">Puerto Williams</option>
+        </select>
+        <div *ngIf="usuarioForm?.get('idComuna')?.hasError('required')" class="text-danger">
+          <strong>Selecciona una comuna.</strong>
+        </div>
+      </div>
+
       <div class="mb-3 d-flex align-items-center">
         <label for="idRol" class="form-label me-3">Rol:</label>
         <select id="idRol" name="idRol" class="form-control custom-input" formControlName="idRol">
@@ -66,11 +188,9 @@
           <option value="3">Emprendedor</option>
           <option value="4">Inversionista</option>
         </select>
-      </div>
-      <div class="mb-3 d-flex align-items-center">
-        <label for="direccion" class="form-label me-3">Teléfono:</label>
-        <input type="number" id="telefono" name="telefono" class="form-control custom-input"
-          formControlName="telefono">
+        <div *ngIf="usuarioForm?.get('idRol')?.hasError('required')" class="text-danger">
+          <strong>Selecciona un rol.</strong>
+        </div>
       </div>
       <button type="button" (click)="agregarUsuario()" class="btn btn-primary btn-long">Registrarse</button>
       <button type="button" routerLink="/" class="btn btn-danger btn-long">Cancelar</button>

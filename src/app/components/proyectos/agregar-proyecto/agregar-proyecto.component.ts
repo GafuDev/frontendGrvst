@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import { ProyectosService } from '../../../services/proyectos.service';
 import { Proyecto } from '../../../models/proyectoModel'
 
@@ -22,13 +22,6 @@ export class AgregarProyectoComponent implements OnInit{
     this.inicializarFormulario();
   }
 
-  /*onLogoFileSelected(event: Event): void {
-    const inputElement = event.target as HTMLInputElement;
-    if (inputElement.files && inputElement.files[0]) {
-      this.proyecto.logoProyecto = inputElement.files[0];
-    }
-  }*/
-
   inicializarFormulario(): void{
     this.proyectoForm = this.formBuilder.group({
       nombreProyecto: ['', Validators.required],
@@ -38,10 +31,17 @@ export class AgregarProyectoComponent implements OnInit{
       montoAdquirido: ['', Validators.required],
       resumenProyecto: ['', Validators.required],
       linkProyecto: ['', Validators.required],
-      //logoProyecto: ['', Validators.required],
+      logoProyecto: ['', Validators.required],
       idCategoria: ['', Validators.required],
       idUsuario: ['', Validators.required]
     });
+  }
+
+  onLogoFileSelected(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    if (inputElement.files && inputElement.files[0]) {
+      this.proyectoForm?.get('logoProyecto')?.setValue(inputElement.files[0]);
+    }
   }
 
   agregarProyecto(): void {
@@ -49,17 +49,38 @@ export class AgregarProyectoComponent implements OnInit{
       return;
     }
 
-    const nuevoProyecto: Proyecto =  {...this.proyectoForm.value}; //logoProyecto: this.proyecto.logoProyecto
-    this.proyectosService.agregarProyecto(nuevoProyecto).subscribe(
+    const formData = new FormData();
+    console.log(formData);
+    for (const key of Object.keys(this.proyectoForm.value)) {
+      formData.append(key, this.proyectoForm.value[key]);
+    }
+
+    if (this.proyectoForm?.get('logoProyecto')?.value) {
+      formData.append('logoProyecto', this.proyectoForm?.get('logoProyecto')?.value);
+    }
+
+    this.proyectosService.agregarProyecto(formData).subscribe(
       () => {
         this.mensaje = 'Proyecto agregado correctamente';
         this.proyectoForm.reset();
-        //this.proyecto = {};
+        this.proyectoForm?.get('logoProyecto')?.setValue(null); // Restablece el campo de archivo
       },
       error => {
         this.mensaje = 'Error al agregar proyecto';
         console.error('Error al agregar proyecto:', error);
       }
     );
+    /*const nuevoProyecto: Proyecto =  {...this.proyectoForm.value}; //logoProyecto: this.proyecto.logoProyecto
+    this.proyectosService.agregarProyecto(nuevoProyecto).subscribe(
+      () => {
+        this.mensaje = 'Proyecto agregado correctamente';
+        this.proyectoForm.reset();
+        this.proyecto = {};
+      },
+      error => {
+        this.mensaje = 'Error al agregar proyecto';
+        console.error('Error al agregar proyecto:', error);
+      }
+    );*/
   }
 }
