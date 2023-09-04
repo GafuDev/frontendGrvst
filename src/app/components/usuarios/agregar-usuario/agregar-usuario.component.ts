@@ -15,10 +15,15 @@ export class AgregarUsuarioComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private usuariosService: UsuariosService
+    private usuariosService: UsuariosService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
+    let usuario = localStorage.getItem('idUsuario');
+    if(usuario === null){
+      this.router.navigate(['/login']);
+    }
     this.inicializarFormulario();
   }
 

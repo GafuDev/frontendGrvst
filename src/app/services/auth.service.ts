@@ -59,14 +59,11 @@ export class AuthService {
   }
 
   logout() {
-
     localStorage.removeItem('usuario');
     localStorage.removeItem('username');
     localStorage.removeItem('rol');
     localStorage.removeItem('idUsuario');
-
     this.userRoleSubject.next(null);
-
     window.location.href = '/portada';
   }
 

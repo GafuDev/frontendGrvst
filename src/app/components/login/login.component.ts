@@ -36,11 +36,9 @@ export class LoginComponent {
       ]
 
       this.auth.loginUsuarioAutentication(usuarioPost).subscribe(ele => {
-        console.log(ele);
+        console.log('Aqui viene: ',ele);
         if (ele) {
-
           let rolNombre = this.rolIdANombre(ele.datos.rol)
-
           //aca crear los local storange
           localStorage.setItem('usuario', ele.datos.usuario)
           localStorage.setItem('username', ele.datos.username)
@@ -50,21 +48,21 @@ export class LoginComponent {
           if (rolNombre){
             switch (rolNombre) {
               case 'administrador':
-                this.router.navigate(['/administracion'],{skipLocationChange: true});
+                this.router.navigate(['/administracion']);
                 break;
               case 'moderador':
-                this.router.navigate(['/administracion'],{skipLocationChange: true});
+                this.router.navigate(['/administracion']);
                 break;
               case 'emprendedor':
-                this.router.navigate(['/administracion'],{skipLocationChange: true});
+                this.router.navigate(['/administracion']);
                 break;
               case 'inversionista':
-                this.router.navigate(['/administracion'],{skipLocationChange: true});
+                this.router.navigate(['/administracion']);
                 break;
             }
           } else{
             //this.router.navigate(['/login:false'],{skipLocationChange: true}); //falta hacer false debe ser capturado en ngOnInit
-            this.router.navigate(['/login'],{skipLocationChange: true});
+            this.router.navigate(['/login']);
           }
 
         }else {

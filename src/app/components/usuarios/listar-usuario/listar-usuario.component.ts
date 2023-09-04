@@ -25,7 +25,8 @@ export class ListarUsuarioComponent implements OnInit {
 
   constructor(private usuariosService: UsuariosService,
               private modalService: NgbModal,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private router: Router) {
     this.usuarioForm = this.formBuilder.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
@@ -40,6 +41,10 @@ export class ListarUsuarioComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    let usuario = localStorage.getItem('idUsuario');
+    if(usuario === null){
+      this.router.navigate(['/login']);
+    }
     this.filtrarUsuarios();
   }
 
