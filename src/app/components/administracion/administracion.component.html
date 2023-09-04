@@ -1,6 +1,6 @@
 <div class="container">
-  <h1>Bienvenido, <span class="nombre-usuario">{{ usuario.nombre }}</span></h1>
-  <h3>Haz ingresado como <span class="rol-usuario">{{ usuario.rolUsuario }}</span></h3>
+  <h1>Bienvenido, <span class="nombre-usuario">{{ this.nombre }}</span></h1>
+  <h3>Haz ingresado como <span class="rol-usuario">{{ this.rolUsuario }}</span></h3>
 
   <div *ngIf="mostrarAgregarUsuario" class="btn-group mt-4" role="group">
     <button type="button" class="btn btn-primary mr-3">Agregar Usuario</button>

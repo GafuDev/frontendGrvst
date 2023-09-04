@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-administracion',
@@ -9,8 +10,8 @@ import { Router } from '@angular/router';
 })
 export class AdministracionComponent implements OnInit {
   usuario: any;
-  rolUsuario: string = '';
-
+  rolUsuario: any;
+  nombre: any = '';
   mostrarAgregarUsuario: boolean = false;
   mostrarAprobarProyectos: boolean = false;
   mostrarAgregarProyectos: boolean = false;
@@ -21,12 +22,18 @@ export class AdministracionComponent implements OnInit {
   ngOnInit(): void {
     this.usuario = this.authService.obtenerUsuarioAutenticado();
     let usuario = localStorage.getItem('idUsuario');
+    this.nombre = localStorage.getItem('usuario');
     if(usuario === null){
       this.router.navigate(['/login']);
     }
-    this.rolUsuario = this.determinarRolUsuario();
+    if (!localStorage.getItem('bienvenido')) {
+      Swal.fire('Login', `Bienvenido ${this.nombre}`, 'success');
+      localStorage.setItem('bienvenido', 'check');
+    }
+    this.rolUsuario = localStorage.getItem('rol');
     this.establecerVisibilidadBotones();
-    console.log(this.usuario)
+    console.log(this.nombre);
+
   }
 
   determinarRolUsuario(): any {

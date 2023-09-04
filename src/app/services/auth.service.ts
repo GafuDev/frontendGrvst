@@ -65,6 +65,7 @@ export class AuthService {
     localStorage.removeItem('username');
     localStorage.removeItem('rol');
     localStorage.removeItem('idUsuario');
+    localStorage.removeItem('bienvenido');
     this.userRoleSubject.next(null);
     window.location.href = '/portada';
   }
