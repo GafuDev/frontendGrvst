@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { Usuario } from '../../../models/usuarioModel';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-agregar-usuario',

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-administracion',
@@ -16,15 +16,20 @@ export class AdministracionComponent implements OnInit {
   mostrarAgregarProyectos: boolean = false;
   mostrarInvertir: boolean = false;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.usuario = this.authService.obtenerUsuarioAutenticado();
+    let usuario = localStorage.getItem('idUsuario');
+    if(usuario === null){
+      this.router.navigate(['/login']);
+    }
     this.rolUsuario = this.determinarRolUsuario();
     this.establecerVisibilidadBotones();
+    console.log(this.usuario)
   }
 
-  determinarRolUsuario(): string {
+  determinarRolUsuario(): any {
     // Lógica para determinar el rol del usuario según sus atributos
     if (this.usuario.idRol === 1) {
       return 'administrador';
@@ -35,7 +40,7 @@ export class AdministracionComponent implements OnInit {
     } else if (this.usuario.idRol === 4) {
       return 'inversionista';
     } else {
-      return 'usuario';
+      return false;
     }
   }
 
@@ -58,4 +63,3 @@ export class AdministracionComponent implements OnInit {
     }
   }
 }
-

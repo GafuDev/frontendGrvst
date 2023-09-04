@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MensajesService } from 'src/app/services/mensajes.service';
 import { Mensaje } from '../../../models/mensajeModel';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-agregar-mensaje',

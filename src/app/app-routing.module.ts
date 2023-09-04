@@ -14,6 +14,7 @@ import { ListarMensajeComponent } from './components/mensajes/listar-mensaje/lis
 import { AgregarMensajeComponent } from './components/mensajes/agregar-mensaje/agregar-mensaje.component';
 import { ListallProyectosComponent } from './components/proyectos/listall-proyectos/listall-proyectos.component';
 import { AdministracionComponent } from './components/administracion/administracion.component';
+import { ErrorComponent } from './components/error/error.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: 'detailmensaje', component: ListarMensajeComponent },
   { path: 'administracion', component: AdministracionComponent }, //página a la que redirige el login
   { path: '', redirectTo: '/portada', pathMatch: 'full' },
+  {path: '**', component: ErrorComponent},
 ];
 
 @NgModule({

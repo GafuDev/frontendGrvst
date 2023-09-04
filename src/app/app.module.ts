@@ -33,6 +33,7 @@ import { CategoriaService } from './services/categoria.service';
 import { ProyectosService } from './services/proyectos.service';
 
 import { FilterPipe } from './pipes/filter.pipes';
+import { ErrorComponent } from './components/error/error.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { FilterPipe } from './pipes/filter.pipes';
     PortadaComponent,
     NavbarComponent,
     ListallProyectosComponent,
-    AdministracionComponent
+    AdministracionComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,

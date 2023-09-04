@@ -36,7 +36,7 @@ export class LoginComponent {
       ]
 
       this.auth.loginUsuarioAutentication(usuarioPost).subscribe(ele => {
-
+        console.log(ele);
         if (ele) {
 
           let rolNombre = this.rolIdANombre(ele.datos.rol)
@@ -45,6 +45,7 @@ export class LoginComponent {
           localStorage.setItem('usuario', ele.datos.usuario)
           localStorage.setItem('username', ele.datos.username)
           localStorage.setItem('rol', rolNombre)
+          localStorage.setItem('idUsuario', ele.datos.id)
 
           if (rolNombre){
             switch (rolNombre) {
@@ -72,7 +73,7 @@ export class LoginComponent {
       })
     }
   }
-  
+
   rolIdANombre(rol: any) {
     let nomRol: any = ''
 

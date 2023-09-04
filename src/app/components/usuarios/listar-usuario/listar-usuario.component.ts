@@ -4,6 +4,7 @@ import { UsuariosService } from '../../../services/usuarios.service';
 import { HttpParams } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-listar-usuario',

@@ -182,8 +182,8 @@
       <label for="idRol" class="form-label me-3">Rol:</label>
       <select id="idRol" name="idRol" class="form-control custom-input" formControlName="idRol">
         <option value="" selected>Selecciona Rol</option>
-        <option value="3">Emprendedor</option>
-        <option value="4">Inversionista</option>
+        <option value="1">Administrador</option>
+        <option value="2">Moderador</option>
       </select>
       <div *ngIf="usuarioForm?.get('idRol')?.hasError('required')" class="text-danger">
         <strong>Selecciona un rol.</strong>

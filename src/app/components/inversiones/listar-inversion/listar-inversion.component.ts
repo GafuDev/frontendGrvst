@@ -4,6 +4,7 @@ import { Inversion } from '../../../models/inversionModel';
 import { HttpParams } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-listar-inversion',
