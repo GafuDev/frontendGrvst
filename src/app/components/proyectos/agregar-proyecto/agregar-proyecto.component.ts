@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl} from '@angular/forms';
 import { ProyectosService } from '../../../services/proyectos.service';
 import { Proyecto } from '../../../models/proyectoModel'
 
@@ -22,18 +22,34 @@ export class AgregarProyectoComponent implements OnInit{
     this.inicializarFormulario();
   }
 
+  fechaInicioValidator(control: AbstractControl) {
+    const selectedDate = new Date(control.value);
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
+    if (selectedDate > currentDate) {
+      return { futureDate: true };
+    }
+    return null;
+  }
+
+  urlPatternValidator(control: AbstractControl) {
+    const urlPattern = /^(ftp|http|https):\/\/[^ "]+$/;
+    if (!urlPattern.test(control.value)) {
+      return { invalidUrl: true };
+    }
+    return null;
+  }
+
   inicializarFormulario(): void{
     this.proyectoForm = this.formBuilder.group({
       nombreProyecto: ['', Validators.required],
-      descripcionProyecto: ['', Validators.required],
-      fechaInicio: ['', Validators.required],
+      descripcionProyecto: ['', [Validators.required, Validators.minLength(30)]],
+      fechaInicio: [new Date(), [Validators.required, this.fechaInicioValidator]],
       montoFinanciar: ['', Validators.required],
-      montoAdquirido: ['', Validators.required],
-      resumenProyecto: ['', Validators.required],
-      linkProyecto: ['', Validators.required],
+      resumenProyecto: ['', [Validators.required, Validators.minLength(30)]],
+      linkProyecto: ['', [Validators.required, this.urlPatternValidator]],
       logoProyecto: ['', Validators.required],
       idCategoria: ['', Validators.required],
-      idUsuario: ['', Validators.required]
     });
   }
 
@@ -70,17 +86,5 @@ export class AgregarProyectoComponent implements OnInit{
         console.error('Error al agregar proyecto:', error);
       }
     );
-    /*const nuevoProyecto: Proyecto =  {...this.proyectoForm.value}; //logoProyecto: this.proyecto.logoProyecto
-    this.proyectosService.agregarProyecto(nuevoProyecto).subscribe(
-      () => {
-        this.mensaje = 'Proyecto agregado correctamente';
-        this.proyectoForm.reset();
-        this.proyecto = {};
-      },
-      error => {
-        this.mensaje = 'Error al agregar proyecto';
-        console.error('Error al agregar proyecto:', error);
-      }
-    );*/
   }
 }

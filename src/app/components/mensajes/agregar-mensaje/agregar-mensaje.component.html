@@ -6,21 +6,19 @@
         <label for="contenidoMensaje" class="form-label">Contenido del Mensaje:</label>
         <input type="text" id="contenidoMensaje" name="contenidoMensaje" class="form-control custom-input" formControlName="contenidoMensaje">
       </div>
-      <div class="mb-3">
-        <label for="fechaEnvio" class="form-label">Fecha de Envío:</label>
-        <input type="date" id="fechaEnvio" name="fechaEnvio" class="form-control custom-input" formControlName="fechaEnvio">
-      </div>
-      <div class="mb-3">
-        <label for="idUsuarioEnvio" class="form-label">ID Usuario Envío:</label>
-        <input type="number" id="idUsuarioEnvio" name="idUsuarioEnvio" class="form-control custom-input" formControlName="idUsuarioEnvio">
+      <div *ngIf="mensajeForm?.get('contenidoMensaje')?.touched && mensajeForm?.get('contenidoMensaje')?.hasError('required')" class="text-danger">
+        <strong>El mensaje no puede estar vacío.</strong>
       </div>
       <div class="mb-3">
         <label for="idUsuarioRecibe" class="form-label">ID Usuario Recibe:</label>
         <input type="number" id="idUsuarioRecibe" name="idUsuarioRecibe" class="form-control custom-input" formControlName="idUsuarioRecibe">
       </div>
+      <div *ngIf="mensajeForm?.get('idUsuarioRecibe')?.touched && mensajeForm?.get('idUsuarioRecibe')?.hasError('required')" class="text-danger">
+        <strong>El id no puede estar vacío.</strong>
+      </div>
       <div class="mb-3">
         <button type="button" (click)="agregarMensaje()" class="btn btn-primary btn-long">Enviar Mensaje</button>
-        <button type="button" routerLink="/administracion" class="btn btn-danger btn-long">Cancelar</button>
+        <button type="button" routerLink="/administracion" class="btn btn-danger btn-long ml-3">Cancelar</button>
       </div>
     </form>
     <p>{{mensaje}}</p>

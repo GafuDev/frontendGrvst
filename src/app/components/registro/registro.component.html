@@ -6,24 +6,24 @@
       <div class="mb-3 d-flex align-items-center">
         <label for="nombre" class="form-label me-3">Nombre:</label>
         <input type="text" id="nombre" name="nombre" class="form-control custom-input" formControlName="nombre">
-        <div *ngIf="usuarioForm?.get('nombre')?.hasError('required')">
+        <div *ngIf="usuarioForm?.get('nombre')?.hasError('required') && usuarioForm?.get('nombre')?.touched">
           <div class="text-danger"><strong>El nombre es obligatorio.</strong></div>
         </div>
       </div>
       <div class="mb-3 d-flex align-items-center">
         <label for="apellido" class="form-label me-3">Apellido:</label>
         <input type="text" id="apellido" name="apellido" class="form-control custom-input" formControlName="apellido">
-        <div *ngIf="usuarioForm?.get('apellido')?.hasError('required')">
+        <div *ngIf="usuarioForm?.get('apellido')?.hasError('required') && usuarioForm?.get('apellido')?.touched">
           <div class="text-danger"><strong>El apellido es obligatorio.</strong></div>
         </div>
       </div>
       <div class="mb-3 d-flex align-items-center">
         <label for="username" class="form-label me-3">Username:</label>
         <input type="text" id="username" name="username" class="form-control custom-input" formControlName="username">
-        <div *ngIf="usuarioForm?.get('username')?.hasError('required')">
+        <div *ngIf="usuarioForm?.get('username')?.hasError('required') && usuarioForm?.get('username')?.touched">
           <div class="text-danger"><strong>El username es obligatorio.</strong></div>
         </div>
-        <div *ngIf="usuarioForm?.get('username')?.hasError('minlength')">
+        <div *ngIf="usuarioForm?.get('username')?.hasError('minlength') && usuarioForm?.get('username')?.touched">
           <div class="text-danger"><strong>El username debe tener al menos 7 caracteres.</strong></div>
         </div>
       </div>
@@ -31,30 +31,30 @@
         <label for="contrasena" class="form-label me-3">Contraseña:</label>
         <input type="password" id="contrasena" name="contrasena" class="form-control custom-input"
           formControlName="contrasena">
-          <div *ngIf="usuarioForm?.get('contrasena')?.hasError('required')">
+          <div *ngIf="usuarioForm?.get('contrasena')?.hasError('required') && usuarioForm?.get('contrasena')?.touched">
             <div class="text-danger"><strong>La contraseña es obligatoria.</strong></div>
           </div>
-          <div *ngIf="usuarioForm?.get('contrasena')?.hasError('minlength')">
+          <div *ngIf="usuarioForm?.get('contrasena')?.hasError('minlength') && usuarioForm?.get('contrasena')?.touched">
             <div class="error-message"><strong>La contraseña debe tener al menos 7 caracteres.</strong></div>
           </div>
-          <div *ngIf="usuarioForm?.get('contrasena')?.hasError('pattern')">
+          <div *ngIf="usuarioForm?.get('contrasena')?.hasError('pattern') && usuarioForm?.get('contrasena')?.touched">
             <div class="text-danger"><strong>La contraseña debe contener al menos una mayúscula y un dígito.</strong></div>
           </div>
       </div>
       <div class="mb-3 d-flex align-items-center">
         <label for="correo" class="form-label me-3">Correo:</label>
         <input type="email" id="correo" name="correo" class="form-control custom-input" formControlName="correo">
-        <div *ngIf="usuarioForm?.get('correo')?.hasError('required')">
+        <div *ngIf="usuarioForm?.get('correo')?.hasError('required') && usuarioForm?.get('correo')?.touched">
           <div class="text-danger"><strong>El correo es obligatorio.</strong></div>
         </div>
-        <div *ngIf="usuarioForm?.get('correo')?.hasError('email')">
+        <div *ngIf="usuarioForm?.get('correo')?.hasError('email') && usuarioForm?.get('correo')?.touched">
           <div class="text-danger"><strong>El correo debe ser válido.</strong></div>
         </div>
       </div>
       <div class="mb-3 d-flex align-items-center">
         <label for="direccion" class="form-label me-3">Teléfono:</label>
         <input type="number" id="telefono" name="telefono" class="form-control custom-input" formControlName="telefono">
-        <div *ngIf="usuarioForm?.get('telefono')?.hasError('minlength') || usuarioForm?.get('telefono')?.hasError('maxlength')">
+        <div *ngIf="usuarioForm?.get('telefono')?.hasError('minlength') && usuarioForm?.get('telefono')?.hasError('maxlength') && usuarioForm?.get('telefono')?.touched">
           <div class="text-danger"><strong>El teléfono debe tener 9 caracteres.</strong></div>
         </div>
       </div>
@@ -62,7 +62,7 @@
         <label for="direccion" class="form-label me-3">Dirección:</label>
         <input type="text" id="direccion" name="direccion" class="form-control custom-input"
           formControlName="direccion">
-          <div *ngIf="usuarioForm?.get('direccion')?.hasError('required')" class="text-danger">
+          <div *ngIf="usuarioForm?.get('direccion')?.hasError('required') && usuarioForm?.get('direccion')?.touched" class="text-danger">
             <strong>La dirección es obligatoria.</strong>
           </div>
       </div>
@@ -87,7 +87,7 @@
           <option value="15">Región de Aysén del General Carlos Ibáñez del Campo</option>
           <option value="16">Región de Magallanes y de la Antártica Chilena</option>
         </select>
-        <div *ngIf="usuarioForm?.get('idRegion')?.hasError('required')" class="text-danger">
+        <div *ngIf="usuarioForm?.get('idRegion')?.hasError('required') && usuarioForm?.get('idRegion')?.touched" class="text-danger">
           <strong>Selecciona una región.</strong>
         </div>
       </div>
@@ -176,7 +176,7 @@
           <option value="77">Porvenir</option>
           <option value="78">Puerto Williams</option>
         </select>
-        <div *ngIf="usuarioForm?.get('idComuna')?.hasError('required')" class="text-danger">
+        <div *ngIf="usuarioForm?.get('idComuna')?.hasError('required') && usuarioForm?.get('idComuna')?.touched" class="text-danger">
           <strong>Selecciona una comuna.</strong>
         </div>
       </div>
@@ -188,13 +188,15 @@
           <option value="3">Emprendedor</option>
           <option value="4">Inversionista</option>
         </select>
-        <div *ngIf="usuarioForm?.get('idRol')?.hasError('required')" class="text-danger">
+        <div *ngIf="usuarioForm?.get('idRol')?.hasError('required') && usuarioForm?.get('idRol')?.touched" class="text-danger">
           <strong>Selecciona un rol.</strong>
         </div>
       </div>
-      <button type="button" (click)="agregarUsuario()" class="btn btn-primary btn-long">Registrarse</button>
-      <button type="button" routerLink="/" class="btn btn-danger btn-long">Cancelar</button>
     </form>
+    <div class="mb-3">
+      <button type="button" (click)="agregarUsuario()" class="btn btn-primary btn-long">Registrarse</button>
+      <button type="button" routerLink="/" class="btn btn-danger btn-long ml-4">Cancelar</button>
+    </div>
     <p class="text-center mt-3">¿Ya tienes cuenta? <a routerLink="/login">Inicia Sesión</a></p>
   </div>
   <p>{{errorMessage}}</p>

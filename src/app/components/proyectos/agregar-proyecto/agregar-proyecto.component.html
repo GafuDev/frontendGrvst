@@ -6,33 +6,65 @@
         <label for="nombreProyecto" class="form-label">Nombre del Proyecto:</label>
         <input type="text" id="nombreProyecto" name="nombreProyecto" class="form-control custom-input" formControlName="nombreProyecto">
       </div>
+      <div *ngIf="proyectoForm?.get('nombreProyecto')?.touched &&proyectoForm?.get('nombreProyecto')?.hasError('required')" class="text-danger">
+        <strong>El nombre del proyecto no puede estar vacío.</strong>
+      </div>
       <div class="mb-3">
         <label for="descripcionProyecto" class="form-label">Descripción del Proyecto:</label>
         <textarea id="descripcionProyecto" name="descripcionProyecto" class="form-control custom-input custom-textarea" formControlName="descripcionProyecto"></textarea>
+      </div>
+      <div *ngIf="proyectoForm?.get('descripcionProyecto')?.touched && proyectoForm?.get('descripcionProyecto')?.hasError('required')" class="text-danger">
+        <strong>Debes agregar una descripción.</strong>
+      </div>
+      <div *ngIf="proyectoForm?.get('descripcionProyecto')?.touched && proyectoForm?.get('descripcionProyecto')?.hasError('minlength')" class="text-danger">
+        <strong>La descripción debe tener al menos 30 caracteres.</strong>
       </div>
       <div class="mb-3">
         <label for="fechaInicio" class="form-label">Fecha de Inicio:</label>
         <input type="date" id="fechaInicio" name="fechaInicio" class="form-control custom-input" formControlName="fechaInicio">
       </div>
+      <div *ngIf="proyectoForm?.get('fechaInicio')?.touched && proyectoForm?.get('fechaInicio')?.hasError('required')" class="text-danger">
+        <strong>Debes agregar la fecha de creación de tu proyecto.</strong>
+      </div>
+      <div *ngIf="proyectoForm?.get('fechaInicio')?.touched && proyectoForm?.get('fechaInicio')?.hasError('futureDate')" class="text-danger">
+        <strong>La fecha de inicio no puede ser superior a la fecha actual.</strong>
+      </div>
       <div class="mb-3">
         <label for="montoFinanciar" class="form-label">Monto a Financiar:</label>
         <input type="number" id="montoFinanciar" name="montoFinanciar" class="form-control custom-input" formControlName="montoFinanciar">
       </div>
-      <div class="mb-3">
-        <label for="montoAdquirido" class="form-label">Monto Adquirido:</label>
-        <input type="number" id="montoAdquirido" name="montoAdquirido" class="form-control custom-input" formControlName="montoAdquirido">
+      <div *ngIf="proyectoForm?.get('montoFinanciar')?.touched && proyectoForm?.get('montoFinanciar')?.hasError('required')" class="text-danger">
+        <strong>Debes agregar un monto.</strong>
       </div>
       <div class="mb-3">
         <label for="resumenProyecto" class="form-label">Resumen del Proyecto:</label>
         <textarea id="resumenProyecto" name="resumenProyecto" class="form-control custom-input custom-textarea" formControlName="resumenProyecto"></textarea>
       </div>
+      <div *ngIf="proyectoForm?.get('resumenProyecto')?.touched && proyectoForm?.get('resumenProyecto')?.hasError('required')" class="text-danger">
+        <strong>Este campo no puede estar vacío.</strong>
+      </div>
+      <div *ngIf="proyectoForm?.get('resumenProyecto')?.touched && proyectoForm?.get('resumenProyecto')?.hasError('minlength')" class="text-danger">
+        <strong>El resumen debe tener al menos 30 caracteres.</strong>
+      </div>
       <div class="mb-3">
         <label for="linkProyecto" class="form-label">Enlace del Proyecto:</label>
         <input type="text" id="linkProyecto" name="linkProyecto" class="form-control custom-input" formControlName="linkProyecto">
       </div>
+      <div *ngIf="proyectoForm?.get('linkProyecto')?.touched && proyectoForm?.get('linkProyecto')?.hasError('required')" class="text-danger">
+        <strong>Este campo no puede estar vacío.</strong>
+      </div>
+      <div *ngIf="proyectoForm?.get('linkProyecto')?.touched && proyectoForm?.get('linkProyecto')?.hasError('pattern')" class="text-danger">
+        <strong>El enlace del proyecto no es válido. Debe ser una URL válida (por ejemplo, http://www.ejemplo.com).</strong>
+      </div>
       <div class="mb-3">
         <label for="logoProyecto" class="form-label">Imágen Proyecto:</label>
         <input type="file" id="logoProyecto" name="logoProyecto" (change)="onLogoFileSelected($event)">
+      </div>
+      <div *ngIf="proyectoForm?.get('logoProyecto')?.touched && proyectoForm?.get('logoProyecto')?.hasError('required')" class="text-danger">
+        <strong>Este campo no puede estar vacío.</strong>
+      </div>
+      <div *ngIf="proyectoForm?.get('logoProyecto')?.touched && proyectoForm?.get('logoProyecto')?.hasError('required')" class="text-danger">
+        <strong>El formato de la imagen debe ser PNG, JPEG o JPG.</strong>
       </div>
       <div class="mb-3">
         <label for="idCategoria" class="form-label">Categoría:</label>
@@ -65,9 +97,12 @@
           <option value="25">Emprendimientos Verdes</option>
         </select>
       </div>
+      <div *ngIf="proyectoForm?.get('idCategoria')?.touched && proyectoForm?.get('idCategoria')?.hasError('required')" class="text-danger">
+        <strong>Debes seleccionar una categoría.</strong>
+      </div>
       <div class="mb-3">
         <button type="submit" class="btn btn-primary btn-long">Agregar Proyecto</button>
-        <button type="button" routerLink="/administracion" class="btn btn-danger btn-long">Cancelar</button>
+        <button type="button" routerLink="/administracion" class="btn btn-danger btn-long ml-3">Cancelar</button>
       </div>
     </form>
     <p>{{mensaje}}</p>

@@ -25,8 +25,6 @@ export class AgregarMensajeComponent {
   inicializarFormulario(): void {
     this.mensajeForm = this.formBuilder.group({
       contenidoMensaje: ['', Validators.required],
-      fechaEnvio: ['', Validators.required],
-      idUsuarioEnvio: ['', Validators.required],
       idUsuarioRecibe: ['', Validators.required]
     });
   }

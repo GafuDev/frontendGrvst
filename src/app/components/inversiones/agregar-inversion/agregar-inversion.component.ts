@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InversionService } from '../../../services/inversion.service';
 import { Inversion } from '../../../models/inversionModel';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-agregar-inversion',
@@ -14,17 +15,17 @@ export class AgregarInversionComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private InversionService: InversionService
+    private InversionService: InversionService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.inicializarFormulario();
+
   }
 
   inicializarFormulario(): void {
     this.inversionForm = this.formBuilder.group({
       montoInversion: ['', Validators.required],
-      //idUsuario: ['', Validators.required], hay que hacer que sea el usuario registrado
       idProyecto: ['', Validators.required],
     });
   }
