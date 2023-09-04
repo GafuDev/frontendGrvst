@@ -40,15 +40,17 @@ export class AuthService {
     return this.http.post<any>(this.login, login)
     .pipe(
       tap(response => {
-        const idRol = response?.datos.rol;
-        const userRole = this.rolesMapping[idRol];
-        //const userRole = response?.rol;
-        if (userRole) {
-        localStorage.setItem('rol', userRole);
-        this.userRoleSubject.next(userRole);
-        } else{
-          const errorMessage = `El Rol ingresado no coincide con un valor válido.`;
-          console.error(errorMessage);
+        if (response.status) {
+          const idRol = response?.datos.rol;
+          const userRole = this.rolesMapping[idRol];
+          //const userRole = response?.rol;
+          if (userRole) {
+          localStorage.setItem('rol', userRole);
+          this.userRoleSubject.next(userRole);
+          } else{
+            const errorMessage = `El Rol ingresado no coincide con un valor válido.`;
+            console.error(errorMessage);
+          }
         }
       })
     );

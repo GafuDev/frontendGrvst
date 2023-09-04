@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -35,9 +36,8 @@ export class LoginComponent {
         }
       ]
 
-      this.auth.loginUsuarioAutentication(usuarioPost).subscribe(ele => {
-        console.log('Aqui viene: ',ele);
-        if (ele) {
+      this.auth.loginUsuarioAutentication(usuarioPost).subscribe((ele) => {
+        if (ele.status) {
           let rolNombre = this.rolIdANombre(ele.datos.rol)
           //aca crear los local storange
           localStorage.setItem('usuario', ele.datos.usuario)
@@ -66,7 +66,7 @@ export class LoginComponent {
           }
 
         }else {
-          alert(ele.mensaje)
+          Swal.fire('Error', ele.mensaje, 'error');
         }
       })
     }
