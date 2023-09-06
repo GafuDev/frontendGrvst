@@ -41,10 +41,9 @@ export class AgregarMensajeComponent {
       return;
     }
 
-    const nuevoMensaje: Mensaje = this.mensajeForm.value;
-    this.mensajesService.agregarMensaje(nuevoMensaje).subscribe(
-      () => {
-        this.mensaje = 'Mensaje agregado correctamente.';
+    const nuevoMensaje: any = this.mensajeForm.value;
+    this.mensajesService.agregarMensaje(nuevoMensaje).subscribe((response) => {
+        this.mensaje = response.message;
         this.mensajeForm.reset();
       },
       error => {

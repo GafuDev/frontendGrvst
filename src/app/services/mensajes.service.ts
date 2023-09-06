@@ -21,9 +21,9 @@ export class MensajesService {
     return this.http.get<Mensaje>(url);
   }
 
-  agregarMensaje(mensaje: Mensaje): Observable<Mensaje> {
+  agregarMensaje(mensaje: Mensaje): Observable<any> {
     const url = `${this.apiUrl}/agregar`;
-    return this.http.post<Mensaje>(url, mensaje);
+    return this.http.post<any>(url, mensaje);
   }
 
   eliminarMensaje(idMensaje: number): Observable<void> {
