@@ -25,15 +25,14 @@ export class AdministracionComponent implements OnInit {
     this.nombre = localStorage.getItem('usuario');
     if(usuario === null){
       this.router.navigate(['/login']);
+    } else {
+      if (!localStorage.getItem('bienvenido')) {
+        Swal.fire('Login', `Bienvenido ${this.nombre}`, 'success');
+        localStorage.setItem('bienvenido', 'check');
+        this.rolUsuario = localStorage.getItem('rol');
+        this.establecerVisibilidadBotones();
+      }
     }
-    if (!localStorage.getItem('bienvenido')) {
-      Swal.fire('Login', `Bienvenido ${this.nombre}`, 'success');
-      localStorage.setItem('bienvenido', 'check');
-    }
-    this.rolUsuario = localStorage.getItem('rol');
-    this.establecerVisibilidadBotones();
-    console.log(this.nombre);
-
   }
 
   determinarRolUsuario(): any {

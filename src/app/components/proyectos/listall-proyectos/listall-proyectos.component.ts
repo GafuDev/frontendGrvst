@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Proyecto } from '../../../models/proyectoModel';
 import { ProyectosService } from '../../../services/proyectos.service';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-listall-proyectos',
@@ -10,10 +12,15 @@ import { ProyectosService } from '../../../services/proyectos.service';
 export class ListallProyectosComponent implements OnInit {
   proyectos: Proyecto[] = [];
 
-  constructor(private proyectosService: ProyectosService) {}
+  constructor(private proyectosService: ProyectosService, private router: Router) {}
 
   ngOnInit(): void {
-    this.obtenerProyectos();
+    let usuario = localStorage.getItem('usuario');
+    if (usuario) {
+      this.obtenerProyectos();
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 
   obtenerProyectos(): void {

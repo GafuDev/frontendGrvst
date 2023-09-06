@@ -4,6 +4,8 @@ import { Proyecto } from '../../../models/proyectoModel';
 import { HttpParams } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-listar-proyecto',
@@ -17,13 +19,15 @@ export class ListarProyectoComponent implements OnInit {
     nombreProyecto: undefined,
     fechaInicio: undefined
   };
+  usuario: any;
   proyectos: Proyecto[] = [];
   @ViewChild('contenidoModal') contenidoModal: any;
   mostrarFiltros = false;
 
   constructor(private proyectosService: ProyectosService,
               private modalService: NgbModal,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private router: Router) {
     this.proyectoForm = this.formBuilder.group({
       nombreProyecto: ['', Validators.required],
       descripcionProyecto: ['', Validators.required],
@@ -39,7 +43,12 @@ export class ListarProyectoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.filtrarProyectos();
+    let usuario = localStorage.getItem('usuario');
+    if (usuario) {
+      this.filtrarProyectos();
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 
   filtrarProyectos(): void {

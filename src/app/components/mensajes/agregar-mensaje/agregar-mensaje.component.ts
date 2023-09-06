@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MensajesService } from 'src/app/services/mensajes.service';
 import { Mensaje } from '../../../models/mensajeModel';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-agregar-mensaje',
@@ -15,11 +16,17 @@ export class AgregarMensajeComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private mensajesService: MensajesService
+    private mensajesService: MensajesService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.inicializarFormulario();
+    let usuario = localStorage.getItem('usuario');
+    if (usuario) {
+      this.inicializarFormulario();
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 
   inicializarFormulario(): void {

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl} from '@angular/forms';
 import { ProyectosService } from '../../../services/proyectos.service';
 import { Proyecto } from '../../../models/proyectoModel'
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-agregar-proyecto',
@@ -15,11 +17,18 @@ export class AgregarProyectoComponent implements OnInit{
 
   constructor(
     private formBuilder: FormBuilder,
-    private proyectosService: ProyectosService
+    private proyectosService: ProyectosService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.inicializarFormulario();
+    let usuario = localStorage.getItem('usuario');
+    if (usuario) {
+      this.inicializarFormulario();
+    } else {
+      this.router.navigate(['/login']);
+    }
+
   }
 
   fechaInicioValidator(control: AbstractControl) {

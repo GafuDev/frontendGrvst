@@ -5,6 +5,7 @@ import { HttpParams } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-listar-inversion',
@@ -24,7 +25,8 @@ export class ListarInversionComponent implements OnInit {
 
   constructor(private inversionService: InversionService,
               private modalService: NgbModal,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private router: Router) {
     this.inversionForm = this.formBuilder.group({
       montoInversion: ['', Validators.required],
       fechaInversion: ['', Validators.required],
@@ -34,7 +36,15 @@ export class ListarInversionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.filtrarInversiones();
+    let usuario = localStorage.getItem('usuario');
+    if (usuario) {
+      this.filtrarInversiones();
+    } else {
+      this.router.navigate(['/login']);
+    }
+
+
+
   }
 
   filtrarInversiones(): void {

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InversionService } from '../../../services/inversion.service';
 import { Inversion } from '../../../models/inversionModel';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-agregar-inversion',
@@ -20,7 +21,12 @@ export class AgregarInversionComponent {
   ) { }
 
   ngOnInit(): void {
-
+    let usuario = localStorage.getItem('usuario');
+    if (usuario) {
+      this.inicializarFormulario();
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 
   inicializarFormulario(): void {

@@ -5,6 +5,7 @@ import { HttpParams } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -25,7 +26,8 @@ export class ListarMensajeComponent implements OnInit {
 
   constructor(private mensajesService: MensajesService,
               private modalService: NgbModal,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private router: Router) {
     this.mensajeForm = this.formBuilder.group({
       contenidoMensaje: ['', Validators.required],
       fechaEnvio: ['', Validators.required],
@@ -35,7 +37,12 @@ export class ListarMensajeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.filtrarMensajes();
+    let usuario = localStorage.getItem('usuario');
+    if (usuario) {
+      this.filtrarMensajes();
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 
   filtrarMensajes(): void {
