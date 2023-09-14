@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 export class AgregarInversionComponent {
   inversionForm: FormGroup = new FormGroup({});
   mensaje: string = '';
+  usuarioId: number | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -22,7 +23,9 @@ export class AgregarInversionComponent {
 
   ngOnInit(): void {
     let usuario = localStorage.getItem('usuario');
-    if (usuario) {
+    let idLs = localStorage.getItem('idUsuario');
+    if (usuario && idLs) {
+      this.usuarioId = parseInt(idLs);
       this.inicializarFormulario();
     } else {
       this.router.navigate(['/login']);
@@ -41,14 +44,20 @@ export class AgregarInversionComponent {
       return;
     }
 
-    const nuevaInversion: Inversion = this.inversionForm.value;
+    const nuevaInversion: any = this.inversionForm.value;
+
+    nuevaInversion.idUsuario = this.usuarioId;
+
     this.InversionService.agregarInversion(nuevaInversion).subscribe(
       () => {
-        this.mensaje = 'Has invertido: ' + nuevaInversion.montoInversion + ' en el proyecto id: '+ nuevaInversion.idProyecto +', con éxito';
+        //this.mensaje = 'Has invertido: ' + nuevaInversion.montoInversion + ' en el proyecto id: '+ nuevaInversion.idProyecto +', con éxito';
         this.inversionForm.reset();
+        Swal.fire('Inversión', 'Se han agregado fondos correctamente' , 'success');
+        this.router.navigate(['/inversion']);
       },
       error => {
         this.mensaje = 'Error al Invertir.';
+        Swal.fire('Mensaje', 'Error al Invertir.' , 'error');
         console.error('Error al crear la inversión:', error);
       }
     );

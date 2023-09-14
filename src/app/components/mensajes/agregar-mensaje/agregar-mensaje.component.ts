@@ -14,6 +14,10 @@ export class AgregarMensajeComponent {
   mensajeForm: FormGroup = new FormGroup({});
   mensaje: string = '';
 
+  //traer idUsuario desde localstorage
+  usuarioId: number | null = null;
+
+
   constructor(
     private formBuilder: FormBuilder,
     private mensajesService: MensajesService,
@@ -22,7 +26,9 @@ export class AgregarMensajeComponent {
 
   ngOnInit(): void {
     let usuario = localStorage.getItem('usuario');
-    if (usuario) {
+    let idLs = localStorage.getItem('idUsuario');
+    if (usuario && idLs) {
+      this.usuarioId = parseInt(idLs);
       this.inicializarFormulario();
     } else {
       this.router.navigate(['/login']);
@@ -42,13 +48,20 @@ export class AgregarMensajeComponent {
     }
 
     const nuevoMensaje: any = this.mensajeForm.value;
+
+    //agregamos id usuario localstorage
+    nuevoMensaje.idUsuarioEnvio = this.usuarioId;
+
     this.mensajesService.agregarMensaje(nuevoMensaje).subscribe((response) => {
-        this.mensaje = response.message;
+        Swal.fire('Mensaje', this.mensaje = response.message , 'success');
         this.mensajeForm.reset();
+        this.router.navigate(['/mensaje']);
+
       },
       error => {
-        this.mensaje = 'Error al agregar el mensaje.';
-        console.error('Error al agregar el mensaje:', error);
+        //this.mensaje = ;
+        Swal.fire('Mensaje', 'Error al enviar el mensaje.', 'error');
+        console.log(this.usuarioId);
       }
     );
   }

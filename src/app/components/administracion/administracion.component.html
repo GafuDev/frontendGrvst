@@ -1,21 +1,25 @@
-<div class="container">
-  <h1>Bienvenido, <span class="nombre-usuario">{{ this.nombre }}</span></h1>
-  <h3>Haz ingresado como <span class="rol-usuario">{{ this.rolUsuario }}</span></h3>
+<div class="cabecera2">
+  <img class="img" src="../../../assets/images/cabecera.png" alt="Logo" height="120px">
+</div>
+
+<div class="main">
+  <h2>Bienvenido, <span class="nombre-usuario">{{ this.nombre }}</span></h2>
+
 
   <div *ngIf="mostrarAgregarUsuario" class="btn-group mt-4" role="group">
-    <button type="button" class="btn btn-primary mr-3">Agregar Usuario</button>
+    <button type="button" class="btn btn-primary mr-3" routerLink="/addusuario">Agregar Usuario</button>
   </div>
 
   <div *ngIf="mostrarAprobarProyectos" class="btn-group mt-4" role="group">
-    <button type="button" class="btn btn-primary mr-3">Aprobar Proyectos</button>
+    <button type="button" class="btn btn-primary mr-3" >Aprobar Proyectos</button>
   </div>
 
   <div *ngIf="mostrarAgregarProyectos" class="btn-group mt-4" role="group">
-    <button type="button" class="btn btn-primary mr-3">Agregar Proyectos</button>
+    <button type="button" class="btn btn-primary mr-3" routerLink="/addproyecto">Agregar Proyectos</button>
   </div>
 
   <div *ngIf="mostrarInvertir" class="btn-group mt-4" role="group">
-    <button type="button" class="btn btn-primary mr-3">Invertir</button>
+    <button type="button" class="btn btn-primary mr-3"routerLink="/addinversion">Invertir</button>
   </div>
 </div>
 

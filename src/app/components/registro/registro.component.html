@@ -1,6 +1,9 @@
-<div class="container">
+<div class="cabecera">
+  <img class="img" src="../../../assets/images/cabecera.png" alt="Logo" height="120px">
+</div>
+
+<div class="main">
   <div class="form">
-    <img class="img" src="../../../assets/images/avatar-griinvest.jpg" alt="Logo">
     <h2>REGÍSTRATE</h2>
     <form *ngIf="usuarioForm" [formGroup]="usuarioForm" (ngSubmit)="agregarUsuario()">
       <div class="mb-3 d-flex align-items-center">
@@ -185,6 +188,7 @@
         <label for="idRol" class="form-label me-3">Rol:</label>
         <select id="idRol" name="idRol" class="form-control custom-input" formControlName="idRol">
           <option value="" selected>Selecciona Rol</option>
+          <option value="1">Administrador</option>
           <option value="3">Emprendedor</option>
           <option value="4">Inversionista</option>
         </select>

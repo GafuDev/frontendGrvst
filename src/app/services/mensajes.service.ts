@@ -8,7 +8,10 @@ import { Mensaje } from '../models/mensajeModel';
 })
 export class MensajesService {
 
-  private apiUrl = 'http://localhost:3000/mensaje';
+  private apiUrl = 'https://griinvest.cl/mensaje';
+  
+  //private apiUrl = 'http://localhost:3000/mensaje';
+
 
   constructor(private http: HttpClient) {}
 

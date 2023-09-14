@@ -71,22 +71,35 @@ export class ListarInversionComponent implements OnInit {
   }
 
   editarInversion(inversion: Inversion, content: any): void {
+
+    this.inversionForm.patchValue({
+      montoInversion: inversion.montoInversion,
+    });
+
     const modalRef = this.modalService.open(content);
-    modalRef.result.then(
+
+        modalRef.result.then(
       (result: Inversion | undefined) => {
         if (result) {
+
+          const valoresActualizados = this.inversionForm.value;
+
+          inversion.montoInversion = valoresActualizados.montoInversion;
+
           this.inversionService.actualizarInversion(inversion).subscribe(
             updatedInvest => {
               this.inversiones = this.inversiones.map(u => (u.idInversion === updatedInvest.idInversion ? updatedInvest : u));
               this.inversionForm.reset();
+              Swal.fire('Actualización', 'Inversión actualizada correctamente', 'success');
             },
             error => {
+              Swal.fire('Actualización', error , 'error');
               console.error('Error al actualizar inversión:', error);
             }
           );
         }
       },
-      () => {}
+      () => { }
     );
   }
 
@@ -95,6 +108,7 @@ export class ListarInversionComponent implements OnInit {
       this.inversionService.eliminarInversion(idInversion).subscribe(
         () => {
           this.inversiones = this.inversiones.filter(inversion => inversion.idInversion !== idInversion);
+          Swal.fire('Inversión', 'eliminada correctamente', 'success');
         },
         error => {
           console.error('Error al eliminar registro de inversión:', error);

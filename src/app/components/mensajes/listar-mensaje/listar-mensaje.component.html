@@ -1,36 +1,36 @@
-<div class="container">
+<div class="cabecera">
+  <img class="img" src="../../../assets/images/cabecera.png" alt="Logo" height="120px">
+</div>
+
+<div class="main">
   <h2>LISTAR MENSAJES</h2>
   <div>
     <div>
-      <button type="button" routerLink="/addinversion" class="btn btn-secondary mr-3 mb-3">Agregar Mensaje</button>
+      <button type="button" routerLink="/addmensaje" class="btn btn-secondary mr-3 mb-3">Agregar Mensaje</button>
     </div>
   </div>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Contenido Mensaje</th>
-        <th>Fecha Envío</th>
-        <th>ID Usuario Envío</th>
-        <th>ID Usuario Recibe</th>
-        <th>Fecha Creación</th>
-        <th>Fecha Actualización</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let mensaje of mensajes">
-        <td>{{ mensaje.idMensaje }}</td>
-        <td>{{ mensaje.contenidoMensaje }}</td>
-        <td>{{ mensaje.fechaEnvio }}</td>
-        <td>{{ mensaje.idUsuarioEnvio }}</td>
-        <td>{{ mensaje.idUsuarioRecibe }}</td>
-        <td>{{ mensaje.createAt }}</td>
-        <td>{{ mensaje.updateAt }}</td>
-        <td>
-          <button (click)="eliminarMensaje(mensaje.idMensaje!)" class="btn btn-sm btn-danger">Eliminar</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div *ngIf="mostrarFiltros">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Contenido Mensaje</th>
+          <th>ID Usuario Envío</th>
+          <th>ID Usuario Recibe</th>
+          <th>Fecha Creación</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let mensaje of mensajes">
+          <td>{{ mensaje.contenidoMensaje }}</td>
+          <td>{{ mensaje.idUsuarioEnvio }}</td>
+          <td>{{ mensaje.idUsuarioRecibe }}</td>
+          <td>{{ mensaje.createAt }}</td>
+          <td>
+            <button (click)="eliminarMensaje(mensaje.idMensaje!)" class="btn btn-sm btn-danger me-3">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

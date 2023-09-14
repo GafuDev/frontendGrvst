@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { Usuario } from '../../../models/usuarioModel';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-agregar-usuario',
@@ -51,11 +52,12 @@ export class AgregarUsuarioComponent {
     const nuevoUsuario: Usuario[] = [this.usuarioForm.value];
     this.usuariosService.agregarUsuario(nuevoUsuario).subscribe(
       () => {
-        this.mensaje = 'Usuario agregado correctamente.';
+        Swal.fire('Nuevo Usuario','se ha registrado correctamente' , 'success');
         this.usuarioForm.reset();
       },
       error => {
         this.mensaje = 'Error al agregar el usuario.';
+        Swal.fire('Error', this.mensaje, 'error');
         console.error('Error al agregar el usuario:', error);
       }
     );

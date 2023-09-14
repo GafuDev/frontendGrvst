@@ -1,16 +1,24 @@
+/* Estilos generales */
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: Arial, sans-serif, Helvetica, sans-serif;
 }
 
+/* Contenedor principal */
 .main-container {
-  display: flex;
-  height: 60vh;
+  display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-gap: 40px;
+  grid-auto-rows: minmax(300px, auto);
+  padding: 20px 0;
+  background-color: rgb(0, 0, 0);
 }
 
+/* Contenido izquierdo */
 .left-content {
-  flex: 1;
+  min-height: 200px;
   padding: 20px;
+  box-sizing: border-box;
   background-color: #020000;
   display: flex;
   flex-direction: column;
@@ -18,82 +26,93 @@ body {
   align-items: center;
 }
 
-.left-content-slogan{
+/* Slogan del contenido izquierdo */
+.left-content-slogan {
   text-align: center;
   color: #f6f6f6;
   font-weight: bold;
   font-size: 2.0rem;
 }
 
+/* Contenido derecho */
 .right-content {
-  flex: 1;
+  box-sizing: border-box;
+  min-height: 200px;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-end;
+  justify-content: center;
+  align-items: center;
 }
 
+/* Carrusel */
 .carousel {
   width: 100%;
-  height: 60vh;
+  min-height: 100px;
   background-color: #141412;
 }
 
+/* Contenedor de tarjetas */
 .card-container {
   display: flex;
   gap: 15px;
   align-items: center;
 }
 
+/* Tarjeta */
 .card {
   flex: 1;
   margin-left: auto;
   margin-right: auto;
-  max-width: 30%;
+  max-width: 100%;
   background-color: #f6f6f6;
-  border: 3px solid #070707;
+  border: 1px solid #070707;
   margin-top: 15px;
-  padding: 30px;
-  display:flex;
+  display: flex;
   flex-direction: column;
-  align-items:center;
+  align-items: center;
 }
 
+/* Imagen de la tarjeta */
 .card img {
   max-width: 100%;
   height: auto;
+  margin-bottom: 30px;
 }
 
-.card-title{
-  text-align:center;
+/* Título de la tarjeta */
+.card-title {
+  text-align: center;
   font-weight: bold;
   font-size: 1.7rem;
 }
 
-.card-text{
+/* Texto de la tarjeta */
+.card-text {
   text-align: justify;
 }
 
-.list-group{
+/* Lista de grupos */
+.list-group {
   text-align: center;
   font-size: 1.1rem;
-  font-weight: bolder;
+  font-weight: bold;
 }
 
-.card-link{
+/* Enlace de la tarjeta */
+.card-link {
   text-align: center;
   font-size: 1.4rem;
-  font-weight: bolder;
+  font-weight: bold;
 }
 
+/* Botón de unirse */
 .join-button {
-  cursor: pointer;
-  font-size: 24px;
-  padding: 20px 40px;
+  margin-top: 30px;
+  font-size: 20px;
+  padding: 10px 20px;
   border: none;
   background-color: #4CAF50;
   color: white;
-  font-weight: bolder;
+  font-weight: bold;
   border-radius: 10px;
   cursor: pointer;
   transition: background-color 0.3s;
@@ -102,4 +121,24 @@ body {
 .join-button:hover {
   background-color: #17731c;
   color: rgb(0, 0, 0);
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 40px;
+}
+
+@media screen and (max-width:790px) {
+  .left-content-slogan {
+    font-size: 30px !important;
+  }
+
+  .main-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .grid-2 {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }

@@ -1,4 +1,8 @@
-<div class="container">
+<div class="cabecera">
+  <img class="img" src="../../../assets/images/cabecera.png" alt="Logo" height="120px">
+</div>
+
+<div class="main">
   <div class="form">
     <h2>AGREGAR MENSAJE</h2>
     <form [formGroup]="mensajeForm" (ngSubmit)="agregarMensaje()">
@@ -17,7 +21,7 @@
         <strong>El id no puede estar vacío.</strong>
       </div>
       <div class="mb-3">
-        <button type="button" (click)="agregarMensaje()" class="btn btn-primary btn-long">Enviar Mensaje</button>
+        <button type="button" (click)="agregarMensaje()" class="btn btn-primary btn-long me-3">Enviar Mensaje</button>
         <button type="button" routerLink="/administracion" class="btn btn-danger btn-long ml-3">Cancelar</button>
       </div>
     </form>

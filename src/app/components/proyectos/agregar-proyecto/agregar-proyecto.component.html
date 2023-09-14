@@ -58,7 +58,7 @@
       </div>
       <div class="mb-3">
         <label for="logoProyecto" class="form-label">Imágen Proyecto:</label>
-        <input type="file" id="logoProyecto" name="logoProyecto" (change)="onLogoFileSelected($event)">
+        <input type="file" id="logoProyecto" name="logoProyecto" (change)="capturarLogo($event)">
       </div>
       <div *ngIf="proyectoForm?.get('logoProyecto')?.touched && proyectoForm?.get('logoProyecto')?.hasError('required')" class="text-danger">
         <strong>Este campo no puede estar vacío.</strong>
@@ -101,7 +101,7 @@
         <strong>Debes seleccionar una categoría.</strong>
       </div>
       <div class="mb-3">
-        <button type="submit" class="btn btn-primary btn-long">Agregar Proyecto</button>
+        <button type="submit" class="btn btn-primary btn-long me-3">Agregar Proyecto</button>
         <button type="button" routerLink="/administracion" class="btn btn-danger btn-long ml-3">Cancelar</button>
       </div>
     </form>

@@ -7,7 +7,9 @@ import { Categoria } from '../models/categoriaModel';
   providedIn: 'root'
 })
 export class CategoriaService {
-  private baseUrl = 'http://localhost:3000/proyecto';
+  private baseUrl = 'https://griinvest.cl/proyecto';
+
+  //private apiUrl = 'http://localhost:3000/proyecto';
 
   constructor(private http: HttpClient) {}
 

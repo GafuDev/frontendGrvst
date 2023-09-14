@@ -9,7 +9,9 @@ import { Comuna } from '../models/comunaModel';
   providedIn: 'root'
 })
 export class UsuariosService {
-  private apiUrl = 'http://localhost:3000/usuario';
+  private apiUrl = 'https://griinvest.cl/usuario';
+
+  //private apiUrl = 'http://localhost:3000/usuario';
 
   constructor(private http: HttpClient) {}
 

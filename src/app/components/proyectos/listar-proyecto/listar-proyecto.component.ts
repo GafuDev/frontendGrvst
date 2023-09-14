@@ -75,22 +75,48 @@ export class ListarProyectoComponent implements OnInit {
   }
 
   editarProyecto(proyecto: Proyecto, content: any): void {
+    this.proyectoForm.patchValue({
+      nombreProyecto: proyecto.nombreProyecto,
+      descripcionProyecto: proyecto.descripcionProyecto,
+      fechaInicio: proyecto.fechaInicio,
+      montoFinanciar: proyecto.montoFinanciar,
+      resumenProyecto: proyecto.resumenProyecto,
+      linkProyecto: proyecto.linkProyecto,
+      logoProyecto: proyecto.logoProyecto,
+      idCategoria: proyecto.idCategoria
+    });
+
     const modalRef = this.modalService.open(content);
+
     modalRef.result.then(
       (result: Proyecto | undefined) => {
         if (result) {
+
+          const valoresActualizados = this.proyectoForm.value;
+
+          proyecto.nombreProyecto = valoresActualizados.nombreProyecto;
+          proyecto.descripcionProyecto = valoresActualizados.descripcionProyecto;
+          proyecto.fechaInicio = valoresActualizados.fechaInicio;
+          proyecto.montoFinanciar = valoresActualizados.montoFinanciar;
+          proyecto.resumenProyecto = valoresActualizados.resumenProyecto;
+          proyecto.linkProyecto = valoresActualizados.linkProyecto;
+          proyecto.logoProyecto = valoresActualizados.logoProyecto;
+          proyecto.idCategoria = valoresActualizados.idCategoria;
+
           this.proyectosService.actualizarProyecto(proyecto).subscribe(
             updatedProject => {
               this.proyectos = this.proyectos.map(p => (p.idProyecto === updatedProject.idProyecto ? updatedProject : p));
               this.proyectoForm.reset();
+              Swal.fire('Actualización', 'Proyecto actualizado correctamente', 'success');
             },
             error => {
+              Swal.fire('Actualización', error , 'error');
               console.error('Error al actualizar proyecto:', error);
             }
           );
         }
       },
-      () => {}
+      () => { }
     );
   }
 

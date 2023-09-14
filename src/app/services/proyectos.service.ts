@@ -7,7 +7,9 @@ import { Proyecto } from '../models/proyectoModel';
   providedIn: 'root'
 })
 export class ProyectosService {
-  private apiUrl = 'http://localhost:3000/proyecto';
+  private apiUrl = 'https://griinvest.cl/proyecto';
+
+  //private apiUrl = 'http://localhost:3000/proyecto';
 
   constructor(private http: HttpClient) {}
 

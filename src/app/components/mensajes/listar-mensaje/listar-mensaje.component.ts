@@ -15,6 +15,11 @@ import Swal from 'sweetalert2';
 })
 export class ListarMensajeComponent implements OnInit {
   mensajeForm: FormGroup = new FormGroup({});
+
+  //listar mensajes creados por el usuario logueado
+  usuarioId: number | null = null;
+
+
   filtro: Mensaje = {
     idMensaje: undefined,
     contenidoMensaje: undefined,
@@ -38,7 +43,9 @@ export class ListarMensajeComponent implements OnInit {
 
   ngOnInit(): void {
     let usuario = localStorage.getItem('usuario');
-    if (usuario) {
+    let idLs = localStorage.getItem('idUsuario');
+    if (usuario && idLs) {
+      this.usuarioId = parseInt(idLs);
       this.filtrarMensajes();
     } else {
       this.router.navigate(['/login']);
@@ -48,19 +55,14 @@ export class ListarMensajeComponent implements OnInit {
   filtrarMensajes(): void {
     let params = new HttpParams();
 
-    if (this.filtro.idMensaje) {
-      params = params.set('idMensaje', this.filtro.idMensaje.toString());
-    }
-    if (this.filtro.idUsuarioEnvio) {
-      params = params.set('idUsuarioEnvio', this.filtro.idUsuarioEnvio.toString());
-    }
-    if (this.filtro.fechaEnvio) {
-      params = params.set('Fecha Envío', this.filtro.fechaEnvio.toString());
+    if (this.usuarioId !== null) {
+      params = params.set('idUsuarioEnvio', this.usuarioId.toString());
     }
 
     this.mensajesService.obtenerMensaje(params).subscribe(
       (mensajes: Mensaje[]) => {
         this.mensajes = mensajes;
+        this.mostrarFiltros = true;
       },
       error => {
         console.error('Error al obtener mensajes:', error);
@@ -93,6 +95,7 @@ export class ListarMensajeComponent implements OnInit {
       this.mensajesService.eliminarMensaje(idMensaje).subscribe(
         () => {
           this.mensajes = this.mensajes.filter(mensaje => mensaje.idMensaje !== idMensaje);
+          Swal.fire('Mensaje', 'Eliminado con exito' , 'success');
         },
         error => {
           console.error('Error al eliminar mensaje:', error);

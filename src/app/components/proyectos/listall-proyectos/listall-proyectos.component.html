@@ -1,30 +1,30 @@
-<div class="card-container">
-  <div class="card" *ngFor="let proyecto of proyectos" style="width: 18rem;">
-    <img [src]="proyecto.logoProyecto" class="card-img-top" alt="Card Image">
-    <div class="card-body">
-      <h5 class="card-title">{{ proyecto.nombreProyecto }}</h5>
-      <p class="card-text">{{ proyecto.descripcionProyecto }}</p>
-    </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">Monto Adquirido: {{ proyecto.montoAdquirido }}</li>
-      <li class="list-group-item">
-        <div class="progress">
-          <div class="progress-bar"
-               role="progressbar"
-               [style.width.%]="(proyecto.montoAdquirido && proyecto.montoFinanciar) ? proyecto.montoAdquirido / proyecto.montoFinanciar * 100 : 0"
-               [attr.aria-valuenow]="proyecto.montoAdquirido"
-               aria-valuemin="0"
-               [attr.aria-valuemax]="proyecto.montoFinanciar"></div>
-        </div>
-      </li>
-    </ul>
-    <div class="card-body">
-      <a [href]="proyecto.linkProyecto" class="card-link">Ver más</a>
-      <a routerLink="/allproyectos" class="card-link">Más similares</a>
+<div class="cabecera">
+  <img class="img" src="../../../assets/images/cabecera.png" alt="Logo" height="120px">
+</div>
+<div class="main">
+
+  <div class="card-container">
+    <div class="card" *ngFor="let proyecto of proyectos" style="width: 18rem;">
+      <img [src]="proyecto.logoProyecto" class="card-img-top" alt="Card Image">
+      <div class="card-body">
+        <h5 class="card-title">{{ proyecto.nombreProyecto }}</h5>
+        <p class="card-text">{{ proyecto.descripcionProyecto }}</p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Monto Adquirido: {{ proyecto.montoAdquirido }}</li>
+        <li class="list-group-item">
+          <div class="progress">
+            <div class="progress-bar" role="progressbar"
+              [style.width.%]="(proyecto.montoAdquirido && proyecto.montoFinanciar) ? proyecto.montoAdquirido / proyecto.montoFinanciar * 100 : 0"
+              [attr.aria-valuenow]="proyecto.montoAdquirido" aria-valuemin="0"
+              [attr.aria-valuemax]="proyecto.montoFinanciar"></div>
+          </div>
+        </li>
+      </ul>
+      <div class="card-body">
+        <a [href]="proyecto.linkProyecto" class="card-link">Ver más</a>
+        <a routerLink="/allproyectos" class="card-link">Más similares</a>
+      </div>
     </div>
   </div>
 </div>
-
-
-
-

@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
   @ViewChild('sidenav') sidenav!: MatSidenav;
 
-  userRole: string | null = 'rol'; //string | null = null;
+  userRole: string | null = 'rol'; 
 
   constructor(private authService: AuthService) {}
 

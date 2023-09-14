@@ -7,7 +7,9 @@ import { Inversion } from '../models/inversionModel';
   providedIn: 'root'
 })
 export class InversionService {
-  private apiUrl = 'http://localhost:3000/inversion';
+  private apiUrl = 'https://griinvest.cl/inversion';
+
+   //private apiUrl = 'http://localhost:3000/inversion';
 
   constructor(private http: HttpClient) {}
 
