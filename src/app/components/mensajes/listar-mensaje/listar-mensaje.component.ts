@@ -3,9 +3,11 @@ import { MensajesService } from '../../../services/mensajes.service';
 import { Mensaje } from '../../../models/mensajeModel';
 import { HttpParams } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule,FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { Usuario } from '../../../models/usuarioModel';
+import { UsuariosService } from '../../../services/usuarios.service';
 
 
 @Component({
@@ -14,11 +16,17 @@ import Swal from 'sweetalert2';
   styleUrls: ['./listar-mensaje.component.css']
 })
 export class ListarMensajeComponent implements OnInit {
+
+  //solucion para responder mensajes
+  mensajeAResponder: Mensaje | null = null;
+  respuesta: string = '';
+  respuestaEnviada: boolean = false;
+  mensajeRespuesta: string = '';
+
   mensajeForm: FormGroup = new FormGroup({});
 
   //listar mensajes creados por el usuario logueado
   usuarioId: number | null = null;
-
 
   filtro: Mensaje = {
     idMensaje: undefined,
@@ -26,6 +34,7 @@ export class ListarMensajeComponent implements OnInit {
     fechaEnvio: undefined
   };
   mensajes: Mensaje[] = [];
+
   @ViewChild('contenidoModal') contenidoModal: any;
   mostrarFiltros = false;
 
@@ -103,5 +112,46 @@ export class ListarMensajeComponent implements OnInit {
       );
     }
   }
+
+  //respuesta mensaje
+  abrirFormularioRespuesta(mensaje: Mensaje) {
+    this.mensajeAResponder = mensaje;
+    this.respuesta = '';
+  }
+
+  enviarRespuesta() {
+    if (this.respuesta.trim() === '' || !this.mensajeAResponder) {
+      return;
+    }
+
+    const respuesta: Mensaje = {
+      contenidoMensaje: this.respuesta,
+      idUsuarioEnvio: this.usuarioId || 0,
+      idUsuarioRecibe: this.mensajeAResponder.idUsuarioEnvio
+    };
+
+    this.mensajesService.agregarMensaje(respuesta).subscribe((response) => {
+      this.respuesta = '';
+      this.mensajeForm.reset();
+      this.mensajeAResponder = null;
+      this.respuestaEnviada = true;
+      this.mensajeRespuesta = response.message;
+    }, error => {
+      this.respuestaEnviada = true;
+      this.mensajeRespuesta = 'Error al enviar el mensaje.';
+      console.error(error);
+    });
+  }
+
+  cancelarRespuesta() {
+    this.respuesta = '';
+    this.mensajeForm.reset();
+    this.mensajeAResponder = null;
+  }
+
+
+  //obtener el nombre de usuario según su id
+
+
 }
 

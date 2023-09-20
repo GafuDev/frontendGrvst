@@ -37,3 +37,51 @@ h2{
 .text-danger{
   font-size: 11px;
 }
+
+.grid-2 {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-gap: 40px;
+}
+
+.grid-3 {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-gap: 40px;
+}
+
+.grid-4 {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-gap: 40px;
+}
+
+@media screen and (max-width: 480px){
+
+  .left-content-slogan {
+    font-size: 30px;
+  }
+
+  .left-content {
+    width: 100%;
+  }
+
+  .right-content {
+    width: 100%;
+  }
+
+  .grid-2 {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .grid-3 {
+
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .grid-4 {
+
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  }

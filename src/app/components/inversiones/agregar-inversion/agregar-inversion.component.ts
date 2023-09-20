@@ -4,6 +4,9 @@ import { InversionService } from '../../../services/inversion.service';
 import { Inversion } from '../../../models/inversionModel';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { ProyectosService } from 'src/app/services/proyectos.service';
+import { Proyecto } from 'src/app/models/proyectoModel';
+import { HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-agregar-inversion',
@@ -15,10 +18,15 @@ export class AgregarInversionComponent {
   mensaje: string = '';
   usuarioId: number | null = null;
 
+  //muestra nombres de los protyectos para agregar inversion
+  proyectos: Proyecto[] = [];
+
+
   constructor(
     private formBuilder: FormBuilder,
     private InversionService: InversionService,
-    private router: Router
+    private router: Router,
+    private proyectoService: ProyectosService
   ) { }
 
   ngOnInit(): void {
@@ -27,6 +35,7 @@ export class AgregarInversionComponent {
     if (usuario && idLs) {
       this.usuarioId = parseInt(idLs);
       this.inicializarFormulario();
+      this.cargarProyectos();
     } else {
       this.router.navigate(['/login']);
     }
@@ -59,6 +68,17 @@ export class AgregarInversionComponent {
         this.mensaje = 'Error al Invertir.';
         Swal.fire('Mensaje', 'Error al Invertir.' , 'error');
         console.error('Error al crear la inversión:', error);
+      }
+    );
+  }
+  //mostrará los nombres de los proyecots cargados en la bd para poder invertir
+  cargarProyectos(): void {
+    this.proyectoService.obtenerProyectos(new HttpParams()).subscribe(
+      (proyectos: Proyecto[]) => {
+        this.proyectos = proyectos;
+      },
+      error => {
+        console.error('Error al obtener proyectos:', error);
       }
     );
   }

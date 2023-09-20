@@ -6,6 +6,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { ProyectosService } from 'src/app/services/proyectos.service';
+import { Proyecto } from 'src/app/models/proyectoModel';
 
 @Component({
   selector: 'app-listar-inversion',
@@ -20,13 +22,20 @@ export class ListarInversionComponent implements OnInit {
     createAt: undefined
   };
   inversiones: Inversion[] = [];
+
+  //mostrar nombres proyectos
+  proyectos: Proyecto[] = [];
+  proyectosCargados: boolean = false;
+
   @ViewChild('contenidoModal') contenidoModal: any;
   mostrarFiltros = false;
 
   constructor(private inversionService: InversionService,
-              private modalService: NgbModal,
-              private formBuilder: FormBuilder,
-              private router: Router) {
+    private modalService: NgbModal,
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private proyectoService: ProyectosService,
+  ) {
     this.inversionForm = this.formBuilder.group({
       montoInversion: ['', Validators.required],
       fechaInversion: ['', Validators.required],
@@ -39,6 +48,8 @@ export class ListarInversionComponent implements OnInit {
     let usuario = localStorage.getItem('usuario');
     if (usuario) {
       this.filtrarInversiones();
+      //mostrar nombre proytectos
+      this.obtenerProyectos();
     } else {
       this.router.navigate(['/login']);
     }
@@ -50,15 +61,15 @@ export class ListarInversionComponent implements OnInit {
   filtrarInversiones(): void {
     let params = new HttpParams();
 
-  if (this.filtro.idInversion) {
-    params = params.set('idInversion', this.filtro.idInversion);
-  }
-  if (this.filtro.idProyecto) {
-    params = params.set('idProyecto', this.filtro.idProyecto.toString());
-  }
-  if (this.filtro.createAt) {
-    params = params.set('Fecha Creación', this.filtro.createAt.toString());
-  }
+    if (this.filtro.idInversion) {
+      params = params.set('idInversion', this.filtro.idInversion);
+    }
+    if (this.filtro.idProyecto) {
+      params = params.set('idProyecto', this.filtro.idProyecto.toString());
+    }
+    if (this.filtro.createAt) {
+      params = params.set('Fecha Creación', this.filtro.createAt.toString());
+    }
 
     this.inversionService.obtenerInversion(params).subscribe(
       (inversiones: Inversion[]) => {
@@ -78,7 +89,7 @@ export class ListarInversionComponent implements OnInit {
 
     const modalRef = this.modalService.open(content);
 
-        modalRef.result.then(
+    modalRef.result.then(
       (result: Inversion | undefined) => {
         if (result) {
 
@@ -93,7 +104,7 @@ export class ListarInversionComponent implements OnInit {
               Swal.fire('Actualización', 'Inversión actualizada correctamente', 'success');
             },
             error => {
-              Swal.fire('Actualización', error , 'error');
+              Swal.fire('Actualización', error, 'error');
               console.error('Error al actualizar inversión:', error);
             }
           );
@@ -114,6 +125,35 @@ export class ListarInversionComponent implements OnInit {
           console.error('Error al eliminar registro de inversión:', error);
         }
       );
+    }
+  }
+
+  //funcion para mostrar los nombres de los proyectos en listar inversiones
+  //trae todos los proyectos
+  obtenerProyectos(): void {
+    this.proyectoService.obtenerProyectos(new HttpParams()).subscribe(
+      (proyectos: Proyecto[]) => {
+        this.proyectos = proyectos;
+        this.proyectosCargados = true;
+      },
+      error => {
+        console.error('Error al obtener proyectos:', error);
+      }
+    );
+  }
+  //obtiene el nombre, lo compara y si no lo encuentra muesta proyecto griinvest o proyecto no encontrado
+  //si se demora en cargar, muestra el mensaje cargando.
+  obtenerNombreProyecto(idProyecto: number): string {
+
+    if (this.proyectosCargados) {
+      const proyecto = this.proyectos.find(p => p.idProyecto === idProyecto);
+      if (proyecto) {
+        return proyecto.nombreProyecto || 'Proyecto Griinvest';
+      } else {
+        return 'Proyecto no encontrado';
+      }
+    } else {
+      return 'Cargando...';
     }
   }
 }

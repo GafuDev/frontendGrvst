@@ -3,32 +3,85 @@
 </div>
 
 <div class="main">
-  <h2>LISTAR MENSAJES</h2>
   <div>
-    <div>
-      <button type="button" routerLink="/addmensaje" class="btn btn-secondary mr-3 mb-3">Agregar Mensaje</button>
-    </div>
+    <!-- <button type="button" routerLink="/addmensaje" class="btn btn-secondary mr-3 mb-3">Agregar Mensaje</button> -->
   </div>
-  <div *ngIf="mostrarFiltros">
+</div>
+
+<div class="main">
+  <h2>MENSAJES RECIBIDOS</h2>
+  <h2 *ngIf="mensajes.length === 0">No hay mensajes para mostrar</h2>
+  <div *ngIf="mensajes.length > 0">
     <table class="table table-striped">
       <thead>
         <tr>
           <th>Contenido Mensaje</th>
-          <th>ID Usuario Envío</th>
-          <th>ID Usuario Recibe</th>
+          <th>Usuario Envío</th>
           <th>Fecha Creación</th>
           <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let mensaje of mensajes">
-          <td>{{ mensaje.contenidoMensaje }}</td>
-          <td>{{ mensaje.idUsuarioEnvio }}</td>
-          <td>{{ mensaje.idUsuarioRecibe }}</td>
-          <td>{{ mensaje.createAt }}</td>
-          <td>
-            <button (click)="eliminarMensaje(mensaje.idMensaje!)" class="btn btn-sm btn-danger me-3">Eliminar</button>
-          </td>
+          <ng-container *ngIf="mensaje.idUsuarioRecibe === usuarioId">
+            <td>{{ mensaje.contenidoMensaje }}</td>
+            <td>{{ mensaje.idUsuarioEnvio }}</td>
+            <td>{{ mensaje.createAt }}</td>
+            <td>
+              <button class="btn btn-sm btn-info me-3" (click)="abrirFormularioRespuesta(mensaje)">Responder</button>
+              <button (click)="eliminarMensaje(mensaje.idMensaje!)" class="btn btn-sm btn-danger me-3">Eliminar</button>
+            </td>
+          </ng-container>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="main">
+  <div *ngIf="mensajeAResponder">
+    <h3>Responder al Mensaje</h3>
+    <form [formGroup]="mensajeForm">
+      <div class="mb-3">
+        <textarea rows="4" cols="50" id="respuesta" name="respuesta" class="form-control custom-input"
+          formControlName="respuesta"></textarea>
+      </div>
+      <div class="mb-3">
+        <button type="button" (click)="enviarRespuesta()" class="btn btn-primary btn-long me-3">Enviar
+          Respuesta</button>
+        <button type="button" (click)="cancelarRespuesta()" class="btn btn-danger btn-long ml-3">Cancelar</button>
+      </div>
+    </form>
+  </div>
+
+  <div *ngIf="respuestaEnviada">
+    <p>{{ mensajeRespuesta }}</p>
+  </div>
+</div>
+
+<div class="main">
+  <h2>MENSAJES ENVIADOS</h2>
+  <h2 *ngIf="mensajes.length === 0">No hay mensajes para mostrar</h2>
+  <div *ngIf="mensajes.length > 0">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Contenido Mensaje</th>
+          <th>Usuario Recibe</th>
+          <th>Fecha Creación</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let mensaje of mensajes">
+          <ng-container *ngIf="mensaje.idUsuarioEnvio === usuarioId">
+            <td>{{ mensaje.contenidoMensaje }}</td>
+            <td>{{ mensaje.idUsuarioRecibe }}</td>
+            <td>{{ mensaje.createAt }}</td>
+            <td>
+              <button (click)="eliminarMensaje(mensaje.idMensaje!)" class="btn btn-sm btn-danger me-3">Eliminar</button>
+            </td>
+          </ng-container>
         </tr>
       </tbody>
     </table>

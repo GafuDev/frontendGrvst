@@ -7,7 +7,7 @@ export class Proyecto {
   montoAdquirido?: number;
   resumenProyecto?: string;
   linkProyecto?: string;
-  logoProyecto?: File;
+  logoProyecto?: string;
   idCategoria?: number;
   idUsuario?: number;
   createAt?: Date;

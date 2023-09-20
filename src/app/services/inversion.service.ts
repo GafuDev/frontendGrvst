@@ -36,4 +36,10 @@ export class InversionService {
     const url = `${this.apiUrl}/editar/${inversion.idInversion}`;
     return this.http.put<Inversion>(url, inversion);
   }
+
+  //obtener total inversiones
+  obtenerTotalInversionesPorProyecto(inversion: Inversion): Observable<number> {
+    const url = `${this.apiUrl}/totalPorProyecto/${inversion.idProyecto}`;
+    return this.http.get<number>(url);
+  }
 }

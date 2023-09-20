@@ -56,12 +56,10 @@ export class AgregarMensajeComponent {
         Swal.fire('Mensaje', this.mensaje = response.message , 'success');
         this.mensajeForm.reset();
         this.router.navigate(['/mensaje']);
-
       },
       error => {
         //this.mensaje = ;
         Swal.fire('Mensaje', 'Error al enviar el mensaje.', 'error');
-        console.log(this.usuarioId);
       }
     );
   }

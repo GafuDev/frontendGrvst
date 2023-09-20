@@ -11,9 +11,9 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
   @ViewChild('sidenav') sidenav!: MatSidenav;
 
-  userRole: string | null = 'rol'; 
+  userRole: string | null = 'rol';
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     this.userRole = this.authService.obtenerUsuarioAutenticado();
@@ -30,8 +30,9 @@ export class NavbarComponent implements OnInit {
     return this.authService.isAuthenticated();
   }
 
-  cerrarSesion() {
-    this.authService.logout();
+  async cerrarSesion() {
+    await this.authService.logout();
+    this.router.navigate(['/'])
   }
 }
 

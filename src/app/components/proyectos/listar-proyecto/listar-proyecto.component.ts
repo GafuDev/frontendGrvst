@@ -6,6 +6,10 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { UsuariosService } from '../../../services/usuarios.service';
+import { forkJoin } from 'rxjs';
+import { Usuario } from 'src/app/models/usuarioModel';
+
 
 @Component({
   selector: 'app-listar-proyecto',
@@ -21,13 +25,45 @@ export class ListarProyectoComponent implements OnInit {
   };
   usuario: any;
   proyectos: Proyecto[] = [];
+
+  usuarioId: any;
+  //almacena categorias
+  categorias: { id: number; nombre: string }[] = [
+    { id: 1, nombre: 'Energías Renovables' },
+    { id: 2, nombre: 'Reciclaje y Gestión de Residuos' },
+    { id: 3, nombre: 'Agricultura Orgánica' },
+    { id: 4, nombre: 'Transporte Sostenible' },
+    { id: 5, nombre: 'Construcción Sustentable' },
+    { id: 6, nombre: 'Tecnología Limpia' },
+    { id: 7, nombre: 'Turismo Ecológico' },
+    { id: 8, nombre: 'Educación Ambiental' },
+    { id: 9, nombre: 'Biotecnología' },
+    { id: 10, nombre: 'Moda Sostenible' },
+    { id: 11, nombre: 'Alimentación Saludable' },
+    { id: 12, nombre: 'Agua y Saneamiento' },
+    { id: 13, nombre: 'Emprendimientos Sociales' },
+    { id: 14, nombre: 'Economía Circular' },
+    { id: 15, nombre: 'Salud y Bienestar Natural' },
+    { id: 16, nombre: 'Eco-Turismo' },
+    { id: 17, nombre: 'Energía Solar' },
+    { id: 18, nombre: 'Movilidad Eléctrica' },
+    { id: 19, nombre: 'Producción de Alimentos Orgánicos' },
+    { id: 20, nombre: 'Moda Reciclada' },
+    { id: 21, nombre: 'Arquitectura Sostenible' },
+    { id: 22, nombre: 'Educación Ambiental' },
+    { id: 23, nombre: 'Gestión Forestal Sostenible' },
+    { id: 24, nombre: 'Tecnología para la Conservación' },
+    { id: 25, nombre: 'Emprendimientos Verdes' }
+  ];
+
   @ViewChild('contenidoModal') contenidoModal: any;
   mostrarFiltros = false;
 
   constructor(private proyectosService: ProyectosService,
               private modalService: NgbModal,
               private formBuilder: FormBuilder,
-              private router: Router) {
+              private router: Router,
+              private usuariosService: UsuariosService) {
     this.proyectoForm = this.formBuilder.group({
       nombreProyecto: ['', Validators.required],
       descripcionProyecto: ['', Validators.required],
@@ -44,7 +80,9 @@ export class ListarProyectoComponent implements OnInit {
 
   ngOnInit(): void {
     let usuario = localStorage.getItem('usuario');
-    if (usuario) {
+    let idLs = localStorage.getItem('idUsuario');
+    if (usuario && idLs) {
+      this.usuarioId = parseInt(idLs);
       this.filtrarProyectos();
     } else {
       this.router.navigate(['/login']);
@@ -66,12 +104,16 @@ export class ListarProyectoComponent implements OnInit {
 
     this.proyectosService.obtenerProyectos(params).subscribe(
       (proyectos: Proyecto[]) => {
+
+
         this.proyectos = proyectos;
+        console.log(proyectos);
       },
       error => {
         console.error('Error al obtener proyectos:', error);
       }
     );
+
   }
 
   editarProyecto(proyecto: Proyecto, content: any): void {
@@ -108,6 +150,7 @@ export class ListarProyectoComponent implements OnInit {
               this.proyectos = this.proyectos.map(p => (p.idProyecto === updatedProject.idProyecto ? updatedProject : p));
               this.proyectoForm.reset();
               Swal.fire('Actualización', 'Proyecto actualizado correctamente', 'success');
+              this.router.navigate(['/proyecto']);
             },
             error => {
               Swal.fire('Actualización', error , 'error');
@@ -132,4 +175,12 @@ export class ListarProyectoComponent implements OnInit {
       );
     }
   }
+
+
+
+  obtenerNombreCategoria(idCategoria: number): string {
+    const categoria = this.categorias.find(c => c.id === idCategoria);
+    return categoria ? categoria.nombre : 'Desconocida';
+  }
+
 }

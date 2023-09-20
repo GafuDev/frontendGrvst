@@ -54,6 +54,7 @@ export class AgregarUsuarioComponent {
       () => {
         Swal.fire('Nuevo Usuario','se ha registrado correctamente' , 'success');
         this.usuarioForm.reset();
+        this.router.navigate(['/usuario']);
       },
       error => {
         this.mensaje = 'Error al agregar el usuario.';

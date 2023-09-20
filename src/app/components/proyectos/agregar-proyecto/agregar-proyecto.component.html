@@ -1,4 +1,8 @@
-<div class="container">
+<div class="cabecera">
+  <img class="img" src="../../../assets/images/cabecera.png" alt="Logo" height="120px">
+</div>
+
+<div class="main">
   <div class="form">
     <h2>AGREGAR PROYECTO</h2>
     <form [formGroup]="proyectoForm" (ngSubmit)="agregarProyecto()" enctype="multipart/form-data">
@@ -56,16 +60,25 @@
       <div *ngIf="proyectoForm?.get('linkProyecto')?.touched && proyectoForm?.get('linkProyecto')?.hasError('pattern')" class="text-danger">
         <strong>El enlace del proyecto no es válido. Debe ser una URL válida (por ejemplo, http://www.ejemplo.com).</strong>
       </div>
-      <div class="mb-3">
+      <!-- <div class="mb-3">
         <label for="logoProyecto" class="form-label">Imágen Proyecto:</label>
-        <input type="file" id="logoProyecto" name="logoProyecto" (change)="capturarLogo($event)">
+        <input type="url" id="logoProyecto" name="logoProyecto"> (change)="capturarLogo($event)"
+      </div> -->
+      <div class="mb-3">
+        <label for="logoProyecto" class="form-label">Selecciona una Imagen:</label>
+        <select id="logoProyecto" name="logoProyecto" class="form-control custom-input" [(ngModel)]="AddlogoProyecto" formControlName="logoProyecto">
+          <option value="https://griinvest.cl/proyecto1.jpg">Imagen 1</option>
+          <option value="https://griinvest.cl/proyecto2.jpg">Imagen 2</option>
+          <option value="https://griinvest.cl/proyecto3.jpg">Imagen 3</option>
+          <option value="https://griinvest.cl/proyecto4.jpg">Imagen 4</option>
+        </select>
       </div>
       <div *ngIf="proyectoForm?.get('logoProyecto')?.touched && proyectoForm?.get('logoProyecto')?.hasError('required')" class="text-danger">
         <strong>Este campo no puede estar vacío.</strong>
       </div>
-      <div *ngIf="proyectoForm?.get('logoProyecto')?.touched && proyectoForm?.get('logoProyecto')?.hasError('required')" class="text-danger">
+      <!-- <div *ngIf="proyectoForm?.get('logoProyecto')?.touched && proyectoForm?.get('logoProyecto')?.hasError('required')" class="text-danger">
         <strong>El formato de la imagen debe ser PNG, JPEG o JPG.</strong>
-      </div>
+      </div> -->
       <div class="mb-3">
         <label for="idCategoria" class="form-label">Categoría:</label>
         <select id="idCategoria" name="idCategoria" class="form-control custom-input" formControlName="idCategoria">

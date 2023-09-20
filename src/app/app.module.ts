@@ -34,6 +34,7 @@ import { ProyectosService } from './services/proyectos.service';
 
 import { FilterPipe } from './pipes/filter.pipes';
 import { ErrorComponent } from './components/error/error.component';
+import { DetalleProyectoComponent } from './components/proyectos/detalle-proyecto/detalle-proyecto.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { ErrorComponent } from './components/error/error.component';
     NavbarComponent,
     ListallProyectosComponent,
     AdministracionComponent,
-    ErrorComponent
+    ErrorComponent,
+    DetalleProyectoComponent
   ],
   imports: [
     BrowserModule,

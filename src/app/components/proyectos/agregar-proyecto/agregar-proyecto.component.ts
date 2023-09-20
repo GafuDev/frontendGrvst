@@ -14,11 +14,13 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class AgregarProyectoComponent implements OnInit{
   proyectoForm: FormGroup = new FormGroup({});
-  proyecto: Proyecto = {};
+  //proyecto: Proyecto = {};
   mensaje: string = '';
-  public archivos: any =[]
 
   usuarioId: number | null = null;
+
+  //para la url del select
+  AddlogoProyecto: string = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -37,7 +39,6 @@ export class AgregarProyectoComponent implements OnInit{
     } else {
       this.router.navigate(['/login']);
     }
-
   }
 
   fechaInicioValidator(control: AbstractControl) {
@@ -71,15 +72,35 @@ export class AgregarProyectoComponent implements OnInit{
     });
   }
 
+  agregarProyecto(): void {
+    if (this.proyectoForm.invalid) {
+      return;
+    }
 
-  capturarLogo(event: Event): void {
+    const nuevoProyecto: any = this.proyectoForm.value;
+
+    nuevoProyecto.idUsuario = this.usuarioId;
+
+    this.proyectosService.agregarProyecto(nuevoProyecto).subscribe(() => {
+        Swal.fire('Proyecto', 'Agregado correctamente', 'success');
+        this.proyectoForm.reset();
+        this.router.navigate(['/proyecto']);
+      },
+      error => {
+        Swal.fire('Error', 'Error al agregar proyecto', 'error');
+        console.error('Error al agregar proyecto:', error);
+      }
+    );
+  }
+
+  /* capturarLogo(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
     if (inputElement.files && inputElement.files[0]) {
       this.proyectoForm?.get('logoProyecto')?.setValue(inputElement.files[0]);
     }
-  }
+  } */
 
-  agregarProyecto(): void {
+/*   agregarProyecto(): void {
     if (this.proyectoForm.invalid) {
       return;
     }
@@ -106,5 +127,5 @@ export class AgregarProyectoComponent implements OnInit{
         console.error('Error al agregar proyecto:', error);
       }
     );
-  }
+  } */
 }

@@ -7,19 +7,111 @@
 
 
   <div *ngIf="mostrarAgregarUsuario" class="btn-group mt-4" role="group">
-    <button type="button" class="btn btn-primary mr-3" routerLink="/addusuario">Agregar Usuario</button>
+    <div class="main">
+      <h2>TODOS LOS USUARIOS</h2>
+      <div>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Username</th>
+            <th>Correo</th>
+            <th>Rol</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let usuario of usuarios">
+            <td>{{ usuario.idUsuario }}</td>
+            <td>{{ usuario.nombre }}</td>
+            <td>{{ usuario.username }}</td>
+            <td>{{ usuario.correo }}</td>
+            <td>{{ usuario.idRol }}</td>
+            <td>{{ usuario.updateAt }}</td>
+            <td>
+              <button *ngIf="usuario.idRol === 1"  (click)="eliminarUsuario(usuario.idUsuario!)" class="btn btn-sm btn-danger">Eliminar</button>
+              <button *ngIf="usuario.idRol === 3 || usuario.idRol === 4" [disabled]="true" class="btn btn-sm btn-danger">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <button routerLink="/usuario" class="btn btn-sm btn-info">Administración de usuarios</button>
+      <button routerLink="/addusuario" class="btn btn-sm btn-success">Agregar usuario</button>
+    </div>
+  </div>
+
+  <!-- ver si se queda o se va, porque arroja error por el async away -->
+  <div *ngIf="mostrarAgregarProyectos" class="btn-group mt-4" role="group">
+    <div class="main">
+      <h2>MIS PROYECTOS</h2>
+      <ng-container *ngIf="proyectos.length > 0; else sinResultados">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre Proyecto</th>
+              <th>Monto a Financiar</th>
+              <th>Monto adquirido</th>
+              <th>Fecha Creación</th>
+              <th>Fecha Actualización</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let proyecto of proyectos">
+              <ng-container *ngIf="proyecto.idUsuario === usuarioId">
+                <td>{{ proyecto.idProyecto }}</td>
+                <td>{{ proyecto.nombreProyecto }}</td>
+                <td>{{ proyecto.montoFinanciar }}</td>
+                <td>{{ proyecto.montoAdquirido }}</td>
+                <td>{{ proyecto.createAt }}</td>
+                <td>{{ proyecto.updateAt }}</td>
+              </ng-container>
+            </tr>
+          </tbody>
+        </table>
+        <button routerLink="/proyecto" class="btn btn-sm btn-info me-3">Administración de Proyectos</button>
+      <button routerLink="/addproyecto" class="btn btn-sm btn-success ml-3">Agregar Nuevo Proyecto</button>
+      </ng-container>
+      <ng-template #sinResultados>
+        <h1>No hay Resultados</h1>
+      </ng-template>
+    </div>
+  </div>
+
+  <div *ngIf="mostrarInvertir" class="btn-group mt-4" role="group">
+    <div class="main">
+      <div class="grid-3">
+        <div class="card" *ngFor="let proyecto of proyectos">
+
+          <img [src]="proyecto.logoProyecto" class="card-img-top" alt="Card Image">
+          <div class="card-body">
+            <h5 class="card-title">{{ proyecto.nombreProyecto }}</h5>
+            <p class="card-text">{{ proyecto.descripcionProyecto }}</p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Monto Adquirido: {{ proyecto.montoAdquirido }}</li>
+            <li class="list-group-item">
+              <div class="progress-bar" role="progressbar"
+                [style.width.%]="(proyecto.montoAdquirido && proyecto.montoFinanciar) ? (proyecto.montoAdquirido / proyecto.montoFinanciar) * 100 : 0"
+                [attr.aria-valuenow]="proyecto.montoAdquirido" aria-valuemin="0"
+                [attr.aria-valuemax]="proyecto.montoFinanciar"></div>
+            </li>
+          </ul>
+          <div class="card-body">
+            <a routerLink="/detalleproyecto" class="card-link">Ver</a>
+            <a routerLink="/addmensaje" class="card-link">Contactar</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div *ngIf="mostrarAprobarProyectos" class="btn-group mt-4" role="group">
     <button type="button" class="btn btn-primary mr-3" >Aprobar Proyectos</button>
   </div>
-
-  <div *ngIf="mostrarAgregarProyectos" class="btn-group mt-4" role="group">
-    <button type="button" class="btn btn-primary mr-3" routerLink="/addproyecto">Agregar Proyectos</button>
-  </div>
-
-  <div *ngIf="mostrarInvertir" class="btn-group mt-4" role="group">
-    <button type="button" class="btn btn-primary mr-3"routerLink="/addinversion">Invertir</button>
-  </div>
 </div>
+
+
 

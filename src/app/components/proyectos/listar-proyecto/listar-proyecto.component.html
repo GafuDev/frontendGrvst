@@ -1,48 +1,57 @@
+
 <div class="cabecera">
   <img class="img" src="../../../assets/images/cabecera.png" alt="Logo" height="120px">
 </div>
 
 <div class="main">
   <h2>LISTAR PROYECTOS</h2>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Nombre Proyecto</th>
-        <th>Descripción</th>
-        <th>Fecha Inicio</th>
-        <th>Monto a Financiar</th>
-        <th>Monto adquirido</th>
-        <th>Resumen</th>
-        <th>Link</th>
-        <th>ID Categoría</th>
-        <th>ID Usuario</th>
-        <th>Fecha Creación</th>
-        <th>Fecha Actualización</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let proyecto of proyectos">
-        <td>{{ proyecto.idProyecto }}</td>
-        <td>{{ proyecto.nombreProyecto }}</td>
-        <td>{{ proyecto.descripcionProyecto }}</td>
-        <td>{{ proyecto.fechaInicio }}</td>
-        <td>{{ proyecto.montoFinanciar }}</td>
-        <td>{{ proyecto.montoAdquirido }}</td>
-        <td>{{ proyecto.resumenProyecto }}</td>
-        <td>{{ proyecto.linkProyecto }}</td>
-        <td>{{ proyecto.idCategoria }}</td>
-        <td>{{ proyecto.idUsuario }}</td>
-        <td>{{ proyecto.createAt }}</td>
-        <td>{{ proyecto.updateAt }}</td>
-        <td>
-          <button (click)="editarProyecto(proyecto, contenidoModal)" class="btn btn-sm btn-primary">Editar</button>
-          <button (click)="eliminarProyecto(proyecto.idProyecto!)" class="btn btn-sm btn-danger">Eliminar</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <ng-container *ngIf="proyectos.length > 0; else sinResultados">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre Proyecto</th>
+          <th>Descripción</th>
+          <th>Fecha Inicio</th>
+          <th>Monto a Financiar</th>
+          <th>Monto adquirido</th>
+          <th>Resumen</th>
+          <th>Link</th>
+          <th>ID Categoría</th>
+          <th>ID Usuario</th>
+          <th>Fecha Creación</th>
+          <th>Fecha Actualización</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let proyecto of proyectos">
+          <ng-container *ngIf="proyecto.idUsuario === usuarioId">
+            <td>{{ proyecto.idProyecto }}</td>
+            <td>{{ proyecto.nombreProyecto }}</td>
+            <td>{{ proyecto.descripcionProyecto }}</td>
+            <td>{{ proyecto.fechaInicio }}</td>
+            <td>{{ proyecto.montoFinanciar }}</td>
+            <td>{{ proyecto.montoAdquirido }}</td>
+            <td>{{ proyecto.resumenProyecto }}</td>
+            <td>{{ proyecto.linkProyecto }}</td>
+            <td>{{ obtenerNombreCategoria(proyecto.idCategoria || 0) }}</td>
+            <td>{{ proyecto.idUsuario }}</td>
+            <td>{{ proyecto.createAt }}</td>
+            <td>{{ proyecto.updateAt }}</td>
+            <td>
+              <button (click)="editarProyecto(proyecto, contenidoModal)" class="btn btn-sm btn-primary">Editar</button>
+              <button (click)="eliminarProyecto(proyecto.idProyecto!)" class="btn btn-sm btn-danger">Eliminar</button>
+            </td>
+          </ng-container>
+        </tr>
+      </tbody>
+    </table>
+  </ng-container>
+  <ng-template #sinResultados>
+    <h2>No hay Resultados</h2>
+    <button routerLink="/addproyecto" class="btn btn-sm btn-primary mt-3 ml-3">Agrega Uno!</button>
+  </ng-template>
 </div>
 
 <ng-template #contenidoModal let-modal>
@@ -55,24 +64,58 @@
   <div class="modal-body">
     <form [formGroup]="proyectoForm">
       <div class="mb-3">
-        <label for="nombreProyecto">Nombre Proyecto:</label>
-        <input type="text" id="nombreProyecto" formControlName="nombreProyecto" class="form-control">
+        <label for="nombreProyecto" class="form-label">Nombre del Proyecto:</label>
+        <input type="text" id="nombreProyecto" name="nombreProyecto" class="form-control custom-input" formControlName="nombreProyecto">
+      </div>
+      <div *ngIf="proyectoForm?.get('nombreProyecto')?.touched &&proyectoForm?.get('nombreProyecto')?.hasError('required')" class="text-danger">
+        <strong>El nombre del proyecto no puede estar vacío.</strong>
       </div>
       <div class="mb-3">
-        <label for="fechaInicio">Fecha de Inicio:</label>
-        <input type="date" id="fechaInicio" formControlName="fechaInicio" class="form-control">
+        <label for="descripcionProyecto" class="form-label">Descripción del Proyecto:</label>
+        <textarea id="descripcionProyecto" name="descripcionProyecto" class="form-control custom-input custom-textarea" formControlName="descripcionProyecto"></textarea>
+      </div>
+      <div *ngIf="proyectoForm?.get('descripcionProyecto')?.touched && proyectoForm?.get('descripcionProyecto')?.hasError('required')" class="text-danger">
+        <strong>Debes agregar una descripción.</strong>
+      </div>
+      <div *ngIf="proyectoForm?.get('descripcionProyecto')?.touched && proyectoForm?.get('descripcionProyecto')?.hasError('minlength')" class="text-danger">
+        <strong>La descripción debe tener al menos 30 caracteres.</strong>
       </div>
       <div class="mb-3">
-        <label for="montoFinanciar">Monto a Financiar:</label>
-        <input type="number" id="montoFinanciar" formControlName="montoFinanciar" class="form-control">
+        <label for="montoFinanciar" class="form-label">Monto a Financiar:</label>
+        <input type="number" id="montoFinanciar" name="montoFinanciar" class="form-control custom-input" formControlName="montoFinanciar">
+      </div>
+      <div *ngIf="proyectoForm?.get('montoFinanciar')?.touched && proyectoForm?.get('montoFinanciar')?.hasError('required')" class="text-danger">
+        <strong>Debes agregar un monto.</strong>
       </div>
       <div class="mb-3">
-        <label for="idUsuario">ID Usuario:</label>
-        <input type="number" id="idUsuario" formControlName="idUsuario" class="form-control">
+        <label for="resumenProyecto" class="form-label">Resumen del Proyecto:</label>
+        <textarea id="resumenProyecto" name="resumenProyecto" class="form-control custom-input custom-textarea" formControlName="resumenProyecto"></textarea>
+      </div>
+      <div *ngIf="proyectoForm?.get('resumenProyecto')?.touched && proyectoForm?.get('resumenProyecto')?.hasError('required')" class="text-danger">
+        <strong>Este campo no puede estar vacío.</strong>
+      </div>
+      <div *ngIf="proyectoForm?.get('resumenProyecto')?.touched && proyectoForm?.get('resumenProyecto')?.hasError('minlength')" class="text-danger">
+        <strong>El resumen debe tener al menos 30 caracteres.</strong>
       </div>
       <div class="mb-3">
-        <label for="idCategoria">ID Categoría:</label>
-        <input type="number" id="idCategoria" formControlName="idCategoria" class="form-control">
+        <label for="linkProyecto" class="form-label">Enlace del Proyecto:</label>
+        <input type="text" id="linkProyecto" name="linkProyecto" class="form-control custom-input" formControlName="linkProyecto">
+      </div>
+      <div *ngIf="proyectoForm?.get('linkProyecto')?.touched && proyectoForm?.get('linkProyecto')?.hasError('required')" class="text-danger">
+        <strong>Este campo no puede estar vacío.</strong>
+      </div>
+      <div *ngIf="proyectoForm?.get('linkProyecto')?.touched && proyectoForm?.get('linkProyecto')?.hasError('pattern')" class="text-danger">
+        <strong>El enlace del proyecto no es válido. Debe ser una URL válida (por ejemplo, http://www.ejemplo.com).</strong>
+      </div>
+      <div class="mb-3">
+        <label for="idCategoria" class="form-label">Categoría:</label>
+        <select id="idCategoria" name="idCategoria" class="form-control custom-input" formControlName="idCategoria">
+          <option value="" selected>Selecciona Categoría</option>
+          <option *ngFor="let categoria of categorias" [value]="categoria.id">{{ categoria.nombre }}</option>
+        </select>
+      </div>
+      <div *ngIf="proyectoForm?.get('idCategoria')?.touched && proyectoForm?.get('idCategoria')?.hasError('required')" class="text-danger">
+        <strong>Debes seleccionar una categoría.</strong>
       </div>
     </form>
   </div>
@@ -81,5 +124,4 @@
     <button type="button" class="btn btn-primary ml-3" (click)="modal.close(proyectoForm.value)">Guardar Cambios</button>
   </div>
 </ng-template>
-
 

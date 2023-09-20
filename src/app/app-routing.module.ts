@@ -15,6 +15,7 @@ import { AgregarMensajeComponent } from './components/mensajes/agregar-mensaje/a
 import { ListallProyectosComponent } from './components/proyectos/listall-proyectos/listall-proyectos.component';
 import { AdministracionComponent } from './components/administracion/administracion.component';
 import { ErrorComponent } from './components/error/error.component';
+import { DetalleProyectoComponent } from './components/proyectos/detalle-proyecto/detalle-proyecto.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'addusuario', component: AgregarUsuarioComponent },
   { path: 'proyecto', component: ListarProyectoComponent },
   { path: 'addproyecto', component: AgregarProyectoComponent },
+  { path: 'detalleproyecto/:id', component: DetalleProyectoComponent},
   { path: 'allproyectos', component: ListallProyectosComponent },
   { path: 'inversion', component: ListarInversionComponent },
   { path: 'addinversion', component: AgregarInversionComponent },

@@ -24,7 +24,8 @@
       <tr *ngFor="let inversion of inversiones">
         <td>{{ inversion.montoInversion }}</td>
         <td>{{ inversion.idUsuario }}</td>
-        <td>{{ inversion.idProyecto }}</td>
+        <!-- agregado para que muestre el nombre de los proyectos y no el id -->
+        <td>{{ proyectosCargados ? obtenerNombreProyecto(inversion?.idProyecto || 0) : 'Cargando...' }}</td>
         <td>{{ inversion.createAt }}</td>
         <td>{{ inversion.updateAt }}</td>
         <td>
