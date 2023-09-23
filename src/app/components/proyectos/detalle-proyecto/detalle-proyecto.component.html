@@ -4,7 +4,6 @@
 
 <div class="main">
   <div class="card">
-    <img [src]="proyecto?.logoProyecto" class="card-img-top" alt="Card Image">
     <div class="card-body">
       <h2 class="card-title">{{ proyecto?.nombreProyecto }}</h2>
       <p class="card-text">{{ proyecto?.descripcionProyecto }}</p>
@@ -14,6 +13,7 @@
       <li class="list-group-item">Monto a Financiar: {{ proyecto?.montoFinanciar }}</li>
       <li class="list-group-item">Total Invertido: {{ totalInversiones }}</li>
       <li class="list-group-item">
+        
         <div class="progress-bar" role="progressbar"
           [style.width.%]="proyecto ? (proyecto.montoAdquirido && proyecto.montoFinanciar ? (proyecto.montoAdquirido / proyecto.montoFinanciar) * 100 : 0) : 0"
           [attr.aria-valuenow]="proyecto ? proyecto.montoAdquirido || 0 : 0" aria-valuemin="0"

@@ -1,0 +1,18 @@
+.progress-bar
+{
+  background-color: #009966;
+  min-height: 20px;
+  padding: 4px 0;
+
+}
+
+.progress-bar-full
+{
+  background-color:lightgrey;
+  min-height: 20px;
+}
+
+.progress-bar-money{
+  color: white;
+  font-weight: 700;
+}

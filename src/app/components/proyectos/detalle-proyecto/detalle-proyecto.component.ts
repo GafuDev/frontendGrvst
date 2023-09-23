@@ -6,15 +6,19 @@ import Swal from 'sweetalert2';
 import { InversionService } from '../../../services/inversion.service';
 import { Inversion } from 'src/app/models/inversionModel';
 
+
 @Component({
   selector: 'app-detalle-proyecto',
   templateUrl: './detalle-proyecto.component.html',
   styleUrls: ['./detalle-proyecto.component.css']
 })
 export class DetalleProyectoComponent implements OnInit {
+  //proyectos: Proyecto[] = [];
   proyecto: Proyecto | null = null;
   usuarioId: number | null = null;
+
   totalInversiones: number = 0;
+  progreso: number = 0;
 
   constructor(
     private router: Router,
@@ -33,43 +37,59 @@ export class DetalleProyectoComponent implements OnInit {
     }
 
     this.route.paramMap.subscribe(params => {
-      const idProyectoParam = params.get('idProyecto');
+      const idProyectoParam = parseInt(this.route.snapshot.params.toString());
 
       if (idProyectoParam !== null) {
         const idProyecto = +idProyectoParam;
         if (!isNaN(idProyecto)) {
           this.obtenerProyectoPorId(idProyecto);
-          //this.obtenerProyectoYTotalInversiones(idProyecto);
         }
       }
     });
   }
 
-  /* obtenerProyectoYTotalInversiones(idProyecto: number): void {
-    this.proyectosService.obtenerProyectoPorId(idProyecto).subscribe((proyecto) => {
-      this.proyecto = proyecto;
-      console.log(proyecto);
+  /* obtenerProyectoPorId(idProyecto: number): void {
+    this.proyectosService.obtenerPorID(idProyecto).subscribe(
+      (proyecto) => {
+        console.log(proyecto);
+        this.proyecto = proyecto;
 
-      // Calcula el total de inversiones para el proyecto actual
-      this.inversionService.obtenerTotalInversionesPorProyecto(idProyecto).subscribe((total) => {
-        this.totalInversiones = total;
-        console.log("Total de Inversiones:", total);
-      });
-    });
+        this.obtenerTotalInversiones(idProyecto);
+      },
+      (error) => {
+        console.error('Error al obtener el proyecto por ID:', error);
+
+      }
+    );
   } */
 
   obtenerProyectoPorId(idProyecto: number): void {
-    this.proyectosService.obtenerProyectoPorId(idProyecto).subscribe((proyecto) => {
-      this.proyecto = proyecto;
-      console.log(proyecto);
-
-      // Llama al servicio para obtener el total de inversiones
-      const inversion = new Inversion();
-      inversion.idProyecto = proyecto.idProyecto; // Usar el id del proyecto obtenido
-      this.inversionService.obtenerTotalInversionesPorProyecto(inversion).subscribe((total) => {
-        console.log("Total de Inversiones:", total);
-        this.totalInversiones = total;
-      });
-    });
+    this.proyectosService.obtenerPorID(idProyecto).subscribe(
+      (proyecto) => {
+        console.log(proyecto);
+        //this.proyectos = proyectos;
+      },
+      (error) => {
+        console.error('Error al obtener los proyectos:', error);
+      }
+    );
   }
+  obtenerTotalInversiones(idProyecto: number): void {
+    this.inversionService.obtenerTotalInversionesPorProyecto(idProyecto).subscribe(
+      (total: number) => {
+
+        this.totalInversiones = total;
+
+        if (this.proyecto !== null && typeof this.proyecto !== 'undefined' && typeof this.proyecto.montoFinanciar !== 'undefined') {
+          this.progreso = (this.totalInversiones / this.proyecto.montoFinanciar) * 100;
+        } else {
+          this.progreso = 0;
+        }
+      },
+      (error) => {
+        console.error('Error al obtener el total de inversiones:', error);
+      }
+    );
+  }
+
 }

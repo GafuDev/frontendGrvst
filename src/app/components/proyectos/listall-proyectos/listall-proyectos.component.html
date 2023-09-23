@@ -11,17 +11,33 @@
         <h5 class="card-title">{{ proyecto.nombreProyecto }}</h5>
         <p class="card-text">{{ proyecto.resumenProyecto }}</p>
       </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">Monto a Financiar: {{ proyecto.montoFinanciar }}</li>
-        <li class="list-group-item">
-          <div class="progress-bar" role="progressbar"
+      <div class="inside">
+        <div class="list-group-item">
+          <div class="mini">Porcentaje de financiamiento</div>
+        </div>
+        <div class="list-group-item">
+          <div class="progress-bar-full">
+            <div class="progress-bar" role="progressbar"
             [style.width.%]="(proyecto.montoAdquirido && proyecto.montoFinanciar) ? (proyecto.montoAdquirido / proyecto.montoFinanciar) * 100 : 0"
             [attr.aria-valuenow]="proyecto.montoAdquirido" aria-valuemin="0"
-            [attr.aria-valuemax]="proyecto.montoFinanciar"></div>
-        </li>
-      </ul>
+            [attr.aria-valuemax]="proyecto.montoFinanciar">
+            <div class="progress-bar-money">
+              $
+            </div>
+          </div>
+          </div>
+        </div>
+
+        <div class="big">Valor del Proyecto: <b> {{ proyecto.montoFinanciar }}</b></div><br>
+        <div>
+          <div>Autor:</div>
+          <p class="big"><b>{{ usuariosCargados ? obtenerNombreUsuario(proyecto?.idUsuario || 0) : 'Cargando...' }}</b></p>
+        </div>
+
+      </div>
       <div class="card-body">
-        <a [routerLink]="['/detalleproyecto', proyecto.idProyecto]" class="card-link">Ver más</a>
+        <a class="btn btn-outline-success me-3" routerLink="/addinversion">Invertir</a>
+        <a class="btn btn-outline-success me-3" routerLink="/addmensaje">Contactar</a>
       </div>
     </div>
   </div>

@@ -67,18 +67,19 @@ export class AgregarProyectoComponent implements OnInit{
       montoFinanciar: ['', Validators.required],
       resumenProyecto: ['', [Validators.required, Validators.minLength(30)]],
       linkProyecto: ['', [Validators.required, this.urlPatternValidator]],
-      logoProyecto: ['', Validators.required],
+      logoProyecto: ['', [Validators.required, this.urlPatternValidator]],
       idCategoria: ['', Validators.required],
     });
   }
 
   agregarProyecto(): void {
     if (this.proyectoForm.invalid) {
+      Swal.fire('Error', 'El Formulario está ínvalidado, verifique si hay algún dato mal ingresado', 'error');
       return;
     }
 
     const nuevoProyecto: any = this.proyectoForm.value;
-
+    console.log(this.proyectoForm);
     nuevoProyecto.idUsuario = this.usuarioId;
 
     this.proyectosService.agregarProyecto(nuevoProyecto).subscribe(() => {
@@ -92,40 +93,4 @@ export class AgregarProyectoComponent implements OnInit{
       }
     );
   }
-
-  /* capturarLogo(event: Event): void {
-    const inputElement = event.target as HTMLInputElement;
-    if (inputElement.files && inputElement.files[0]) {
-      this.proyectoForm?.get('logoProyecto')?.setValue(inputElement.files[0]);
-    }
-  } */
-
-/*   agregarProyecto(): void {
-    if (this.proyectoForm.invalid) {
-      return;
-    }
-
-    const formData = new FormData();
-
-    Object.keys(this.proyectoForm.controls).forEach(key => {
-      formData.append(key, this.proyectoForm.get(key)?.value);
-    });
-
-    if (this.proyectoForm.get('logoProyecto')?.value) {
-      formData.append('logoProyecto', this.proyectoForm.get('logoProyecto')?.value);
-    }
-
-    this.proyectosService.agregarProyecto(formData).subscribe(
-      () => {
-        //this.mensaje = 'Proyecto agregado correctamente';
-        Swal.fire('Proyecto','se ha publicado correctamente' , 'success');
-        this.proyectoForm.reset();
-        this.proyectoForm?.get('logoProyecto')?.setValue(null); // Restablece el campo de archivo
-      },
-      error => {
-        Swal.fire('Error', this.mensaje, 'error');
-        console.error('Error al agregar proyecto:', error);
-      }
-    );
-  } */
 }

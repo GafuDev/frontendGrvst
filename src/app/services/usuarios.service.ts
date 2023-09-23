@@ -16,7 +16,8 @@ export class UsuariosService {
   constructor(private http: HttpClient) {}
 
   obtenerUsuarios(params: HttpParams): Observable<Usuario[]> {
-    return this.http.get<Usuario[]>(this.apiUrl, { params });
+    const url = `${this.apiUrl}`;
+    return this.http.get<Usuario[]>(url, { params });
   }
 
   obtenerUsuarioPorId(idUsuario: number): Observable<Usuario> {

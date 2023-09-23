@@ -1,4 +1,3 @@
-
 <div class="cabecera">
   <img class="img" src="../../../assets/images/cabecera.png" alt="Logo" height="120px">
 </div>
@@ -11,16 +10,9 @@
         <tr>
           <th>ID</th>
           <th>Nombre Proyecto</th>
-          <th>Descripción</th>
-          <th>Fecha Inicio</th>
           <th>Monto a Financiar</th>
-          <th>Monto adquirido</th>
           <th>Resumen</th>
-          <th>Link</th>
-          <th>ID Categoría</th>
-          <th>ID Usuario</th>
-          <th>Fecha Creación</th>
-          <th>Fecha Actualización</th>
+          <th>Categoría</th>
           <th>Acciones</th>
         </tr>
       </thead>
@@ -29,18 +21,12 @@
           <ng-container *ngIf="proyecto.idUsuario === usuarioId">
             <td>{{ proyecto.idProyecto }}</td>
             <td>{{ proyecto.nombreProyecto }}</td>
-            <td>{{ proyecto.descripcionProyecto }}</td>
-            <td>{{ proyecto.fechaInicio }}</td>
             <td>{{ proyecto.montoFinanciar }}</td>
-            <td>{{ proyecto.montoAdquirido }}</td>
             <td>{{ proyecto.resumenProyecto }}</td>
-            <td>{{ proyecto.linkProyecto }}</td>
             <td>{{ obtenerNombreCategoria(proyecto.idCategoria || 0) }}</td>
-            <td>{{ proyecto.idUsuario }}</td>
-            <td>{{ proyecto.createAt }}</td>
-            <td>{{ proyecto.updateAt }}</td>
             <td>
               <button (click)="editarProyecto(proyecto, contenidoModal)" class="btn btn-sm btn-primary">Editar</button>
+              &nbsp;
               <button (click)="eliminarProyecto(proyecto.idProyecto!)" class="btn btn-sm btn-danger">Eliminar</button>
             </td>
           </ng-container>
@@ -65,47 +51,67 @@
     <form [formGroup]="proyectoForm">
       <div class="mb-3">
         <label for="nombreProyecto" class="form-label">Nombre del Proyecto:</label>
-        <input type="text" id="nombreProyecto" name="nombreProyecto" class="form-control custom-input" formControlName="nombreProyecto">
+        <input type="text" id="nombreProyecto" name="nombreProyecto" class="form-control custom-input"
+          formControlName="nombreProyecto">
       </div>
-      <div *ngIf="proyectoForm?.get('nombreProyecto')?.touched &&proyectoForm?.get('nombreProyecto')?.hasError('required')" class="text-danger">
+      <div
+        *ngIf="proyectoForm?.get('nombreProyecto')?.touched &&proyectoForm?.get('nombreProyecto')?.hasError('required')"
+        class="text-danger">
         <strong>El nombre del proyecto no puede estar vacío.</strong>
       </div>
       <div class="mb-3">
         <label for="descripcionProyecto" class="form-label">Descripción del Proyecto:</label>
-        <textarea id="descripcionProyecto" name="descripcionProyecto" class="form-control custom-input custom-textarea" formControlName="descripcionProyecto"></textarea>
+        <textarea id="descripcionProyecto" name="descripcionProyecto" class="form-control custom-input custom-textarea"
+          formControlName="descripcionProyecto"></textarea>
       </div>
-      <div *ngIf="proyectoForm?.get('descripcionProyecto')?.touched && proyectoForm?.get('descripcionProyecto')?.hasError('required')" class="text-danger">
+      <div
+        *ngIf="proyectoForm?.get('descripcionProyecto')?.touched && proyectoForm?.get('descripcionProyecto')?.hasError('required')"
+        class="text-danger">
         <strong>Debes agregar una descripción.</strong>
       </div>
-      <div *ngIf="proyectoForm?.get('descripcionProyecto')?.touched && proyectoForm?.get('descripcionProyecto')?.hasError('minlength')" class="text-danger">
+      <div
+        *ngIf="proyectoForm?.get('descripcionProyecto')?.touched && proyectoForm?.get('descripcionProyecto')?.hasError('minlength')"
+        class="text-danger">
         <strong>La descripción debe tener al menos 30 caracteres.</strong>
       </div>
       <div class="mb-3">
         <label for="montoFinanciar" class="form-label">Monto a Financiar:</label>
-        <input type="number" id="montoFinanciar" name="montoFinanciar" class="form-control custom-input" formControlName="montoFinanciar">
+        <input type="number" id="montoFinanciar" name="montoFinanciar" class="form-control custom-input"
+          formControlName="montoFinanciar">
       </div>
-      <div *ngIf="proyectoForm?.get('montoFinanciar')?.touched && proyectoForm?.get('montoFinanciar')?.hasError('required')" class="text-danger">
+      <div
+        *ngIf="proyectoForm?.get('montoFinanciar')?.touched && proyectoForm?.get('montoFinanciar')?.hasError('required')"
+        class="text-danger">
         <strong>Debes agregar un monto.</strong>
       </div>
       <div class="mb-3">
         <label for="resumenProyecto" class="form-label">Resumen del Proyecto:</label>
-        <textarea id="resumenProyecto" name="resumenProyecto" class="form-control custom-input custom-textarea" formControlName="resumenProyecto"></textarea>
+        <textarea id="resumenProyecto" name="resumenProyecto" class="form-control custom-input custom-textarea"
+          formControlName="resumenProyecto"></textarea>
       </div>
-      <div *ngIf="proyectoForm?.get('resumenProyecto')?.touched && proyectoForm?.get('resumenProyecto')?.hasError('required')" class="text-danger">
+      <div
+        *ngIf="proyectoForm?.get('resumenProyecto')?.touched && proyectoForm?.get('resumenProyecto')?.hasError('required')"
+        class="text-danger">
         <strong>Este campo no puede estar vacío.</strong>
       </div>
-      <div *ngIf="proyectoForm?.get('resumenProyecto')?.touched && proyectoForm?.get('resumenProyecto')?.hasError('minlength')" class="text-danger">
+      <div
+        *ngIf="proyectoForm?.get('resumenProyecto')?.touched && proyectoForm?.get('resumenProyecto')?.hasError('minlength')"
+        class="text-danger">
         <strong>El resumen debe tener al menos 30 caracteres.</strong>
       </div>
       <div class="mb-3">
         <label for="linkProyecto" class="form-label">Enlace del Proyecto:</label>
-        <input type="text" id="linkProyecto" name="linkProyecto" class="form-control custom-input" formControlName="linkProyecto">
+        <input type="text" id="linkProyecto" name="linkProyecto" class="form-control custom-input"
+          formControlName="linkProyecto">
       </div>
-      <div *ngIf="proyectoForm?.get('linkProyecto')?.touched && proyectoForm?.get('linkProyecto')?.hasError('required')" class="text-danger">
+      <div *ngIf="proyectoForm?.get('linkProyecto')?.touched && proyectoForm?.get('linkProyecto')?.hasError('required')"
+        class="text-danger">
         <strong>Este campo no puede estar vacío.</strong>
       </div>
-      <div *ngIf="proyectoForm?.get('linkProyecto')?.touched && proyectoForm?.get('linkProyecto')?.hasError('pattern')" class="text-danger">
-        <strong>El enlace del proyecto no es válido. Debe ser una URL válida (por ejemplo, http://www.ejemplo.com).</strong>
+      <div *ngIf="proyectoForm?.get('linkProyecto')?.touched && proyectoForm?.get('linkProyecto')?.hasError('pattern')"
+        class="text-danger">
+        <strong>El enlace del proyecto no es válido. Debe ser una URL válida (por ejemplo,
+          http://www.ejemplo.com).</strong>
       </div>
       <div class="mb-3">
         <label for="idCategoria" class="form-label">Categoría:</label>
@@ -114,14 +120,15 @@
           <option *ngFor="let categoria of categorias" [value]="categoria.id">{{ categoria.nombre }}</option>
         </select>
       </div>
-      <div *ngIf="proyectoForm?.get('idCategoria')?.touched && proyectoForm?.get('idCategoria')?.hasError('required')" class="text-danger">
+      <div *ngIf="proyectoForm?.get('idCategoria')?.touched && proyectoForm?.get('idCategoria')?.hasError('required')"
+        class="text-danger">
         <strong>Debes seleccionar una categoría.</strong>
       </div>
     </form>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary me-3" (click)="modal.dismiss()">Cancelar</button>
-    <button type="button" class="btn btn-primary ml-3" (click)="modal.close(proyectoForm.value)">Guardar Cambios</button>
+    <button type="button" class="btn btn-primary ml-3" (click)="modal.close(proyectoForm.value)">Guardar
+      Cambios</button>
   </div>
 </ng-template>
-

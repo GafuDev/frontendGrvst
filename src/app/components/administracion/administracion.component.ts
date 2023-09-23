@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Usuario } from 'src/app/models/usuarioModel';
 import { UsuariosService } from 'src/app/services/usuarios.service';
@@ -41,14 +41,18 @@ export class AdministracionComponent implements OnInit {
   proyectos: Proyecto[] = [];
   usuarioId: any;
 
-  constructor(private authService: AuthService, private router: Router, private usuariosService: UsuariosService, private proyectosService:ProyectosService) { }
+  constructor(private authService: AuthService,
+    private router: Router,
+    private usuariosService: UsuariosService,
+    private proyectosService: ProyectosService,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.usuario = this.authService.obtenerUsuarioAutenticado();
     let usuario = localStorage.getItem('idUsuario');
     this.nombre = localStorage.getItem('usuario');
     let idLs = localStorage.getItem('idUsuario');
-    if(usuario === null || idLs === null){
+    if (usuario === null || idLs === null) {
       this.router.navigate(['/login']);
     } else {
       if (!localStorage.getItem('bienvenido')) {
@@ -61,8 +65,8 @@ export class AdministracionComponent implements OnInit {
         this.filtrarProyectos();
       }
     }
-    this.filtrarUsuarios();
-    this.filtrarProyectos();
+    /*  this.filtrarUsuarios();
+     this.filtrarProyectos(); */
   }
 
   determinarRolUsuario(): any {
@@ -103,21 +107,21 @@ export class AdministracionComponent implements OnInit {
   filtrarUsuarios(): void {
     let params = new HttpParams();
 
-  if (this.filtro.nombre) {
-    params = params.set('nombre', this.filtro.nombre);
-  }
-  if (this.filtro.idRol) {
-    params = params.set('idRol', this.filtro.idRol.toString());
-  }
-  if (this.filtro.idComuna) {
-    params = params.set('idComuna', this.filtro.idComuna.toString());
-  }
-  if (this.filtro.idRegion) {
-    params = params.set('idRegion', this.filtro.idRegion.toString());
-  }
-  if (this.filtro.createAt) {
-    params = params.set('createAt', this.filtro.createAt.toString());
-  }
+    if (this.filtro.nombre) {
+      params = params.set('nombre', this.filtro.nombre);
+    }
+    if (this.filtro.idRol) {
+      params = params.set('idRol', this.filtro.idRol.toString());
+    }
+    if (this.filtro.idComuna) {
+      params = params.set('idComuna', this.filtro.idComuna.toString());
+    }
+    if (this.filtro.idRegion) {
+      params = params.set('idRegion', this.filtro.idRegion.toString());
+    }
+    if (this.filtro.createAt) {
+      params = params.set('createAt', this.filtro.createAt.toString());
+    }
 
     this.usuariosService.obtenerUsuarios(params).subscribe(
       (usuarios: Usuario[]) => {
@@ -143,31 +147,6 @@ export class AdministracionComponent implements OnInit {
     }
   }
 
-  //listar proyectos
-  /* filtrarProyectos(): void {
-    let params = new HttpParams();
-
-    if (this.filtroproy.idProyecto) {
-      params = params.set('idProyecto', this.filtroproy.idProyecto.toString());
-    }
-    if (this.filtroproy.nombreProyecto) {
-      params = params.set('nombreProyecto', this.filtroproy.nombreProyecto);
-    }
-    if (this.filtroproy.fechaInicio) {
-      params = params.set('Fecha Inicio', this.filtroproy.fechaInicio.toString());
-    }
-
-    this.proyectosService.obtenerProyectos(params).subscribe(
-      (proyectos: Proyecto[]) => {
-        this.proyectos = proyectos;
-        console.log(proyectos);
-      },
-      error => {
-        console.error('Error al obtener proyectos:', error);
-      }
-    );
-  } */
-
   //verificar tiempo de carga, porque no alcanzan a cargar los proyectos.
   async filtrarProyectos(): Promise<void> {
     let params = new HttpParams();
@@ -186,7 +165,7 @@ export class AdministracionComponent implements OnInit {
       const proyectos: Proyecto[] | undefined = await this.proyectosService.obtenerProyectos(params).toPromise();
       if (proyectos !== undefined) {
         this.proyectos = proyectos;
-        console.log(proyectos);
+
       } else {
         console.log('no hay proyectos'); //manejar el error
       }

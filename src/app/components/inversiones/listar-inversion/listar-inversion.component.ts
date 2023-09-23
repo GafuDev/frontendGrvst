@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { ProyectosService } from 'src/app/services/proyectos.service';
 import { Proyecto } from 'src/app/models/proyectoModel';
+import { UsuariosService } from '../../../services/usuarios.service';
+import { Usuario } from 'src/app/models/usuarioModel';
 
 @Component({
   selector: 'app-listar-inversion',
@@ -27,6 +29,10 @@ export class ListarInversionComponent implements OnInit {
   proyectos: Proyecto[] = [];
   proyectosCargados: boolean = false;
 
+  //mostrar nombres usuarios
+  usuarios: Usuario[] = [];
+  usuariosCargados: boolean = false;
+
   @ViewChild('contenidoModal') contenidoModal: any;
   mostrarFiltros = false;
 
@@ -35,6 +41,8 @@ export class ListarInversionComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private proyectoService: ProyectosService,
+    private usuariosService: UsuariosService
+
   ) {
     this.inversionForm = this.formBuilder.group({
       montoInversion: ['', Validators.required],
@@ -50,6 +58,7 @@ export class ListarInversionComponent implements OnInit {
       this.filtrarInversiones();
       //mostrar nombre proytectos
       this.obtenerProyectos();
+      this.obtenerUsuarios();
     } else {
       this.router.navigate(['/login']);
     }
@@ -151,6 +160,34 @@ export class ListarInversionComponent implements OnInit {
         return proyecto.nombreProyecto || 'Proyecto Griinvest';
       } else {
         return 'Proyecto no encontrado';
+      }
+    } else {
+      return 'Cargando...';
+    }
+  }
+
+  //obtener nombres de usuarios de proyectos
+  obtenerUsuarios(): void {
+    this.usuariosService.obtenerUsuarios(new HttpParams()).subscribe(
+      (usuarios: Usuario[]) => {
+        this.usuarios = usuarios;
+        this.usuariosCargados = true;
+      },
+      error => {
+        console.error('Error al obtener usuarios:', error);
+      }
+    );
+  }
+
+  obtenerNombreUsuario(idUsuario: number): string {
+
+    if (this.usuariosCargados) {
+      const usuario = this.usuarios.find(p => p.idUsuario === idUsuario);
+
+      if (usuario) {
+        return usuario.nombre || 'Usuario Griinvest';
+      } else {
+        return 'Usuario no encontrado';
       }
     } else {
       return 'Cargando...';

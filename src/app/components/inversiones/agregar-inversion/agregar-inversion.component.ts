@@ -48,7 +48,7 @@ export class AgregarInversionComponent {
     });
   }
 
-  agregarInversion(): void {
+  async agregarInversion(): Promise<void> {
     if (this.inversionForm.invalid) {
       return;
     }
@@ -57,20 +57,58 @@ export class AgregarInversionComponent {
 
     nuevaInversion.idUsuario = this.usuarioId;
 
-    this.InversionService.agregarInversion(nuevaInversion).subscribe(
-      () => {
-        //this.mensaje = 'Has invertido: ' + nuevaInversion.montoInversion + ' en el proyecto id: '+ nuevaInversion.idProyecto +', con éxito';
-        this.inversionForm.reset();
-        Swal.fire('Inversión', 'Se han agregado fondos correctamente' , 'success');
-        this.router.navigate(['/inversion']);
-      },
-      error => {
+    const proyectoId = Number(nuevaInversion.idProyecto);
+    const montoInversión = Number(nuevaInversion.montoInversion);
+
+
+    if (!isNaN(proyectoId)) {
+      try {
+
+        const proyectoAsociado = this.proyectos.find((proyecto) => {
+
+          if (typeof proyecto.idProyecto === 'number') {
+
+            return proyecto.idProyecto === proyectoId;
+          }
+          return false;
+        });
+
+        if (proyectoAsociado) {
+
+          proyectoAsociado.montoAdquirido = (proyectoAsociado.montoAdquirido || 0) + montoInversión;
+
+
+          await this.proyectoService.actualizarProyecto(proyectoAsociado).toPromise();
+
+          await this.InversionService.agregarInversion(nuevaInversion).toPromise();
+
+
+          this.inversionForm.reset();
+
+
+          Swal.fire('Inversión', 'Se han agregado fondos correctamente', 'success');
+
+
+          this.router.navigate(['/inversion']);
+        } else {
+
+          Swal.fire('Mensaje', 'No se encontró el proyecto asociado', 'error');
+        }
+      } catch (error) {
         this.mensaje = 'Error al Invertir.';
-        Swal.fire('Mensaje', 'Error al Invertir.' , 'error');
+        Swal.fire('Mensaje', 'Error al Invertir.', 'error');
         console.error('Error al crear la inversión:', error);
       }
-    );
+    } else {
+      Swal.fire('Mensaje', 'ID de proyecto no válido', 'error');
+    }
   }
+
+
+
+
+
+
   //mostrará los nombres de los proyecots cargados en la bd para poder invertir
   cargarProyectos(): void {
     this.proyectoService.obtenerProyectos(new HttpParams()).subscribe(

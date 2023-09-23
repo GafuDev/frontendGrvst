@@ -4,7 +4,7 @@
 
 <div class="main">
   <div class="form">
-    <h2>AGREGAR INVERSIÓN</h2>
+    <h1>AGREGAR INVERSIÓN</h1>
     <form [formGroup]="inversionForm" (ngSubmit)="agregarInversion()" class="custom-form">
       <div class="mb-3 d-flex align-items-center">
         <label for="montoInversion" class="form-label me-3">Monto Inversión:</label>
@@ -18,8 +18,8 @@
         </select>
       </div>
       <div class="mb-3">
-        <button type="submit" class="btn btn-primary btn-long me-3">Agregar Inversión</button>
-        <button type="button" routerLink="/administracion" class="btn btn-danger btn-long ml-3">Cancelar</button>
+        <button type="submit" class="btn btn-primary btn-long me-3">Invertir</button>
+        <button type="button" routerLink="/allproyectos" class="btn btn-danger btn-long ml-3">Cancelar</button>
       </div>
     </form>
     <p>{{ mensaje }}</p>

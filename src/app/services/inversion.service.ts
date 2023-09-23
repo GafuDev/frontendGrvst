@@ -38,8 +38,8 @@ export class InversionService {
   }
 
   //obtener total inversiones
-  obtenerTotalInversionesPorProyecto(inversion: Inversion): Observable<number> {
-    const url = `${this.apiUrl}/totalPorProyecto/${inversion.idProyecto}`;
+  obtenerTotalInversionesPorProyecto(idProyecto: number): Observable<number> {
+    const url = `${this.apiUrl}/totalPorProyecto/${idProyecto}`;
     return this.http.get<number>(url);
   }
 }

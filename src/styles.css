@@ -10,6 +10,12 @@
   text-align: left;
 }
 
+h1{
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 40px;
+}
+
 h2{
   text-align: center;
 }
@@ -54,6 +60,60 @@ h2{
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
 	grid-gap: 40px;
+}
+
+.btn{
+  min-width: 100px;
+}
+
+.progress-bar
+{
+  background-color: #009966;
+  min-height: 20px;
+  padding: 4px 0;
+
+}
+
+.progress-bar-full
+{
+  background-color:lightgrey;
+  min-height: 20px;
+  margin-bottom: 20px;
+}
+
+.progress-bar-money{
+  color: white;
+  font-weight: 700;
+}
+
+.mini{
+  font-size: 14px;
+  font-weight: 700;
+  color: #009966;
+  margin-bottom: 10px;
+}
+
+.big{
+  font-size: 24px;
+  color: #000000;
+}
+
+.section{
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+.inside{
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.columna-left{
+  width: 70%;
+}
+
+.columna-right{
+  width: 25%;
 }
 
 @media screen and (max-width: 480px){

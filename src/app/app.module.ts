@@ -68,7 +68,6 @@ import { DetalleProyectoComponent } from './components/proyectos/detalle-proyect
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule,
     NgbModule
   ],
   providers: [

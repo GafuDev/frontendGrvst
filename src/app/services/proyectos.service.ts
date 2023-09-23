@@ -23,8 +23,9 @@ export class ProyectosService {
     return this.http.get<Proyecto[]>(this.apiUrl);
   }
 
-  obtenerProyectoPorId(idProyecto: number): Observable<Proyecto> {
+  obtenerPorID(idProyecto: number): Observable<Proyecto> {
     const url = `${this.apiUrl}/${idProyecto}`;
+    console.log(url);
     return this.http.get<Proyecto>(url);
   }
 

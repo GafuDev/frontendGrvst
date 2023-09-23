@@ -3,122 +3,136 @@
 </div>
 
 <div class="main">
-  <div class="form">
-    <h2>AGREGAR PROYECTO</h2>
-    <form [formGroup]="proyectoForm" (ngSubmit)="agregarProyecto()" enctype="multipart/form-data">
-      <div class="mb-3">
-        <label for="nombreProyecto" class="form-label">Nombre del Proyecto:</label>
-        <input type="text" id="nombreProyecto" name="nombreProyecto" class="form-control custom-input" formControlName="nombreProyecto">
-      </div>
-      <div *ngIf="proyectoForm?.get('nombreProyecto')?.touched &&proyectoForm?.get('nombreProyecto')?.hasError('required')" class="text-danger">
-        <strong>El nombre del proyecto no puede estar vacío.</strong>
-      </div>
-      <div class="mb-3">
-        <label for="descripcionProyecto" class="form-label">Descripción del Proyecto:</label>
-        <textarea id="descripcionProyecto" name="descripcionProyecto" class="form-control custom-input custom-textarea" formControlName="descripcionProyecto"></textarea>
-      </div>
-      <div *ngIf="proyectoForm?.get('descripcionProyecto')?.touched && proyectoForm?.get('descripcionProyecto')?.hasError('required')" class="text-danger">
-        <strong>Debes agregar una descripción.</strong>
-      </div>
-      <div *ngIf="proyectoForm?.get('descripcionProyecto')?.touched && proyectoForm?.get('descripcionProyecto')?.hasError('minlength')" class="text-danger">
-        <strong>La descripción debe tener al menos 30 caracteres.</strong>
-      </div>
-      <div class="mb-3">
-        <label for="fechaInicio" class="form-label">Fecha de Inicio:</label>
-        <input type="date" id="fechaInicio" name="fechaInicio" class="form-control custom-input" formControlName="fechaInicio">
-      </div>
-      <div *ngIf="proyectoForm?.get('fechaInicio')?.touched && proyectoForm?.get('fechaInicio')?.hasError('required')" class="text-danger">
-        <strong>Debes agregar la fecha de creación de tu proyecto.</strong>
-      </div>
-      <div *ngIf="proyectoForm?.get('fechaInicio')?.touched && proyectoForm?.get('fechaInicio')?.hasError('futureDate')" class="text-danger">
-        <strong>La fecha de inicio no puede ser superior a la fecha actual.</strong>
-      </div>
-      <div class="mb-3">
-        <label for="montoFinanciar" class="form-label">Monto a Financiar:</label>
-        <input type="number" id="montoFinanciar" name="montoFinanciar" class="form-control custom-input" formControlName="montoFinanciar">
-      </div>
-      <div *ngIf="proyectoForm?.get('montoFinanciar')?.touched && proyectoForm?.get('montoFinanciar')?.hasError('required')" class="text-danger">
-        <strong>Debes agregar un monto.</strong>
-      </div>
-      <div class="mb-3">
-        <label for="resumenProyecto" class="form-label">Resumen del Proyecto:</label>
-        <textarea id="resumenProyecto" name="resumenProyecto" class="form-control custom-input custom-textarea" formControlName="resumenProyecto"></textarea>
-      </div>
-      <div *ngIf="proyectoForm?.get('resumenProyecto')?.touched && proyectoForm?.get('resumenProyecto')?.hasError('required')" class="text-danger">
-        <strong>Este campo no puede estar vacío.</strong>
-      </div>
-      <div *ngIf="proyectoForm?.get('resumenProyecto')?.touched && proyectoForm?.get('resumenProyecto')?.hasError('minlength')" class="text-danger">
-        <strong>El resumen debe tener al menos 30 caracteres.</strong>
-      </div>
-      <div class="mb-3">
-        <label for="linkProyecto" class="form-label">Enlace del Proyecto:</label>
-        <input type="text" id="linkProyecto" name="linkProyecto" class="form-control custom-input" formControlName="linkProyecto">
-      </div>
-      <div *ngIf="proyectoForm?.get('linkProyecto')?.touched && proyectoForm?.get('linkProyecto')?.hasError('required')" class="text-danger">
-        <strong>Este campo no puede estar vacío.</strong>
-      </div>
-      <div *ngIf="proyectoForm?.get('linkProyecto')?.touched && proyectoForm?.get('linkProyecto')?.hasError('pattern')" class="text-danger">
-        <strong>El enlace del proyecto no es válido. Debe ser una URL válida (por ejemplo, http://www.ejemplo.com).</strong>
-      </div>
-      <!-- <div class="mb-3">
-        <label for="logoProyecto" class="form-label">Imágen Proyecto:</label>
-        <input type="url" id="logoProyecto" name="logoProyecto"> (change)="capturarLogo($event)"
-      </div> -->
-      <div class="mb-3">
-        <label for="logoProyecto" class="form-label">Selecciona una Imagen:</label>
-        <select id="logoProyecto" name="logoProyecto" class="form-control custom-input" [(ngModel)]="AddlogoProyecto" formControlName="logoProyecto">
-          <option value="https://griinvest.cl/proyecto1.jpg">Imagen 1</option>
-          <option value="https://griinvest.cl/proyecto2.jpg">Imagen 2</option>
-          <option value="https://griinvest.cl/proyecto3.jpg">Imagen 3</option>
-          <option value="https://griinvest.cl/proyecto4.jpg">Imagen 4</option>
-        </select>
-      </div>
-      <div *ngIf="proyectoForm?.get('logoProyecto')?.touched && proyectoForm?.get('logoProyecto')?.hasError('required')" class="text-danger">
-        <strong>Este campo no puede estar vacío.</strong>
-      </div>
-      <!-- <div *ngIf="proyectoForm?.get('logoProyecto')?.touched && proyectoForm?.get('logoProyecto')?.hasError('required')" class="text-danger">
-        <strong>El formato de la imagen debe ser PNG, JPEG o JPG.</strong>
-      </div> -->
-      <div class="mb-3">
-        <label for="idCategoria" class="form-label">Categoría:</label>
-        <select id="idCategoria" name="idCategoria" class="form-control custom-input" formControlName="idCategoria">
-          <option value="" selected>Selecciona Categoría</option>
-          <option value="1">Energías Renovables</option>
-          <option value="2">Reciclaje y Gestión de Residuos</option>
-          <option value="3">Agricultura Orgánica</option>
-          <option value="4">Transporte Sostenible</option>
-          <option value="5">Construcción Sustentable</option>
-          <option value="6">Tecnología Limpia</option>
-          <option value="7">Turismo Ecológico</option>
-          <option value="8">Educación Ambiental</option>
-          <option value="9">Biotecnología</option>
-          <option value="10">Moda Sostenible</option>
-          <option value="11">Alimentación Saludable</option>
-          <option value="12">Agua y Saneamiento</option>
-          <option value="13">Emprendimientos Sociales</option>
-          <option value="14">Economía Circular</option>
-          <option value="15">Salud y Bienestar Natural</option>
-          <option value="16">Eco-Turismo</option>
-          <option value="17">Energía Solar</option>
-          <option value="18">Movilidad Eléctrica</option>
-          <option value="19">Producción de Alimentos Orgánicos</option>
-          <option value="20">Moda Reciclada</option>
-          <option value="21">Arquitectura Sostenible</option>
-          <option value="22">Educación Ambiental</option>
-          <option value="23">Gestión Forestal Sostenible</option>
-          <option value="24">Tecnología para la Conservación</option>
-          <option value="25">Emprendimientos Verdes</option>
-        </select>
-      </div>
-      <div *ngIf="proyectoForm?.get('idCategoria')?.touched && proyectoForm?.get('idCategoria')?.hasError('required')" class="text-danger">
-        <strong>Debes seleccionar una categoría.</strong>
-      </div>
-      <div class="mb-3">
-        <button type="submit" class="btn btn-primary btn-long me-3">Agregar Proyecto</button>
-        <button type="button" routerLink="/administracion" class="btn btn-danger btn-long ml-3">Cancelar</button>
-      </div>
-    </form>
-    <p>{{mensaje}}</p>
+  <div class="section">
+    <div class="form">
+      <h1>AGREGAR PROYECTO</h1>
+      <form [formGroup]="proyectoForm" (ngSubmit)="agregarProyecto()">
+        <div class="mb-3">
+          <label for="nombreProyecto">Nombre del Proyecto:</label>
+          <input type="text" id="nombreProyecto" name="nombreProyecto" class="form-control custom-input"
+            formControlName="nombreProyecto">
+        </div>
+        <div
+          *ngIf="proyectoForm?.get('nombreProyecto')?.touched &&proyectoForm?.get('nombreProyecto')?.hasError('required')"
+          class="text-danger">
+          <strong>El nombre del proyecto no puede estar vacío.</strong>
+        </div>
+        <div class="mb-3">
+          <label for="descripcionProyecto" >Descripción del Proyecto:</label>
+          <textarea id="descripcionProyecto" name="descripcionProyecto"
+            class="form-control custom-input custom-textarea" formControlName="descripcionProyecto" placeholder="Describa el proyecto en más de 30 caracteres"></textarea>
+        </div>
+        <div
+          *ngIf="proyectoForm?.get('descripcionProyecto')?.touched && proyectoForm?.get('descripcionProyecto')?.hasError('required')"
+          class="text-danger">
+          <strong>Debes agregar una descripción.</strong>
+        </div>
+        <div
+          *ngIf="proyectoForm?.get('descripcionProyecto')?.touched && proyectoForm?.get('descripcionProyecto')?.hasError('minlength')"
+          class="text-danger">
+          <strong>La descripción debe tener al menos 30 caracteres.</strong>
+        </div>
+        <div class="mb-3">
+          <label for="fechaInicio" >Fecha de Inicio:</label>
+          <input type="date" id="fechaInicio" name="fechaInicio" class="form-control custom-input"
+            formControlName="fechaInicio">
+        </div>
+        <div *ngIf="proyectoForm?.get('fechaInicio')?.touched && proyectoForm?.get('fechaInicio')?.hasError('required')"
+          class="text-danger">
+          <strong>Debes agregar la fecha de creación de tu proyecto.</strong>
+        </div>
+        <div
+          *ngIf="proyectoForm?.get('fechaInicio')?.touched && proyectoForm?.get('fechaInicio')?.hasError('futureDate')"
+          class="text-danger">
+          <strong>La fecha de inicio no puede ser superior a la fecha actual.</strong>
+        </div>
+        <div class="mb-3">
+          <label for="montoFinanciar" >Monto a Financiar:</label>
+          <input type="number" id="montoFinanciar" name="montoFinanciar" class="form-control custom-input"
+            formControlName="montoFinanciar">
+        </div>
+        <div
+          *ngIf="proyectoForm?.get('montoFinanciar')?.touched && proyectoForm?.get('montoFinanciar')?.hasError('required')"
+          class="text-danger">
+          <strong>Debes agregar un monto.</strong>
+        </div>
+        <div class="mb-3">
+          <label for="resumenProyecto" >Resumen del Proyecto:</label>
+          <textarea id="resumenProyecto" name="resumenProyecto" class="form-control custom-input custom-textarea"
+            formControlName="resumenProyecto" placeholder="Describa el proyecto en al menos 30 caracteres"></textarea>
+        </div>
+        <div
+          *ngIf="proyectoForm?.get('resumenProyecto')?.touched && proyectoForm?.get('resumenProyecto')?.hasError('required')"
+          class="text-danger">
+          <strong>Este campo no puede estar vacío.</strong>
+        </div>
+        <div
+          *ngIf="proyectoForm?.get('resumenProyecto')?.touched && proyectoForm?.get('resumenProyecto')?.hasError('minlength')"
+          class="text-danger">
+          <strong>El resumen debe tener al menos 30 caracteres.</strong>
+        </div>
+        <div class="mb-3">
+          <label for="linkProyecto">Enlace del Proyecto:</label>
+          <input type="text" id="linkProyecto" name="linkProyecto" class="form-control custom-input"
+            formControlName="linkProyecto" placeholder="https://">
+        </div>
+        <div
+          *ngIf="proyectoForm?.get('linkProyecto')?.touched && proyectoForm?.get('linkProyecto')?.hasError('required')"
+          class="text-danger">
+          <strong>Este campo no puede estar vacío.</strong>
+        </div>
+        <div
+          *ngIf="proyectoForm?.get('linkProyecto')?.touched && proyectoForm?.get('linkProyecto')?.hasError('pattern')"
+          class="text-danger">
+          <strong>El enlace del proyecto no es válido. Debe ser una URL válida (por ejemplo,
+            http://www.ejemplo.com).</strong>
+        </div>
+        <div class="mb-3">
+          <label for="logoProyecto" >Insertar URL de la imagen de perfil (700x484 Pixeles)</label>
+          <input type="text" id="logoProyecto" name="logoProyecto" class="form-control custom-input"
+            formControlName="logoProyecto" placeholder="https://">
+        </div>
+        <div class="mb-3">
+          <label for="idCategoria" >Categoría:</label>
+          <select id="idCategoria" name="idCategoria" class="form-control custom-input" formControlName="idCategoria">
+            <option value="" selected>Selecciona Categoría</option>
+            <option value="1">Energías Renovables</option>
+            <option value="2">Reciclaje y Gestión de Residuos</option>
+            <option value="3">Agricultura Orgánica</option>
+            <option value="4">Transporte Sostenible</option>
+            <option value="5">Construcción Sustentable</option>
+            <option value="6">Tecnología Limpia</option>
+            <option value="7">Turismo Ecológico</option>
+            <option value="8">Educación Ambiental</option>
+            <option value="9">Biotecnología</option>
+            <option value="10">Moda Sostenible</option>
+            <option value="11">Alimentación Saludable</option>
+            <option value="12">Agua y Saneamiento</option>
+            <option value="13">Emprendimientos Sociales</option>
+            <option value="14">Economía Circular</option>
+            <option value="15">Salud y Bienestar Natural</option>
+            <option value="16">Eco-Turismo</option>
+            <option value="17">Energía Solar</option>
+            <option value="18">Movilidad Eléctrica</option>
+            <option value="19">Producción de Alimentos Orgánicos</option>
+            <option value="20">Moda Reciclada</option>
+            <option value="21">Arquitectura Sostenible</option>
+            <option value="22">Educación Ambiental</option>
+            <option value="23">Gestión Forestal Sostenible</option>
+            <option value="24">Tecnología para la Conservación</option>
+            <option value="25">Emprendimientos Verdes</option>
+          </select>
+        </div>
+        <div *ngIf="proyectoForm?.get('idCategoria')?.touched && proyectoForm?.get('idCategoria')?.hasError('required')"
+          class="text-danger">
+          <strong>Debes seleccionar una categoría.</strong>
+        </div>
+        <div class="mb-3">
+          <button type="submit" class="btn btn-primary btn-long me-3">Publicar</button>
+          <button type="button" routerLink="/proyecto" class="btn btn-danger btn-long ml-3">Cancelar</button>
+        </div>
+      </form>
+      <p>{{mensaje}}</p>
+    </div>
   </div>
 </div>
-

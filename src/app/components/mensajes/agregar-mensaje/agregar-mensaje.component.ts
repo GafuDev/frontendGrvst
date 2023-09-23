@@ -4,6 +4,11 @@ import { MensajesService } from 'src/app/services/mensajes.service';
 import { Mensaje } from '../../../models/mensajeModel';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { Usuario } from 'src/app/models/usuarioModel';
+import { UsuariosService } from '../../../services/usuarios.service';
+import { HttpParams } from '@angular/common/http';
+import { ProyectosService } from '../../../services/proyectos.service';
+import { Proyecto } from 'src/app/models/proyectoModel';
 
 @Component({
   selector: 'app-agregar-mensaje',
@@ -17,11 +22,17 @@ export class AgregarMensajeComponent {
   //traer idUsuario desde localstorage
   usuarioId: number | null = null;
 
+  //agregar nombres de usuario al agregar mensaje
+  usuarios: Usuario[] = [];
+  proyectos: Proyecto[] = [];
+
 
   constructor(
     private formBuilder: FormBuilder,
     private mensajesService: MensajesService,
-    private router: Router
+    private router: Router,
+    private usuariosService: UsuariosService,
+    private proyectosService: ProyectosService
   ) { }
 
   ngOnInit(): void {
@@ -30,6 +41,7 @@ export class AgregarMensajeComponent {
     if (usuario && idLs) {
       this.usuarioId = parseInt(idLs);
       this.inicializarFormulario();
+      this.cargarUsuarios();
     } else {
       this.router.navigate(['/login']);
     }
@@ -60,6 +72,28 @@ export class AgregarMensajeComponent {
       error => {
         //this.mensaje = ;
         Swal.fire('Mensaje', 'Error al enviar el mensaje.', 'error');
+      }
+    );
+  }
+
+  cargarUsuarios(): void{
+    this.usuariosService.obtenerUsuarios(new HttpParams()).subscribe(
+      (usuarios: Usuario[]) => {
+        this.usuarios = usuarios;
+      },
+      error => {
+        console.error('Error al obtener usuarios:', error);
+      }
+    );
+  }
+
+  cargarProyectos(): void {
+    this.proyectosService.obtenerProyectos(new HttpParams()).subscribe(
+      (proyectos: Proyecto[]) => {
+        this.proyectos = proyectos;
+      },
+      error => {
+        console.error('Error al obtener proyectos:', error);
       }
     );
   }

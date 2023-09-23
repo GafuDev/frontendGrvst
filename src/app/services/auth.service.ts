@@ -13,7 +13,7 @@ export class AuthService {
   private login = 'https://griinvest.cl/usuario/login';
 
   //private apiUrl = 'http://localhost:3000/usuario/';
-  //private apiUrl = 'http://localhost:3000/usuario/login';
+  //private login = 'http://localhost:3000/usuario/login';
 
   private rolesMapping: { [key: number]: string } = {
     1: 'administrador',

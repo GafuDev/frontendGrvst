@@ -56,6 +56,10 @@ export class ListarProyectoComponent implements OnInit {
     { id: 25, nombre: 'Emprendimientos Verdes' }
   ];
 
+  //mostrar nombres usuarios
+  usuarios: Usuario[] = [];
+  usuariosCargados: boolean = false;
+
   @ViewChild('contenidoModal') contenidoModal: any;
   mostrarFiltros = false;
 
@@ -84,6 +88,7 @@ export class ListarProyectoComponent implements OnInit {
     if (usuario && idLs) {
       this.usuarioId = parseInt(idLs);
       this.filtrarProyectos();
+      this.obtenerUsuarios();
     } else {
       this.router.navigate(['/login']);
     }
@@ -168,6 +173,7 @@ export class ListarProyectoComponent implements OnInit {
       this.proyectosService.eliminarProyecto(idProyecto).subscribe(
         () => {
           this.proyectos = this.proyectos.filter(proyecto => proyecto.idProyecto !== idProyecto);
+          Swal.fire('Eliminado', 'Proyecto Eliminado correctamente', 'success');
         },
         error => {
           console.error('Error al eliminar proyecto:', error);
@@ -176,11 +182,36 @@ export class ListarProyectoComponent implements OnInit {
     }
   }
 
-
-
   obtenerNombreCategoria(idCategoria: number): string {
     const categoria = this.categorias.find(c => c.id === idCategoria);
     return categoria ? categoria.nombre : 'Desconocida';
+  }
+
+  obtenerUsuarios(): void {
+    this.usuariosService.obtenerUsuarios(new HttpParams()).subscribe(
+      (usuarios: Usuario[]) => {
+        this.usuarios = usuarios;
+        this.usuariosCargados = true;
+      },
+      error => {
+        console.error('Error al obtener usuarios:', error);
+      }
+    );
+  }
+
+  obtenerNombreUsuario(idUsuario: number): string {
+
+    if (this.usuariosCargados) {
+      const usuario = this.usuarios.find(p => p.idUsuario === idUsuario);
+
+      if (usuario) {
+        return usuario.nombre || 'Usuario Griinvest';
+      } else {
+        return 'Usuario no encontrado';
+      }
+    } else {
+      return 'Cargando...';
+    }
   }
 
 }

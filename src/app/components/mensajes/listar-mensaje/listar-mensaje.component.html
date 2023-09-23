@@ -9,7 +9,7 @@
 </div>
 
 <div class="main">
-  <h2>MENSAJES RECIBIDOS</h2>
+  <h1>MENSAJES RECIBIDOS</h1>
   <h2 *ngIf="mensajes.length === 0">No hay mensajes para mostrar</h2>
   <div *ngIf="mensajes.length > 0">
     <table class="table table-striped">
@@ -25,8 +25,8 @@
         <tr *ngFor="let mensaje of mensajes">
           <ng-container *ngIf="mensaje.idUsuarioRecibe === usuarioId">
             <td>{{ mensaje.contenidoMensaje }}</td>
-            <td>{{ mensaje.idUsuarioEnvio }}</td>
-            <td>{{ mensaje.createAt }}</td>
+            <td>{{ usuariosCargados ? obtenerNombreUsuario(mensaje?.idUsuarioEnvio || 0) : 'Cargando...' }}</td>
+            <td>{{ mensaje.createAt | date: 'dd/MM/yyyy HH:mm' }}</td>
             <td>
               <button class="btn btn-sm btn-info me-3" (click)="abrirFormularioRespuesta(mensaje)">Responder</button>
               <button (click)="eliminarMensaje(mensaje.idMensaje!)" class="btn btn-sm btn-danger me-3">Eliminar</button>
@@ -43,8 +43,8 @@
     <h3>Responder al Mensaje</h3>
     <form [formGroup]="mensajeForm">
       <div class="mb-3">
-        <textarea rows="4" cols="50" id="respuesta" name="respuesta" class="form-control custom-input"
-          formControlName="respuesta"></textarea>
+        <textarea rows="4" cols="50" id="contenidoMensaje" name="contenidoMensaje" class="form-control custom-input"
+          formControlName="contenidoMensaje"></textarea>
       </div>
       <div class="mb-3">
         <button type="button" (click)="enviarRespuesta()" class="btn btn-primary btn-long me-3">Enviar
@@ -53,14 +53,11 @@
       </div>
     </form>
   </div>
-
-  <div *ngIf="respuestaEnviada">
-    <p>{{ mensajeRespuesta }}</p>
-  </div>
 </div>
 
+
 <div class="main">
-  <h2>MENSAJES ENVIADOS</h2>
+  <h1>MENSAJES ENVIADOS</h1>
   <h2 *ngIf="mensajes.length === 0">No hay mensajes para mostrar</h2>
   <div *ngIf="mensajes.length > 0">
     <table class="table table-striped">
@@ -76,7 +73,7 @@
         <tr *ngFor="let mensaje of mensajes">
           <ng-container *ngIf="mensaje.idUsuarioEnvio === usuarioId">
             <td>{{ mensaje.contenidoMensaje }}</td>
-            <td>{{ mensaje.idUsuarioRecibe }}</td>
+            <td>{{ usuariosCargados ? obtenerNombreUsuario(mensaje?.idUsuarioRecibe || 0) : 'Cargando...' }}</td>
             <td>{{ mensaje.createAt }}</td>
             <td>
               <button (click)="eliminarMensaje(mensaje.idMensaje!)" class="btn btn-sm btn-danger me-3">Eliminar</button>
